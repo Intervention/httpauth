@@ -40,11 +40,27 @@ Add the facade of this package to the `$aliases` array.
 
     ),
 
+By default the authentication settings are fetched from `config/httpauth.php`. Please make sure to set your own options.
+
 ## Usage
 
 * Image::__construct - Create new instance of Httpauth class
 * Image::make - Creates new instance of Httpaccess with given config parameters
 * Image::secure - Denies access for not-authenticated users
+
+### Code example
+
+```php
+// create a new instance of Httpauth and call secure method
+$auth = new Intervention\Httpauth\Httpauth;
+$auth->secure();
+
+// You can alter the user authentication settings at runtime 
+$config = array('username' => 'admin', 'password' => '1234');
+$auth = new Intervention\Httpauth\Httpauth($config);
+$auth->secure();
+```
+
 
 ### Code example (Laravel)
 
@@ -53,5 +69,6 @@ Add the facade of this package to the `$aliases` array.
 Httpauth::secure();
 
 // To setup user/password you can edit the config files or set a configuration at runtime
-Httpauth::make(array('username' => 'admin', 'password' => '1234'))->secure();
+$config = array('username' => 'admin', 'password' => '1234');
+Httpauth::make($config)->secure();
 ```
