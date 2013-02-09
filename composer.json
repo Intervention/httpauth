@@ -1,6 +1,6 @@
 {
     "name": "intervention/httpauth",
-    "description": "HTTP authentication with PHP",
+    "description": "HTTP authentication made to work with Laravel 4",
     "homepage": "https://github.com/Intervention/httpauth",
     "keywords": ["authentication", "http", "laravel"],
     "license": "MIT",
@@ -13,7 +13,7 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "illuminate/support": "4.0.x",
+        "illuminate/support": "4.0.*",
         "illuminate/config": "4.0.*"
     },
     "autoload": {
