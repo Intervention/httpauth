@@ -40,13 +40,32 @@ Add the facade of this package to the `$aliases` array.
 
     ),
 
-By default the authentication settings are fetched from `config/httpauth.php`. Please make sure to set your own options.
 
 ## Usage
 
 * Image::__construct - Create new instance of Httpauth class
 * Image::make - Creates new instance of Httpaccess with given config parameters
 * Image::secure - Denies access for not-authenticated users
+
+### Configuration
+
+By default the authentication settings are fetched from `config/httpauth.php`. Please make sure to set your own options. Here's a short explanation of the configuration directives.
+
+**type** _string_
+
+    Set the authentication type. Choose between `basic` and `digest` for a more secure type.
+
+**realm** _string_
+
+    The name of the secure resource.
+
+**username** _string_
+
+    The name the user has to enter to login
+
+**password** _string_
+
+    Login password
 
 ### Code example
 
@@ -55,7 +74,8 @@ By default the authentication settings are fetched from `config/httpauth.php`. P
 $auth = new Intervention\Httpauth\Httpauth;
 $auth->secure();
 
-// You can alter the user authentication settings at runtime 
+// You can change the user authentication settings in the config files
+// or change it at runtime like this
 $config = array('username' => 'admin', 'password' => '1234');
 $auth = new Intervention\Httpauth\Httpauth($config);
 $auth->secure();
@@ -68,7 +88,8 @@ $auth->secure();
 // the most simple way to secure a url is to call the secure method from a route
 Httpauth::secure();
 
-// To setup user/password you can edit the config files or set a configuration at runtime
+// You can change the user authentication settings in the config files
+// or change it at runtime like this
 $config = array('username' => 'admin', 'password' => '1234');
 Httpauth::make($config)->secure();
 ```
