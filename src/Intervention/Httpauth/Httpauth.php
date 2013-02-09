@@ -104,7 +104,7 @@ class Httpauth
         }
 
         // check if at leat username and password is set
-        if (is_null($this->username) || is_null($this->password)) {
+        if ( ! $this->username || ! $this->password) {
             throw new Exception('No username or password set for HttpAuthentication.');
         }
     }
