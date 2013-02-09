@@ -49,7 +49,15 @@ Add the facade of this package to the `$aliases` array.
 
 ### Configuration
 
-By default the authentication settings are fetched from `config/httpauth.php`. Please make sure to set your own options. Here's a short explanation of the configuration directives.
+By default the authentication settings are fetched from `config/httpauth.php`. Please make sure to set your own options. 
+
+If you are using Laravel 4, you can extract a configuration file to your app by running the following command:
+
+    $ php artisan config:publish intervention/httpauth
+
+After you published the configuration file for the package you can edit the local configuration file `app/config/packages/intervention/httpauth/httpauth.php`.
+
+Here's a short explanation of the configuration directives.
 
 **type** _string_
 
