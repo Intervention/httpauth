@@ -13,51 +13,51 @@ class Httpauth
 
     /**
      * Realm of HTTP Authentication
-     * 
+     *
      * @var string
      */
     public $realm = 'Secured resource';
 
     /**
      * Username of HTTP Authentication
-     * 
+     *
      * @var string
      */
     private $username;
 
     /**
      * Password of HTTP Authentication
-     * 
+     *
      * @var string
      */
     private $password;
 
     /**
      * Illuminate Config Repository
-     * 
+     *
      * @var Illuminate\Config\Repository
      */
     public $config;
 
     /**
      * User data object
-     * 
+     *
      * @var Intervention\Httpauth\UserInterface
      */
     private $user;
 
     /**
      * Creates new instance of Httpauth
-     * 
+     *
      * @param array $parameters     set realm, username and/or password as key
      * @param Illuminate\Config\Repository $config
      */
-    
-    public function __construct($parameters = array(), \Illuminate\Config\Repository $config = null) 
+
+    public function __construct($parameters = array(), \Illuminate\Config\Repository $config = null)
     {
         // create configurator
         if (is_a($config, '\Illuminate\Config\Repository')) {
-            
+
             $this->config = $config;
 
         } else {
@@ -97,7 +97,7 @@ class Httpauth
             case 'digest':
                 $this->user = new DigestUser;
                 break;
-            
+
             default:
                 $this->user = new BasicUser;
                 break;
@@ -111,19 +111,19 @@ class Httpauth
 
     /**
      * Creates new instance of Httpaccess with given parameters
-     * 
+     *
      * @param  array  $parameters   set realm, username and/or password
-     * @return Intervention\Httpauth\Httpauth         
+     * @return Intervention\Httpauth\Httpauth
      */
-    static public function make($parameters = array())
+    public static function make($parameters = array())
     {
         return new Httpauth($parameters);
     }
 
     /**
-     * Denies access for not-authenticated users 
-     * 
-     * @return void 
+     * Denies access for not-authenticated users
+     *
+     * @return void
      */
     public function secure()
     {
@@ -134,7 +134,7 @@ class Httpauth
 
     /**
      * Checks for valid user
-     * 
+     *
      * @param  User $user
      * @return bool
      */
@@ -145,10 +145,10 @@ class Httpauth
 
     /**
      * Checks if username/password combination matches
-     *   
+     *
      * @param  string  $username
      * @param  string  $password
-     * @return boolean          
+     * @return boolean
      */
     public function isValid($username, $password)
     {
@@ -157,7 +157,7 @@ class Httpauth
 
     /**
      * Gets either global or package config-key
-     *  
+     *
      * @param  string $key
      * @return string
      */
@@ -168,7 +168,7 @@ class Httpauth
 
     /**
      * Sends HTTP 401 Header
-     * 
+     *
      * @return void
      */
     private function denyAccess()
@@ -179,12 +179,12 @@ class Httpauth
             case 'digest':
                 header('WWW-Authenticate: Digest realm="' . $this->realm .'",qop="auth",nonce="' . uniqid() . '",opaque="' . md5($this->realm) . '"');
                 break;
-            
+
             default:
                 header('WWW-Authenticate: Basic realm="'.$this->realm.'"');
                 break;
         }
-        
+
         die('<strong>HTTP/1.0 401 Unauthorized</strong>');
     }
 }

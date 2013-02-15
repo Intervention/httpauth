@@ -7,8 +7,8 @@ class HttpauthTest extends PHPUnit_Framework_Testcase
     public function createTestHttpauth()
     {
         $config = array(
-            'realm' => 'test_realm', 
-            'username' => 'test_user', 
+            'realm' => 'test_realm',
+            'username' => 'test_user',
             'password' => 'test_password'
         );
 

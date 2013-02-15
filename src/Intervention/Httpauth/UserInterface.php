@@ -2,12 +2,12 @@
 
 namespace Intervention\Httpauth;
 
-interface UserInterface {
-
+interface UserInterface
+{
     /**
      * Checks for valid username & password
-     * 
-     * @param  array  $credentials     
+     *
+     * @param  array  $credentials
      * @return boolean
      */
     public function isValid($name, $password, $realm);

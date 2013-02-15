@@ -6,7 +6,7 @@ class DigestUser implements UserInterface
 {
     /**
      * Nonce to discourage cryptanalysis
-     * 
+     *
      * @var string
      */
     private $nonce;
@@ -25,28 +25,28 @@ class DigestUser implements UserInterface
 
     /**
      * quality of protection
-     * 
+     *
      * @var string
      */
     private $qop;
 
     /**
      * Name of user
-     * 
+     *
      * @var string
      */
     private $username;
 
     /**
      * Requested uri
-     * 
+     *
      * @var string
      */
     private $uri;
 
     /**
-     * Response 
-     * 
+     * Response
+     *
      * @var string
      */
     private $response;
@@ -54,16 +54,16 @@ class DigestUser implements UserInterface
     /**
      * Creates a new instance
      */
-    public function __construct() 
+    public function __construct()
     {
         $this->parse();
     }
 
     /**
      * Checks for valid username & password
-     * 
-     * @param  string  $name     
-     * @param  string  $password 
+     *
+     * @param  string  $name
+     * @param  string  $password
      * @return boolean
      */
     public function isValid($name, $password, $realm)
@@ -82,7 +82,7 @@ class DigestUser implements UserInterface
      * @return void
      */
     public function parse()
-    {   
+    {
         $digest = $this->getDigest();
         $user = array();
         $required = array('nonce' => 1, 'nc' => 1, 'cnonce' => 1, 'qop' => 1, 'username' => 1, 'uri' => 1, 'response' => 1);
@@ -110,7 +110,7 @@ class DigestUser implements UserInterface
 
     /**
      * Fetch digest data from environment information
-     * 
+     *
      * @return string
      */
     public function getDigest()
@@ -118,17 +118,17 @@ class DigestUser implements UserInterface
         $digest = null;
 
         if (isset($_SERVER['PHP_AUTH_DIGEST'])) {
-            
+
             $digest = $_SERVER['PHP_AUTH_DIGEST'];
-            
+
         } elseif (isset($_SERVER['HTTP_AUTHENTICATION'])) {
- 
+
             if (strpos(strtolower($_SERVER['HTTP_AUTHENTICATION']), 'digest') === 0) {
-                
+
                 $digest = substr($_SERVER['HTTP_AUTHORIZATION'], 7);
             }
         }
 
-        return $digest; 
+        return $digest;
     }
 }
