@@ -101,3 +101,7 @@ Httpauth::secure();
 $config = array('username' => 'admin', 'password' => '1234');
 Httpauth::make($config)->secure();
 ```
+
+## License
+
+Intervention Httpauth Class is licensed under the [MIT License](http://opensource.org/licenses/MIT).
