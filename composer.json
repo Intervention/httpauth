@@ -17,8 +17,8 @@
         "illuminate/config": "~4|~5"
     },
     "autoload": {
-        "psr-0": {
-            "Intervention\\Httpauth": "src/"
+        "psr-4": {
+            "Intervention\\Httpauth\\": "src/Intervention/Httpauth"
         }
     },
     "minimum-stability": "dev"
