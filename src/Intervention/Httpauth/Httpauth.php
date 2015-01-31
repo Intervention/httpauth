@@ -3,12 +3,14 @@
 namespace Intervention\Httpauth;
 
 use Exception;
-use Illuminate\Config\Repository as Config;
-use Illuminate\Config\FileLoader;
-use Illuminate\Filesystem\Filesystem;
 
 class Httpauth
 {
+    /**
+     * Type of HTTP Authentication
+     *
+     * @var string
+     */
     public $type = 'basic';
 
     /**
@@ -33,45 +35,13 @@ class Httpauth
     private $password;
 
     /**
-     * Illuminate Config Repository
-     *
-     * @var Illuminate\Config\Repository
-     */
-    public $config;
-
-    /**
-     * User data object
-     *
-     * @var Intervention\Httpauth\UserInterface
-     */
-    private $user;
-
-    /**
      * Creates new instance of Httpauth
      *
-     * @param array $parameters     set realm, username and/or password as key
-     * @param Illuminate\Config\Repository $config
+     * @param array $parameters set realm, username and/or password as key
      */
 
-    public function __construct($parameters = array(), \Illuminate\Config\Repository $config = null)
+    public function __construct($parameters = null)
     {
-        // create configurator
-        if (is_a($config, '\Illuminate\Config\Repository')) {
-
-            $this->config = $config;
-
-        } else {
-
-            $loader = new FileLoader(new Filesystem, __DIR__.'/../../config');
-            $this->config = new Config($loader, null);
-        }
-
-        // basic settings from config files
-        $this->type = $this->config->get($this->getConfigKey('httpauth.type'));
-        $this->realm = $this->config->get($this->getConfigKey('httpauth.realm'));
-        $this->username = $this->config->get($this->getConfigKey('httpauth.username'));
-        $this->password = $this->config->get($this->getConfigKey('httpauth.password'));
-
         // overwrite settings with runtime parameters (optional)
         if (is_array($parameters)) {
 
@@ -92,17 +62,6 @@ class Httpauth
             }
         }
 
-        // set user based on authentication type
-        switch (strtolower($this->type)) {
-            case 'digest':
-                $this->user = new DigestUser;
-                break;
-
-            default:
-                $this->user = new BasicUser;
-                break;
-        }
-
         // check if at leat username and password is set
         if ( ! $this->username || ! $this->password) {
             throw new Exception('No username or password set for HttpAuthentication.');
@@ -115,7 +74,7 @@ class Httpauth
      * @param  array  $parameters   set realm, username and/or password
      * @return Intervention\Httpauth\Httpauth
      */
-    public static function make($parameters = array())
+    public static function make($parameters = null)
     {
         return new Httpauth($parameters);
     }
@@ -127,7 +86,7 @@ class Httpauth
      */
     public function secure()
     {
-        if ( ! $this->validateUser($this->user)) {
+        if ( ! $this->validateUser($this->getUser())) {
             $this->denyAccess();
         }
     }
@@ -156,17 +115,6 @@ class Httpauth
     }
 
     /**
-     * Gets either global or package config-key
-     *
-     * @param  string $key
-     * @return string
-     */
-    private function getConfigKey($key)
-    {
-        return $this->config->has($key) ? $key : 'httpauth::'.$key;
-    }
-
-    /**
      * Sends HTTP 401 Header
      *
      * @return void
@@ -176,6 +124,7 @@ class Httpauth
         header('HTTP/1.0 401 Unauthorized');
 
         switch (strtolower($this->type)) {
+            
             case 'digest':
                 header('WWW-Authenticate: Digest realm="' . $this->realm .'",qop="auth",nonce="' . uniqid() . '",opaque="' . md5($this->realm) . '"');
                 break;
@@ -186,5 +135,25 @@ class Httpauth
         }
 
         die('<strong>HTTP/1.0 401 Unauthorized</strong>');
+    }
+
+    /**
+     * Get User according to current auth type
+     *
+     * @return Intervention\Httpauth\UserInterface
+     */
+    private function getUser()
+    {
+        // set user based on authentication type
+        switch (strtolower($this->type)) {
+
+            case 'digest':
+                return new DigestUser;
+                break;
+
+            default:
+                return new BasicUser;
+                break;
+        }
     }
 }

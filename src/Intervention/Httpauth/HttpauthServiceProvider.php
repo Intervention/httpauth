@@ -31,7 +31,7 @@ class HttpauthServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app['httpauth'] = $this->app->share(function($app) {
-            return new Httpauth(null, $app['config']);
+            return new Httpauth;
         });
     }
 
