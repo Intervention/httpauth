@@ -1,6 +1,6 @@
 {
     "name": "intervention/httpauth",
-    "description": "HTTP authentication including ServiceProviders for easy Laravel integration",
+    "description": "HTTP authentication (Basic & Digest) including ServiceProviders for easy Laravel integration",
     "homepage": "https://github.com/Intervention/httpauth",
     "keywords": ["authentication", "http", "laravel"],
     "license": "MIT",
