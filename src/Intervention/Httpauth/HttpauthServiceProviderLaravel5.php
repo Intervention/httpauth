@@ -4,7 +4,7 @@ namespace Intervention\Httpauth;
 
 use Illuminate\Support\ServiceProvider;
 
-class HttpauthServiceProvider extends ServiceProvider
+class HttpauthServiceProviderLaravel5 extends ServiceProvider
 {
     /**
      * Bootstrap the application events.
