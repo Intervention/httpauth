@@ -27,7 +27,7 @@ class HttpauthServiceProviderLaravel5 extends ServiceProvider
     {
         // merge default config
         $this->mergeConfigFrom(
-            'httpauth', __DIR__.'/../../config/config.php'
+            __DIR__.'/../../config/config.php', 'httpauth'
         );
 
         $this->app['httpauth'] = $this->app->share(function($app) {
