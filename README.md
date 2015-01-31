@@ -1,21 +1,16 @@
 # Intervention Httpauth Class
 
-Library to manage HTTP authentication with PHP. Made to work with **Laravel 4** but runs also standalone.
-
+Library to manage HTTP authentication with PHP. Includes ServiceProviders for easy Laravel integration.
 
 ## Installation
 
-You can install this Image class quick and easy with Composer.
+The easiest way to install this package is via [Composer](https://getcomposer.org/).
 
-Require the package via Composer in your `composer.json`.
+Run Composer to install the package.
 
-    "intervention/httpauth": "dev-master"
+    $ composer require intervention/httpauth
 
-Run Composer to update the new requirement.
-
-    $ composer update
-
-The Httpauth class is built to work with the Laravel 4 Framework. The integration is done in seconds.
+The Httpauth class is built to work with the Laravel Framework. The integration is done in seconds.
 
 Open your Laravel config file `config/app.php` and add the following lines.
 
