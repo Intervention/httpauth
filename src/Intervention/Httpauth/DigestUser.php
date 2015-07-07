@@ -121,9 +121,9 @@ class DigestUser implements UserInterface
 
             $digest = $_SERVER['PHP_AUTH_DIGEST'];
 
-        } elseif (isset($_SERVER['HTTP_AUTHENTICATION'])) {
+        } elseif (isset($_SERVER['HTTP_AUTHORIZATION'])) {
 
-            if (strpos(strtolower($_SERVER['HTTP_AUTHENTICATION']), 'digest') === 0) {
+            if (strpos(strtolower($_SERVER['HTTP_AUTHORIZATION']), 'digest') === 0) {
 
                 $digest = substr($_SERVER['HTTP_AUTHORIZATION'], 7);
             }
