@@ -2,7 +2,7 @@
 
 use Intervention\Httpauth\DigestUser;
 
-class DigestUserTest extends PHPUnit_Framework_Testcase
+class DigestUserTest extends PHPUnit_Framework_TestCase
 {
     public function testDigestUserCreation()
     {

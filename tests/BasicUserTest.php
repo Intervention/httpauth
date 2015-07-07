@@ -2,7 +2,7 @@
 
 use Intervention\Httpauth\BasicUser;
 
-class BasicUserTest extends PHPUnit_Framework_Testcase
+class BasicUserTest extends PHPUnit_Framework_TestCase
 {
     public function testBasicUserAuthMod()
     {

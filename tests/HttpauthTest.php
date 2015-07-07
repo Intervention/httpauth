@@ -2,7 +2,7 @@
 
 use Intervention\Httpauth\Httpauth;
 
-class HttpauthTest extends PHPUnit_Framework_Testcase
+class HttpauthTest extends PHPUnit_Framework_TestCase
 {
     private function createTestHttpauth()
     {
