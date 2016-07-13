@@ -38,9 +38,9 @@ Add the facade of this package to the `$aliases` array.
 
 ## Usage
 
-* Image::__construct - Create new instance of Httpauth class
-* Image::make - Creates new instance of Httpaccess with given config parameters
-* Image::secure - Denies access for not-authenticated users
+* Httpauth::__construct - Create new instance of Httpauth class
+* Httpauth::make - Creates new instance of Httpaccess with given config parameters
+* Httpauth::secure - Denies access for not-authenticated users
 
 ### Configuration
 
