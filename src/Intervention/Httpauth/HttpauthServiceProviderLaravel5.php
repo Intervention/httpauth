@@ -30,7 +30,7 @@ class HttpauthServiceProviderLaravel5 extends ServiceProvider
             __DIR__.'/../../config/config.php', 'httpauth'
         );
 
-        $this->app['httpauth'] = $this->app->share(function($app) {
+        $this->app->singleton('httpauth', function ($app) {
             return new Httpauth($app['config']->get('httpauth'));
         });
     }
