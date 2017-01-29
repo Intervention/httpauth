@@ -20,7 +20,7 @@ In the `$providers` array add the service providers for this package.
 
         ...
 
-        'Intervention\Httpauth\HttpauthServiceProvider'
+        Intervention\Httpauth\HttpauthServiceProvider::class
 
     ),
     
@@ -31,7 +31,7 @@ Add the facade of this package to the `$aliases` array.
 
         ...
 
-        'Httpauth' => 'Intervention\Httpauth\Facades\Httpauth'
+        'Httpauth' => Intervention\Httpauth\Facades\Httpauth::class
 
     ),
 
