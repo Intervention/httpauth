@@ -19,5 +19,15 @@
             "Intervention\\Httpauth\\": "src/Intervention/Httpauth"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Intervention\\Httpauth\\HttpauthServiceProvider"
+            ],
+            "aliases": {
+                "Httpauth": "Intervention\\Httpauth\\Facades\\Httpauth"
+            }
+        }
+    },
     "minimum-stability": "stable"
 }
