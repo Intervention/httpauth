@@ -58,6 +58,14 @@ class BasicUser implements UserInterface
                 list($this->name, $this->password) = $userdata;
 
             }
+        } elseif(array_key_exists('REDIRECT_HTTP_AUTHORIZATION', $_SERVER)) { // most other servers
+  
+          if(strpos(strtolower($_SERVER['REDIRECT_HTTP_AUTHORIZATION']), 'basic') === 0) {
+    
+            $userdata = explode(':', base64_decode(substr($_SERVER['REDIRECT_HTTP_AUTHORIZATION'], 6)));
+            list($this->name, $this->password) = $userdata;
+    
+          }
         }
     }
 }

@@ -97,6 +97,11 @@ $config = array('username' => 'admin', 'password' => '1234');
 Httpauth::make($config)->secure();
 ```
 
+## Apache
+
+If you are using Apache and running php with fast-cgi, check setting headers:
+https://support.deskpro.com/en/kb/articles/missing-authorization-headers-with-apache
+
 ## License
 
 Intervention Httpauth Class is licensed under the [MIT License](http://opensource.org/licenses/MIT).
