@@ -21,7 +21,7 @@ return array(
     | Authentication realm
     |--------------------------------------------------------------------------
     |
-    | Clients must authenticate itself to each realm. 
+    | Clients must authenticate itself to each realm.
     |
     */
     'realm' => 'Secured',

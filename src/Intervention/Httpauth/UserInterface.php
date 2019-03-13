@@ -18,5 +18,4 @@ interface UserInterface
      * @return void
      */
     public function parse();
-
 }

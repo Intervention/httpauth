@@ -44,7 +44,6 @@ class Httpauth
     {
         // overwrite settings with runtime parameters (optional)
         if (is_array($parameters)) {
-
             if (array_key_exists('type', $parameters)) {
                 $this->type = $parameters['type'];
             }
@@ -63,7 +62,7 @@ class Httpauth
         }
 
         // check if at leat username and password is set
-        if ( ! $this->username || ! $this->password) {
+        if (! $this->username || ! $this->password) {
             throw new Exception('No username or password set for HttpAuthentication.');
         }
     }
@@ -86,7 +85,7 @@ class Httpauth
      */
     public function secure()
     {
-        if ( ! $this->validateUser($this->getUser())) {
+        if (! $this->validateUser($this->getUser())) {
             $this->denyAccess();
         }
     }
@@ -121,20 +120,50 @@ class Httpauth
      */
     private function denyAccess()
     {
-        header('HTTP/1.0 401 Unauthorized');
+        header($_SERVER['SERVER_PROTOCOL'] . ' Unauthorized');
+        header('WWW-Authenticate: ' . $this->getDirective());
 
+        die('<strong>'.$_SERVER['SERVER_PROTOCOL'].' 401 Unauthorized</strong>');
+    }
+
+    /**
+     * Return Directive according the auth type
+     *
+     * @return string
+     */
+    private function getDirective()
+    {
         switch (strtolower($this->type)) {
-            
             case 'digest':
-                header('WWW-Authenticate: Digest realm="' . $this->realm .'",qop="auth",nonce="' . uniqid() . '",opaque="' . md5($this->realm) . '"');
-                break;
+                return 'Digest ' . $this->buildDirectiveParameters(array(
+                    'realm' => $this->realm,
+                    'qop' => 'auth',
+                    'nonce' => uniqid(),
+                    'opaque' => md5($this->realm),
+                ));
 
             default:
-                header('WWW-Authenticate: Basic realm="'.$this->realm.'"');
-                break;
+                return 'Basic ' . $this->buildDirectiveParameters(array(
+                    'realm' => $this->realm
+                ));
+        }
+    }
+
+    /**
+     * Format given parameters
+     *
+     * @param  array  $parameters
+     * @return string
+     */
+    private function buildDirectiveParameters($parameters = array())
+    {
+        $result = array();
+
+        foreach ($parameters as $key => $value) {
+            $result[] = $key.'="'.$value.'"';
         }
 
-        die('<strong>HTTP/1.0 401 Unauthorized</strong>');
+        return implode(',', $result);
     }
 
     /**
@@ -146,7 +175,6 @@ class Httpauth
     {
         // set user based on authentication type
         switch (strtolower($this->type)) {
-
             case 'digest':
                 return new DigestUser;
                 break;

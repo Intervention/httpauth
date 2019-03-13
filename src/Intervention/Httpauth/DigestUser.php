@@ -85,7 +85,15 @@ class DigestUser implements UserInterface
     {
         $digest = $this->getDigest();
         $user = array();
-        $required = array('nonce' => 1, 'nc' => 1, 'cnonce' => 1, 'qop' => 1, 'username' => 1, 'uri' => 1, 'response' => 1);
+        $required = array(
+            'nonce' => 1,
+            'nc' => 1,
+            'cnonce' => 1,
+            'qop' => 1,
+            'username' => 1,
+            'uri' => 1,
+            'response' => 1
+        );
 
         preg_match_all('@(\w+)=(?:(?:")([^"]+)"|([^\s,$]+))@', $digest, $matches, PREG_SET_ORDER);
 
@@ -118,13 +126,9 @@ class DigestUser implements UserInterface
         $digest = null;
 
         if (isset($_SERVER['PHP_AUTH_DIGEST'])) {
-
             $digest = $_SERVER['PHP_AUTH_DIGEST'];
-
         } elseif (isset($_SERVER['HTTP_AUTHORIZATION'])) {
-
             if (strpos(strtolower($_SERVER['HTTP_AUTHORIZATION']), 'digest') === 0) {
-
                 $digest = substr($_SERVER['HTTP_AUTHORIZATION'], 7);
             }
         }

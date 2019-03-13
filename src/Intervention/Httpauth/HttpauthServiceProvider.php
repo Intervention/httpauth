@@ -43,7 +43,8 @@ class HttpauthServiceProvider extends ServiceProvider
         $app = $this->app;
         $version = intval($app::VERSION);
         $provider = sprintf(
-            '\Intervention\Httpauth\HttpauthServiceProviderLaravel%d', $version
+            '\Intervention\Httpauth\HttpauthServiceProviderLaravel%d',
+            $version
         );
 
         return new $provider($app);
@@ -78,5 +79,4 @@ class HttpauthServiceProvider extends ServiceProvider
     {
         return array('httpauth');
     }
-
 }

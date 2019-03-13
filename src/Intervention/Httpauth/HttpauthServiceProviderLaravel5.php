@@ -27,7 +27,8 @@ class HttpauthServiceProviderLaravel5 extends ServiceProvider
     {
         // merge default config
         $this->mergeConfigFrom(
-            __DIR__.'/../../config/config.php', 'httpauth'
+            __DIR__.'/../../config/config.php',
+            'httpauth'
         );
 
         $this->app->singleton('httpauth', function ($app) {

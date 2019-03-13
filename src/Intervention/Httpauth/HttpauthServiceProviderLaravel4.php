@@ -23,7 +23,7 @@ class HttpauthServiceProviderLaravel4 extends ServiceProvider
      */
     public function register()
     {
-        $this->app['httpauth'] = $this->app->share(function($app) {
+        $this->app['httpauth'] = $this->app->share(function ($app) {
             return new Httpauth($app['config']->get('httpauth::config'));
         });
     }
