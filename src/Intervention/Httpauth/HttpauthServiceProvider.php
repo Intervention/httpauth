@@ -42,6 +42,9 @@ class HttpauthServiceProvider extends ServiceProvider
     {
         $app = $this->app;
         $version = intval($app::VERSION);
+        if ($version > 5) {
+            $version = 5;
+        }
         $provider = sprintf(
             '\Intervention\Httpauth\HttpauthServiceProviderLaravel%d',
             $version
