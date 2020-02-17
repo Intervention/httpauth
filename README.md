@@ -1,103 +1,42 @@
-# Intervention Httpauth Class
+# Intervention Httpauth
 
 Library to manage HTTP authentication with PHP. Includes ServiceProviders for easy Laravel integration.
 
+[![Latest Version](https://img.shields.io/packagist/v/intervention/httpauth.svg)](https://packagist.org/packages/intervention/httpauth)
+[![Build Status](https://travis-ci.org/Intervention/httpauth.png?branch=master)](https://travis-ci.org/Intervention/httpauth)
+[![Monthly Downloads](https://img.shields.io/packagist/dm/intervention/httpauth.svg)](https://packagist.org/packages/intervention/httpauth/stats)
+
 ## Installation
 
-The easiest way to install this package is via [Composer](https://getcomposer.org/).
+You can install this package quick and easy with Composer.
 
-Run Composer to install the package.
+Require the package via Composer:
 
     $ composer require intervention/httpauth
 
-The Httpauth class is built to work with the Laravel Framework. The integration is done in seconds.
+### Laravel integration (optional)
 
-Open your Laravel config file `config/app.php` and add the following lines.
-
-In the `$providers` array add the service providers for this package.
-    
-    'providers' => array(
-
-        ...
-
-        Intervention\Httpauth\HttpauthServiceProvider::class
-
-    ),
-    
-
-Add the facade of this package to the `$aliases` array.
-
-    'aliases' => array(
-
-        ...
-
-        'Httpauth' => Intervention\Httpauth\Facades\Httpauth::class
-
-    ),
-
+The Validation library is built to work with the Laravel Framework (>=5.5). It comes with a service provider and facades, which will be discovered automatically.
 
 ## Usage
 
-* Httpauth::__construct - Create new instance of Httpauth class
-* Httpauth::make - Creates new instance of Httpaccess with given config parameters
-* Httpauth::secure - Denies access for not-authenticated users
-
-### Configuration
-
-By default the authentication settings are fetched from `config/httpauth.php`. Please make sure to set your own options. 
-
-If you are using Laravel 4, you can extract a configuration file to your app by running the following command:
-
-    $ php artisan config:publish intervention/httpauth
-
-After you published the configuration file for the package you can edit the local configuration file `app/config/packages/intervention/httpauth/httpauth.php`.
-
-Here's a short explanation of the configuration directives.
-
-**type** _string_
-
-    Set the authentication type. Choose between `basic` and `digest` for a more secure type.
-
-**realm** _string_
-
-    The name of the secure resource.
-
-**username** _string_
-
-    The name the user has to enter to login
-
-**password** _string_
-
-    Login password
-
-### Code example
-
 ```php
-// create a new instance of Httpauth and call secure method
-$auth = new Intervention\Httpauth\Httpauth;
-$auth->secure();
+use Intervention\Httpauth\Httpauth;
 
-// You can change the user authentication settings in the config files
-// or change it at runtime like this
-$config = array('username' => 'admin', 'password' => '1234');
-$auth = new Intervention\Httpauth\Httpauth($config);
+// create basic auth
+$auth = Httpauth::basic(function ($vault) {
+    $vault->setName('Secure Resource');
+    $vault->setUsername('admin');
+    $vault->setPassword('secret');
+});
+
+// to ask the user for credentials, call secure method
 $auth->secure();
 ```
 
+## Server Configuration
 
-### Code example (Laravel)
-
-```php
-// the most simple way to secure a url is to call the secure method from a route
-Httpauth::secure();
-
-// You can change the user authentication settings in the config files
-// or change it at runtime like this
-$config = array('username' => 'admin', 'password' => '1234');
-Httpauth::make($config)->secure();
-```
-
-## Apache
+### Apache
 
 If you are using Apache and running php with fast-cgi, check setting headers:
 https://support.deskpro.com/en/kb/articles/missing-authorization-headers-with-apache

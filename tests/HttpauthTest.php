@@ -1,49 +1,53 @@
 <?php
 
+namespace Intervention\Httpauth\Test;
+
+use PHPUnit\Framework\TestCase;
 use Intervention\Httpauth\Httpauth;
+use Intervention\Httpauth\Basic\Vault as BasicVault;
+use Intervention\Httpauth\Basic\Credentials as BasicCredentials;
+use Intervention\Httpauth\Digest\Vault as DigestVault;
+use Intervention\Httpauth\Digest\Credentials as DigestCredentials;
 
-class HttpauthTest extends PHPUnit_Framework_TestCase
+class HttpauthTest extends TestCase
 {
-    private function createTestHttpauth()
+    public function testBasic()
     {
-        $config = array(
-            'realm' => 'test_realm',
-            'username' => 'test_user',
-            'password' => 'test_password'
-        );
-
-        $httpauth = new Httpauth($config);
-        return $httpauth;
+        $result = Httpauth::basic();
+        $this->assertInstanceOf(BasicVault::class, $result);
+        $this->assertInstanceOf(BasicCredentials::class, $result->getCredentials());
     }
 
-    public function testConstruction()
+    public function testDigest()
     {
-        $httpauth = $this->createTestHttpauth();
-        $this->assertInstanceOf('\Intervention\Httpauth\Httpauth', $httpauth);
-        $this->assertEquals('test_realm', $httpauth->realm);
-        $this->assertTrue($httpauth->isValid('test_user', 'test_password'));
+        $result = Httpauth::digest();
+        $this->assertInstanceOf(DigestVault::class, $result);
+        $this->assertInstanceOf(DigestCredentials::class, $result->getCredentials());
     }
 
-    public function testStaticCall()
+    public function testBasicWithCallback()
     {
-        $config = array(
-            'realm' => '1',
-            'username' => '2',
-            'password' => '3'
-        );
+        $result = Httpauth::basic(function ($vault) {
+            $vault->setUsername('foo');
+            $vault->setPassword('bar');
+            $vault->setName('baz');
+        });
 
-        $httpauth = Httpauth::make($config);
-
-        $this->assertInstanceOf('\Intervention\Httpauth\Httpauth', $httpauth);
-        $this->assertEquals('1', $httpauth->realm);
-        $this->assertTrue($httpauth->isValid($config['username'], $config['password']));
+        $this->assertEquals('foo', $result->getCredentials()->get('username'));
+        $this->assertEquals('bar', $result->getCredentials()->get('password'));
+        $this->assertEquals('baz', $result->getName());
     }
 
-    /**
-     * @expectedException Exception
-     */
-    public function testConstructorWithoutUserPassword()
+    public function testDigestWithCallback()
     {
-        $httpauth = new Httpauth;
+        $result = Httpauth::digest(function ($vault) {
+            $vault->setUsername('foo');
+            $vault->setPassword('bar');
+            $vault->setName('baz');
+        });
+
+        $this->assertEquals('foo', $result->getCredentials()->get('username'));
+        $this->assertEquals('bar', $result->getCredentials()->get('password'));
+        $this->assertEquals('baz', $result->getName());
     }
 }

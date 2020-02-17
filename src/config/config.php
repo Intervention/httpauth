@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -18,13 +18,13 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Authentication realm
+    | Authentication name
     |--------------------------------------------------------------------------
     |
-    | Clients must authenticate itself to each realm.
+    | Name of secured resource. Clients must authentificate to each named realm.
     |
     */
-    'realm' => 'Secured',
+    'name' => 'Secured',
 
     /*
     |--------------------------------------------------------------------------
@@ -46,4 +46,4 @@ return array(
     */
     'password' => '1234'
 
-);
+];
