@@ -27,15 +27,5 @@
             "Intervention\\Httpauth\\Test\\": "tests/"
         }
     },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Intervention\\Httpauth\\Laravel\\HttpauthServiceProvider"
-            ],
-            "aliases": {
-                "Httpauth": "Intervention\\Httpauth\\Laravel\\Facades\\Httpauth"
-            }
-        }
-    },
     "minimum-stability": "stable"
 }
