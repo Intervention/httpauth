@@ -61,12 +61,9 @@ $auth = Httpauth::digest()->realm('Secure')->credentials('admin', 'secret');
 
 After your created a HTTP authentication instance, you have to call `secure()` to ask the user for credentials.
 
-
 ```php
-// to ask the user for credentials, call secure method
 $auth->secure();
 ```
-
 
 ## Server Configuration
 
