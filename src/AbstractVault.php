@@ -23,7 +23,7 @@ abstract class AbstractVault
 
     public function getKey(): Key
     {
-        return $this->environment->getAuth()->toKey();
+        return $this->environment->getToken()->toKey();
     }
 
     /**

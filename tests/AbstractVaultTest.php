@@ -20,6 +20,16 @@ class AbstractVaultTest extends TestCase
         $this->assertEquals('myRealm', $vault->getRealm());
     }
 
+    public function testGetKey()
+    {
+        $vault = $this->getMockForAbstractClass(
+            AbstractVault::class,
+            ['myRealm', 'myUsername', 'myPassword']
+        );
+
+        $this->assertInstanceOf(Key::class, $vault->getKey());
+    }
+
     public function testSetGetUsername()
     {
         $vault = $this->getMockForAbstractClass(
