@@ -2,7 +2,7 @@
 
 namespace Intervention\HttpAuth\Token;
 
-use Exception;
+use Intervention\HttpAuth\Exception\AuthentificationException;
 use Intervention\HttpAuth\Key;
 use Intervention\HttpAuth\TokenInterface;
 
@@ -11,7 +11,7 @@ class NullToken implements TokenInterface
     public function __construct()
     {
         if ($this->parse() === false) {
-            throw new Exception('Failed to parse token');
+            throw new AuthentificationException('Failed to parse token');
         }
     }
 

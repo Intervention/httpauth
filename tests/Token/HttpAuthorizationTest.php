@@ -2,16 +2,16 @@
 
 namespace Intervention\HttpAuth\Test\Token;
 
-use Exception;
-use Intervention\HttpAuth\Token\HttpAuthorization;
+use Intervention\HttpAuth\Exception\AuthentificationException;
 use Intervention\HttpAuth\Key;
+use Intervention\HttpAuth\Token\HttpAuthorization;
 use PHPUnit\Framework\TestCase;
 
 class HttpAuthorizationTest extends AbstractTokenTestCase
 {
     public function testParseFail()
     {
-        $this->expectException(Exception::class);
+        $this->expectException(AuthentificationException::class);
         $auth = new HttpAuthorization;
     }
 
