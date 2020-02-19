@@ -25,10 +25,28 @@ class HttpAuthTest extends TestCase
         $this->assertInstanceOf(DigestVault::class, HttpAuth::digest());
     }
 
-    public function testMagicCalls()
+    public function testMagicCall()
     {
         $vault = HttpAuth::username('foo');
         $this->assertInstanceOf(BasicVault::class, $vault);
         $this->assertEquals('foo', $vault->getUsername());
+    }
+
+    public function testCallConfiguration()
+    {
+        $vault = HttpAuth::digest()->username('foo')->password('bar')->realm('baz');
+        $this->assertInstanceOf(DigestVault::class, $vault);
+        $this->assertEquals('foo', $vault->getUsername());
+        $this->assertEquals('bar', $vault->getPassword());
+        $this->assertEquals('baz', $vault->getRealm());
+
+        $vault = HttpAuth::digest();
+        $vault->username('foo');
+        $vault->password('bar');
+        $vault->realm('baz');
+        $this->assertInstanceOf(DigestVault::class, $vault);
+        $this->assertEquals('foo', $vault->getUsername());
+        $this->assertEquals('bar', $vault->getPassword());
+        $this->assertEquals('baz', $vault->getRealm());
     }
 }

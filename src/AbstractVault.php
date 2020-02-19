@@ -45,6 +45,11 @@ abstract class AbstractVault
         return $this;
     }
 
+    public function realm($realm): AbstractVault
+    {
+        return $this->setRealm($realm);
+    }
+
     public function getRealm()
     {
         return $this->realm;
@@ -55,6 +60,11 @@ abstract class AbstractVault
         $this->username = $username;
 
         return $this;
+    }
+
+    public function username($username): AbstractVault
+    {
+        return $this->setUsername($username);
     }
 
     public function getUsername()
@@ -69,9 +79,19 @@ abstract class AbstractVault
         return $this;
     }
 
+    public function password($password): AbstractVault
+    {
+        return $this->setPassword($password);
+    }
+
     public function getPassword()
     {
         return $this->password;
+    }
+
+    public function credentials($username, $password): AbstractVault
+    {
+        return $this->setUsername($username)->setPassword($password);
     }
 
     /**

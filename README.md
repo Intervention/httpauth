@@ -20,7 +20,7 @@ The HttpAuth library is built to work with the Laravel Framework (>=5.5). It com
 
 ## Usage
 
-To create instances you can choose between different methods.
+To create HTTP authentication instances you can choose between different methods.
 
 ### Static instantiation by array
 
@@ -34,9 +34,6 @@ $auth = Httpauth::make([
     'username' => 'admin',
     'password' => 'secret',
 ]);
-
-// to ask the user for credentials, call secure method
-$auth->secure();
 ```
 
 ### Static instantiation by callback
@@ -51,19 +48,21 @@ $auth = Httpauth::make(function ($config) {
     $config->username('admin');
     $config->password('secret');
 });
-
-// to ask the user for credentials, call secure method
-$auth->secure();
 ```
 
-### Instantiation
+### Instantiation by calls
 
 ```php
 use Intervention\Httpauth\Httpauth;
 
-// create basic auth
-$auth = Httpauth::make();
+// create digest auth
+$auth = Httpauth::digest()->realm('Secure')->credentials('admin', 'secret');
+```
 
+After your created a HTTP authentication instance, you have to call `secure()` to ask the user for credentials.
+
+
+```php
 // to ask the user for credentials, call secure method
 $auth->secure();
 ```
