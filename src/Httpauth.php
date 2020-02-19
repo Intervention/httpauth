@@ -6,10 +6,10 @@ class HttpAuth
 {
     public static function make($config = null): AbstractVault
     {
-        return $this->getConfigurator($config)->getVault();
+        return self::getConfigurator($config)->getVault();
     }
 
-    private function getConfigurator($config): ConfiguratorInterface
+    private static function getConfigurator($config): ConfiguratorInterface
     {
         switch (true) {
             case is_callable($config):
@@ -19,7 +19,7 @@ class HttpAuth
                 return new Configurator\ArrayConfigurator($config);
             
             default:
-                return new Configurator\Configurator;
+                return new Configurator\ArrayConfigurator;
         }
     }
 }
