@@ -2,62 +2,76 @@
 
 namespace Intervention\Httpauth\Test\Digest;
 
-use Intervention\Httpauth\Digest\Vault as DigestVault;
-use Intervention\Httpauth\Digest\Credentials;
+use Intervention\Httpauth\Digest\Vault;
+use Intervention\Httpauth\Directive;
+use Intervention\Httpauth\Key;
+use Intervention\Httpauth\Test\AbstractVaultTestCase;
 use PHPUnit\Framework\TestCase;
 
-class VaultTest extends TestCase
+class VaultTest extends AbstractVaultTestCase
 {
+    const TEST_AUTH_VALUE = 'Digest realm="test",qop="auth",nonce="xxxxxxxxxxxxx",opaque="yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"';
+
+    public function testDecodeKeyValueEmpty()
+    {
+        $vault = new Vault('myRealm', 'myUsername', 'myPassword');
+        $key = $vault->decodeKeyValue($this->getKeyValue());
+        $this->assertInstanceOf(Key::class, $key);
+    }
+
+    public function testDecodeKeyValuePhpAuthDigest()
+    {
+        $this->setServerVars(['PHP_AUTH_DIGEST' => self::TEST_AUTH_VALUE]);
+
+        $vault = new Vault('myRealm', 'myUsername', 'myPassword');
+        $key = $vault->decodeKeyValue($this->getKeyValue());
+        $this->assertInstanceOf(Key::class, $key);
+        $this->assertEquals('test', $key->getRealm());
+        $this->assertEquals('auth', $key->getQop());
+        $this->assertEquals('xxxxxxxxxxxxx', $key->getNonce());
+        $this->assertEquals('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', $key->getOpaque());
+    }
+
+    public function testDecodeKeyValueHttpAuthorization()
+    {
+        $this->setServerVars(['HTTP_AUTHORIZATION' => self::TEST_AUTH_VALUE]);
+
+        $vault = new Vault('myRealm', 'myUsername', 'myPassword');
+        $key = $vault->decodeKeyValue($this->getKeyValue());
+        $this->assertInstanceOf(Key::class, $key);
+        $this->assertEquals('test', $key->getRealm());
+        $this->assertEquals('auth', $key->getQop());
+        $this->assertEquals('xxxxxxxxxxxxx', $key->getNonce());
+        $this->assertEquals('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', $key->getOpaque());
+    }
+
     public function testGetDirective()
     {
-        $vault = new DigestVault;
-        $vault->setName('foobar');
-
-        $directive = 'Digest realm="foobar",qop="auth",nonce="5e4a8a6880bf2",opaque="3858f62230ac3c915f300c664312c63f"';
-        $this->assertRegExp("/^Digest realm=\"foobar\",qop=\"auth\",nonce=\"[a-z0-9]{13}\",opaque=\"3858f62230ac3c915f300c664312c63f\"$/", $vault->getDirective());
+        $vault = new Vault('myRealm', 'myUsername', 'myPassword');
+        $directive = $vault->getDirective();
+        $this->assertInstanceOf(Directive::class, $directive);
+        $this->assertEquals('digest', $directive->getType());
+        $this->assertEquals('myRealm', $directive->getParameter('realm'));
+        $this->assertEquals('auth', $directive->getParameter('qop'));
+        $this->assertRegExp("/^[a-z0-9]{13}$/", $directive->getParameter('nonce'));
+        $this->assertRegExp("/^[a-z0-9]{32}$/", $directive->getParameter('opaque'));
     }
 
-    public function testGetAuthTypeAuthDigest()
+    public function testUnlocksWithKey()
     {
-        $this->setServerVars(['PHP_AUTH_DIGEST' => $this->getTestAuthValue()]);
+        $vault = new Vault('myRealm', 'myUsername', 'myPassword');
+        $key = new Key;
+        
+        $key->setProperty('username', 'myUsername');
+        $key->setProperty('response', 'xx');
+        $key->setProperty('nonce', 'myNonce');
+        $key->setProperty('nc', 'myNc');
+        $key->setProperty('cnonce', 'myCnonce');
+        $key->setProperty('qop', 'myQop');
+        $key->setProperty('uri', 'myUri');
+        $this->assertFalse($vault->unlocksWithKey($key));
 
-        $vault = new DigestVault;
-        $auth = $vault->getAuth();
-        $this->assertInstanceOf(Credentials::class, $auth);
-        $this->assertEquals('test', $auth->get('realm'));
-        $this->assertEquals('auth', $auth->get('qop'));
-        $this->assertEquals('xxxxxxxxxxxxx', $auth->get('nonce'));
-        $this->assertEquals('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', $auth->get('opaque'));
-    }
-
-    public function testGetAuthTypeAuthorization()
-    {
-        $this->setServerVars(['HTTP_AUTHORIZATION' => $this->getTestAuthValue()]);
-        $vault = new DigestVault;
-        $auth = $vault->getAuth();
-        $this->assertInstanceOf(Credentials::class, $auth);
-        $this->assertEquals('test', $auth->get('realm'));
-        $this->assertEquals('auth', $auth->get('qop'));
-        $this->assertEquals('xxxxxxxxxxxxx', $auth->get('nonce'));
-        $this->assertEquals('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', $auth->get('opaque'));
-    }
-
-    private function getTestAuthValue()
-    {
-        return 'Digest realm="test",qop="auth",nonce="xxxxxxxxxxxxx",opaque="yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"';
-    }
-
-    private function setServerVars($values = [])
-    {
-        unset($_SERVER['PHP_AUTH_DIGEST']);
-        unset($_SERVER['HTTP_AUTHORIZATION']);
-        unset($_SERVER['PHP_AUTH_USER']);
-        unset($_SERVER['PHP_AUTH_PW']);
-        unset($_SERVER['HTTP_AUTHENTICATION']);
-        unset($_SERVER['REDIRECT_HTTP_AUTHORIZATION']);
-
-        foreach ($values as $key => $value) {
-            $_SERVER[$key] = $value;
-        }
+        $key->setProperty('response', 'f1d34edc18506c758600fe1233d1c1b3');
+        $this->assertTrue($vault->unlocksWithKey($key));
     }
 }

@@ -2,78 +2,59 @@
 
 namespace Intervention\Httpauth\Digest;
 
-use Intervention\Httpauth\AbstractCredentials;
 use Intervention\Httpauth\AbstractVault;
+use Intervention\Httpauth\Directive;
+use Intervention\Httpauth\Key;
 
 class Vault extends AbstractVault
 {
-    /**
-     * Create new instance
-     */
-    public function __construct()
+    public function unlocksWithKey(Key $key): bool
     {
-        $this->credentials = new Credentials;
-    }
-    
-    /**
-     * Return auth value from environment information
-     *
-     * @return string
-     */
-    protected function getAuthValue(): ?string
-    {
-        switch ($this->getAuthType()) {
-            case self::AUTH_TYPE_AUTH_DIGEST:
-                return $_SERVER['PHP_AUTH_DIGEST'];
+        $username_match = $key->getUsername() == $this->getUsername();
+        $hash_match = $key->getResponse() == $this->getKeyHash($key);
 
-            case self::AUTH_TYPE_AUTHORIZATION:
-                return $_SERVER['HTTP_AUTHORIZATION'];
-
-            default:
-                return null;
-        }
+        return $username_match && $hash_match;
     }
 
-    /**
-     * Decode given auth value to Credentials object
-     *
-     * @param  string $value
-     * @return AbstractCredentials
-     */
-    protected function decodeAuthValue($value): AbstractCredentials
+    private function getKeyHash(Key $key): string
     {
-        $credentials = new Credentials;
+        return md5(implode(':', [
+            md5(sprintf('%s:%s:%s', $key->getUsername(), $this->getRealm(), $this->getPassword())),
+            $key->getNonce(),
+            $key->getNc(),
+            $key->getCnonce(),
+            $key->getQop(),
+            md5(sprintf('%s:%s', $this->getRequestMethod(), $key->getUri())),
+        ]));
+    }
+
+    private function getRequestMethod()
+    {
+        return isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
+    }
+
+    public function decodeKeyValue($value): Key
+    {
+        $authKey = new Key;
         if (strtolower(substr($value, 0, 6)) === 'digest') {
             preg_match_all('@(\w+)=(?:(?:")([^"]+)"|([^\s,$]+))@', $value, $matches, PREG_SET_ORDER);
             foreach ($matches as $m) {
                 $key = $m[1];
                 $value = $m[2] ? $m[2] : $m[3];
-                $credentials->set($key, $value);
+                $authKey->setProperty($key, $value);
             }
         }
 
-        return $credentials;
+        return $authKey;
     }
 
-    /**
-     * Build auth directive from current object
-     *
-     * @return string
-     */
-    public function getDirective(): string
+    public function getDirective(): Directive
     {
-        $parameters = [
-            'realm' => $this->getName(),
+        return new Directive('digest', [
+            'realm' => $this->getRealm(),
             'qop' => 'auth',
             'nonce' => uniqid(),
-            'opaque' => md5($this->getName()),
-        ];
-
-        $result = [];
-        foreach ($parameters as $key => $value) {
-            $result[] = $key.'="'.$value.'"';
-        }
-
-        return sprintf('Digest %s', implode(',', $result));
+            'opaque' => md5($this->getRealm()),
+        ]);
     }
 }

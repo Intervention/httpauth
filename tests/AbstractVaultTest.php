@@ -3,42 +3,50 @@
 namespace Intervention\Httpauth\Test;
 
 use Intervention\Httpauth\AbstractVault;
-use Intervention\Httpauth\Basic\Credentials;
+use Intervention\Httpauth\Key;
 use PHPUnit\Framework\TestCase;
 
 class AbstractVaultTest extends TestCase
 {
-    public function testSetCredentials()
+    public function testConstructor()
     {
-        $vault = $this->getMockForAbstractClass(AbstractVault::class);
-        $vault->setCredentials(new Credentials(['username' => 'foo', 'password' => 'bar']));
-        $this->assertEquals('foo', $vault->getCredentials()->get('username'));
-        $this->assertEquals('bar', $vault->getCredentials()->get('password'));
+        $vault = $this->getMockForAbstractClass(
+            AbstractVault::class,
+            ['myRealm', 'myUsername', 'myPassword']
+        );
+
+        $this->assertEquals('myUsername', $vault->getUsername());
+        $this->assertEquals('myPassword', $vault->getPassword());
+        $this->assertEquals('myRealm', $vault->getRealm());
     }
 
-    public function testSetUsername()
+    public function testSetGetUsername()
     {
-        $vault = $this->getMockForAbstractClass(AbstractVault::class);
-        $vault->setCredentials(new Credentials(['username' => 'foo', 'password' => 'bar']));
-        $vault->setUsername('baz');
-        $this->assertEquals('baz', $vault->getCredentials()->get('username'));
+        $vault = $this->getMockForAbstractClass(
+            AbstractVault::class,
+            ['myRealm', 'myUsername', 'myPassword']
+        );
+        $vault->setUsername('foo');
+        $this->assertEquals('foo', $vault->getUsername());
     }
 
-    public function testSetPassword()
+    public function testSetGetPassword()
     {
-        $vault = $this->getMockForAbstractClass(AbstractVault::class);
-        $vault->setCredentials(new Credentials(['username' => 'foo', 'password' => 'bar']));
-        $vault->setPassword('baz');
-        $this->assertEquals('baz', $vault->getCredentials()->get('password'));
+        $vault = $this->getMockForAbstractClass(
+            AbstractVault::class,
+            ['myRealm', 'myUsername', 'myPassword']
+        );
+        $vault->setPassword('foo');
+        $this->assertEquals('foo', $vault->getPassword());
     }
 
-    public function testGetSetName()
+    public function testSetGetRealm()
     {
-        $vault = $this->getMockForAbstractClass(AbstractVault::class);
-        $this->assertNull($vault->getName());
-
-        $result = $vault->setName('foo');
-        $this->assertEquals('foo', $vault->getName());
-        $this->assertInstanceOf(AbstractVault::class, $result);
+        $vault = $this->getMockForAbstractClass(
+            AbstractVault::class,
+            ['myRealm', 'myUsername', 'myPassword']
+        );
+        $vault->setRealm('foo');
+        $this->assertEquals('foo', $vault->getRealm());
     }
 }
