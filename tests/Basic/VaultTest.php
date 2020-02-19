@@ -2,67 +2,13 @@
 
 namespace Intervention\Httpauth\Test\Basic;
 
-use Intervention\Httpauth\Basic\Vault;
+use Intervention\Httpauth\Methods\Basic\Vault;
 use Intervention\Httpauth\Directive;
 use Intervention\Httpauth\Key;
-use Intervention\Httpauth\Test\AbstractVaultTestCase;
 use PHPUnit\Framework\TestCase;
 
-class VaultTest extends AbstractVaultTestCase
+class VaultTest extends TestCase
 {
-    public function testDecodeKeyValueEmpty()
-    {
-        $vault = new Vault('myRealm', 'myUsername', 'myPassword');
-        $key = $vault->decodeKeyValue('test');
-        $this->assertInstanceOf(Key::class, $key);
-    }
-
-    public function testDecodeKeyValuePhpAuthUser()
-    {
-        $this->setServerVars([
-            'PHP_AUTH_USER' => 'test_username',
-            'PHP_AUTH_PW' => 'test_password',
-        ]);
-
-        $vault = new Vault('myRealm', 'myUsername', 'myPassword');
-        $key = $vault->decodeKeyValue($this->getKeyValue());
-        $this->assertInstanceOf(Key::class, $key);
-        $this->assertEquals('test_username', $key->getUsername());
-        $this->assertEquals('test_password', $key->getPassword());
-    }
-
-    public function testDecodeKeyValueHttpAuthentication()
-    {
-        $this->setServerVars([
-            'HTTP_AUTHENTICATION' => 'basic_' . base64_encode(implode(':', [
-                'test_username',
-                'test_password'
-            ])),
-        ]);
-
-        $vault = new Vault('myRealm', 'myUsername', 'myPassword');
-        $key = $vault->decodeKeyValue($this->getKeyValue());
-        $this->assertInstanceOf(Key::class, $key);
-        $this->assertEquals('test_username', $key->getUsername());
-        $this->assertEquals('test_password', $key->getPassword());
-    }
-
-    public function testDecodeKeyValueRedirectHttpAuthorization()
-    {
-        $this->setServerVars([
-            'REDIRECT_HTTP_AUTHORIZATION' => 'basic_' . base64_encode(implode(':', [
-                'test_username',
-                'test_password'
-            ])),
-        ]);
-
-        $vault = new Vault('myRealm', 'myUsername', 'myPassword');
-        $key = $vault->decodeKeyValue($this->getKeyValue());
-        $this->assertInstanceOf(Key::class, $key);
-        $this->assertEquals('test_username', $key->getUsername());
-        $this->assertEquals('test_password', $key->getPassword());
-    }
-
     public function testGetDirective()
     {
         $vault = new Vault('myRealm', 'myUsername', 'myPassword');

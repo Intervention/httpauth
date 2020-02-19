@@ -2,49 +2,13 @@
 
 namespace Intervention\Httpauth\Test\Digest;
 
-use Intervention\Httpauth\Digest\Vault;
+use Intervention\Httpauth\Methods\Digest\Vault;
 use Intervention\Httpauth\Directive;
 use Intervention\Httpauth\Key;
-use Intervention\Httpauth\Test\AbstractVaultTestCase;
 use PHPUnit\Framework\TestCase;
 
-class VaultTest extends AbstractVaultTestCase
+class VaultTest extends TestCase
 {
-    const TEST_AUTH_VALUE = 'Digest realm="test",qop="auth",nonce="xxxxxxxxxxxxx",opaque="yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"';
-
-    public function testDecodeKeyValueEmpty()
-    {
-        $vault = new Vault('myRealm', 'myUsername', 'myPassword');
-        $key = $vault->decodeKeyValue($this->getKeyValue());
-        $this->assertInstanceOf(Key::class, $key);
-    }
-
-    public function testDecodeKeyValuePhpAuthDigest()
-    {
-        $this->setServerVars(['PHP_AUTH_DIGEST' => self::TEST_AUTH_VALUE]);
-
-        $vault = new Vault('myRealm', 'myUsername', 'myPassword');
-        $key = $vault->decodeKeyValue($this->getKeyValue());
-        $this->assertInstanceOf(Key::class, $key);
-        $this->assertEquals('test', $key->getRealm());
-        $this->assertEquals('auth', $key->getQop());
-        $this->assertEquals('xxxxxxxxxxxxx', $key->getNonce());
-        $this->assertEquals('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', $key->getOpaque());
-    }
-
-    public function testDecodeKeyValueHttpAuthorization()
-    {
-        $this->setServerVars(['HTTP_AUTHORIZATION' => self::TEST_AUTH_VALUE]);
-
-        $vault = new Vault('myRealm', 'myUsername', 'myPassword');
-        $key = $vault->decodeKeyValue($this->getKeyValue());
-        $this->assertInstanceOf(Key::class, $key);
-        $this->assertEquals('test', $key->getRealm());
-        $this->assertEquals('auth', $key->getQop());
-        $this->assertEquals('xxxxxxxxxxxxx', $key->getNonce());
-        $this->assertEquals('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', $key->getOpaque());
-    }
-
     public function testGetDirective()
     {
         $vault = new Vault('myRealm', 'myUsername', 'myPassword');

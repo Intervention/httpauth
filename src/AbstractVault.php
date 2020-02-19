@@ -9,7 +9,6 @@ abstract class AbstractVault
     protected $username;
     protected $password;
 
-    abstract public function decodeKeyValue($value): Key;
     abstract public function getDirective(): Directive;
     abstract public function unlocksWithKey(Key $key): bool;
 
@@ -24,7 +23,7 @@ abstract class AbstractVault
 
     public function getKey(): Key
     {
-        return $this->decodeKeyValue($this->environment->getKeyValue());
+        return $this->environment->getAuth()->toKey();
     }
 
     /**

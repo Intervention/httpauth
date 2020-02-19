@@ -10,9 +10,9 @@ class Httpauth
      * @param  callable $callback
      * @return Basic\Vault
      */
-    public static function basic($callback = null): Basic\Vault
+    public static function basic($callback = null): Methods\Basic\Vault
     {
-        return self::createVaultByClassname(Basic\Vault::class, $callback);
+        return self::createVaultByClassname(Methods\Basic\Vault::class, $callback);
     }
 
     /**
@@ -21,9 +21,9 @@ class Httpauth
      * @param  callable $callback
      * @return Digest\Vault
      */
-    public static function digest($callback = null): Digest\Vault
+    public static function digest($callback = null): Methods\Digest\Vault
     {
-        return self::createVaultByClassname(Digest\Vault::class, $callback);
+        return self::createVaultByClassname(Methods\Digest\Vault::class, $callback);
     }
 
     /**

@@ -1,19 +1,14 @@
 <?php
 
-namespace Intervention\Httpauth\Test;
+namespace Intervention\Httpauth\Test\Token;
 
 use Intervention\Httpauth\Directive;
 use Intervention\Httpauth\Environment;
+use Intervention\Httpauth\Key;
 use PHPUnit\Framework\TestCase;
 
-abstract class AbstractVaultTestCase extends TestCase
+abstract class AbstractTokenTestCase extends TestCase
 {
-    protected function getKeyValue()
-    {
-        $environment = new Environment;
-        return $environment->getKeyValue();
-    }
-
     protected function setServerVars($values = [])
     {
         unset($_SERVER['PHP_AUTH_DIGEST']);

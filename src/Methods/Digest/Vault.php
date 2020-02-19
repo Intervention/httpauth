@@ -1,6 +1,6 @@
 <?php
 
-namespace Intervention\Httpauth\Digest;
+namespace Intervention\Httpauth\Methods\Digest;
 
 use Intervention\Httpauth\AbstractVault;
 use Intervention\Httpauth\Directive;
@@ -31,21 +31,6 @@ class Vault extends AbstractVault
     private function getRequestMethod()
     {
         return isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
-    }
-
-    public function decodeKeyValue($value): Key
-    {
-        $authKey = new Key;
-        if (strtolower(substr($value, 0, 6)) === 'digest') {
-            preg_match_all('@(\w+)=(?:(?:")([^"]+)"|([^\s,$]+))@', $value, $matches, PREG_SET_ORDER);
-            foreach ($matches as $m) {
-                $key = $m[1];
-                $value = $m[2] ? $m[2] : $m[3];
-                $authKey->setProperty($key, $value);
-            }
-        }
-
-        return $authKey;
     }
 
     public function getDirective(): Directive

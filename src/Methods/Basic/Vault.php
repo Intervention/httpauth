@@ -1,6 +1,6 @@
 <?php
 
-namespace Intervention\Httpauth\Basic;
+namespace Intervention\Httpauth\Methods\Basic;
 
 use Intervention\Httpauth\AbstractVault;
 use Intervention\Httpauth\Directive;
@@ -14,22 +14,6 @@ class Vault extends AbstractVault
         $password_match = $this->getPassword() == $key->getPassword();
 
         return $username_match && $password_match;
-    }
-
-    public function decodeKeyValue($value): Key
-    {
-        $username = null;
-        $password = null;
-
-        if (strtolower(substr($value, 0, 5)) === 'basic') {
-            list($username, $password) = explode(':', base64_decode(substr($value, 6)));
-        }
-
-        $key = new Key;
-        $key->setProperty('username', $username);
-        $key->setProperty('password', $password);
-
-        return $key;
     }
 
     public function getDirective(): Directive

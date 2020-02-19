@@ -2,33 +2,37 @@
 
 namespace Intervention\Httpauth;
 
+use Exception;
+
 class Environment
 {
-    public function getKeyValue(): ?string
+    protected $tokenClassnames = [
+        Token\PhpAuthUser::class,
+        Token\HttpAuthorization::class,
+        Token\RedirectHttpAuthorization::class,
+        Token\PhpAuthDigest::class,
+        Token\HttpAuthorization::class,
+    ];
+
+    public function getToken(): Token\TokenInterface
     {
-        switch (true) {
-            case array_key_exists('PHP_AUTH_USER', $_SERVER):
-                $username = $_SERVER['PHP_AUTH_USER'];
-                $password = array_key_exists('PHP_AUTH_PW', $_SERVER) ? $_SERVER['PHP_AUTH_PW'] : null;
-                return sprintf('basic_%s', base64_encode(implode(':', [
-                    $username,
-                    $password,
-                ])));
-            
-            case array_key_exists('HTTP_AUTHENTICATION', $_SERVER):
-                return $_SERVER['HTTP_AUTHENTICATION'];
-
-            case array_key_exists('REDIRECT_HTTP_AUTHORIZATION', $_SERVER):
-                return $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
-
-            case array_key_exists('PHP_AUTH_DIGEST', $_SERVER):
-                return $_SERVER['PHP_AUTH_DIGEST'];
-
-            case array_key_exists('HTTP_AUTHORIZATION', $_SERVER):
-                return $_SERVER['HTTP_AUTHORIZATION'];
-
-            default:
-                return null;
+        foreach ($this->tokenClassnames as $classname) {
+            if ($auth = $this->getActiveToken($classname)) {
+                return $auth;
+            }
         }
+
+        return new Token\NullToken;
+    }
+
+    private function getActiveToken($classname)
+    {
+        try {
+            $auth = new $classname;
+        } catch (Exception $e) {
+            $auth = null;
+        }
+
+        return $auth;
     }
 }
