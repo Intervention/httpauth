@@ -1,11 +1,12 @@
 <?php
 
-namespace Intervention\HttpAuth;
+namespace Intervention\HttpAuth\Configurator;
 
+use Intervention\HttpAuth\ConfiguratorInterface;
 use Intervention\HttpAuth\Vault\BasicVault;
 use Intervention\HttpAuth\Vault\DigestVault;
 
-class CallbackConfigurator extemds Configurator
+class CallbackConfigurator extends Configurator
 {
     public function configure($config): ConfiguratorInterface
     {

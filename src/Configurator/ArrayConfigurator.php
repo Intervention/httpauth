@@ -1,7 +1,8 @@
 <?php
 
-namespace Intervention\HttpAuth;
+namespace Intervention\HttpAuth\Configurator;
 
+use Intervention\HttpAuth\ConfiguratorInterface;
 use Intervention\HttpAuth\Vault\BasicVault;
 use Intervention\HttpAuth\Vault\DigestVault;
 
