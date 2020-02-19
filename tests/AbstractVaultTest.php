@@ -1,9 +1,9 @@
 <?php
 
-namespace Intervention\Httpauth\Test;
+namespace Intervention\HttpAuth\Test;
 
-use Intervention\Httpauth\AbstractVault;
-use Intervention\Httpauth\Key;
+use Intervention\HttpAuth\AbstractVault;
+use Intervention\HttpAuth\Key;
 use PHPUnit\Framework\TestCase;
 
 class AbstractVaultTest extends TestCase

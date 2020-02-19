@@ -1,8 +1,8 @@
 <?php
 
-namespace Intervention\Httpauth\Token;
+namespace Intervention\HttpAuth\Token;
 
-use Intervention\Httpauth\Key;
+use Intervention\HttpAuth\Key;
 
 class HttpAuthentification extends NullToken
 {

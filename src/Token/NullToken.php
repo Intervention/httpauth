@@ -1,10 +1,10 @@
 <?php
 
-namespace Intervention\Httpauth\Token;
+namespace Intervention\HttpAuth\Token;
 
 use Exception;
-use Intervention\Httpauth\Key;
-use Intervention\Httpauth\TokenInterface;
+use Intervention\HttpAuth\Key;
+use Intervention\HttpAuth\TokenInterface;
 
 class NullToken implements TokenInterface
 {

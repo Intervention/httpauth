@@ -1,10 +1,10 @@
 <?php
 
-namespace Intervention\Httpauth\Test;
+namespace Intervention\HttpAuth\Test;
 
-use Intervention\Httpauth\TokenInterface;
-use Intervention\Httpauth\Token\NullAuth;
-use Intervention\Httpauth\Environment;
+use Intervention\HttpAuth\TokenInterface;
+use Intervention\HttpAuth\Token\NullAuth;
+use Intervention\HttpAuth\Environment;
 use PHPUnit\Framework\TestCase;
 
 class EnvironmentTest extends TestCase

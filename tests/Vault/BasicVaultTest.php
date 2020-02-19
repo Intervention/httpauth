@@ -1,10 +1,10 @@
 <?php
 
-namespace Intervention\Httpauth\Test\Vaults;
+namespace Intervention\HttpAuth\Test\Vault;
 
-use Intervention\Httpauth\Vaults\BasicVault as Vault;
-use Intervention\Httpauth\Directive;
-use Intervention\Httpauth\Key;
+use Intervention\HttpAuth\Vault\BasicVault as Vault;
+use Intervention\HttpAuth\Directive;
+use Intervention\HttpAuth\Key;
 use PHPUnit\Framework\TestCase;
 
 class BasicVaultTest extends TestCase

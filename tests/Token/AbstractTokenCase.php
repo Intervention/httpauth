@@ -1,10 +1,10 @@
 <?php
 
-namespace Intervention\Httpauth\Test\Token;
+namespace Intervention\HttpAuth\Test\Token;
 
-use Intervention\Httpauth\Directive;
-use Intervention\Httpauth\Environment;
-use Intervention\Httpauth\Key;
+use Intervention\HttpAuth\Directive;
+use Intervention\HttpAuth\Environment;
+use Intervention\HttpAuth\Key;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractTokenTestCase extends TestCase

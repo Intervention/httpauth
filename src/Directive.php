@@ -1,6 +1,6 @@
 <?php
 
-namespace Intervention\Httpauth;
+namespace Intervention\HttpAuth;
 
 class Directive
 {

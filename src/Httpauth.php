@@ -1,8 +1,8 @@
 <?php
 
-namespace Intervention\Httpauth;
+namespace Intervention\HttpAuth;
 
-class Httpauth
+class HttpAuth
 {
     /**
      * Create new basic auth and configure optionally by callback

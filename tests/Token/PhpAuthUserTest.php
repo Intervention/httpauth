@@ -1,10 +1,10 @@
 <?php
 
-namespace Intervention\Httpauth\Test\Token;
+namespace Intervention\HttpAuth\Test\Token;
 
 use Exception;
-use Intervention\Httpauth\Token\PhpAuthUser;
-use Intervention\Httpauth\Key;
+use Intervention\HttpAuth\Token\PhpAuthUser;
+use Intervention\HttpAuth\Key;
 use PHPUnit\Framework\TestCase;
 
 class PhpAuthUserTest extends AbstractTokenTestCase

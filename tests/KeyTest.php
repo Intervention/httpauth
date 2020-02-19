@@ -1,8 +1,8 @@
 <?php
 
-namespace Intervention\Httpauth\Test;
+namespace Intervention\HttpAuth\Test;
 
-use Intervention\Httpauth\Key;
+use Intervention\HttpAuth\Key;
 use PHPUnit\Framework\TestCase;
 
 class KeyTest extends TestCase

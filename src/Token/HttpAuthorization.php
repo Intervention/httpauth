@@ -1,6 +1,6 @@
 <?php
 
-namespace Intervention\Httpauth\Token;
+namespace Intervention\HttpAuth\Token;
 
 class HttpAuthorization extends PhpAuthDigest
 {

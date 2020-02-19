@@ -7,7 +7,7 @@ return [
     | Authentication type
     |--------------------------------------------------------------------------
     |
-    | Intervention Httpauth supports "basic" and "digest" authentication
+    | Intervention HttpAuth supports "basic" and "digest" authentication
     | implementations. "Basic" is the simplest technique, while "Digest" applies
     | hash functions to the password before sending it over the network.
     |

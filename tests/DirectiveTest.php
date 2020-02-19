@@ -1,8 +1,8 @@
 <?php
 
-namespace Intervention\Httpauth\Test;
+namespace Intervention\HttpAuth\Test;
 
-use Intervention\Httpauth\Directive;
+use Intervention\HttpAuth\Directive;
 use PHPUnit\Framework\TestCase;
 
 class DirectiveTest extends TestCase

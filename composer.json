@@ -8,7 +8,7 @@
         {
             "name": "Oliver Vogel",
             "email": "oliver@olivervogel.com",
-            "homepage": "http://olivervogel.com/"
+            "homepage": "https://olivervogel.com/"
         }
     ],
     "require": {
@@ -19,12 +19,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Intervention\\Httpauth\\": "src/"
+            "Intervention\\HttpAuth\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Intervention\\Httpauth\\Test\\": "tests/"
+            "Intervention\\HttpAuth\\Test\\": "tests/"
         }
     },
     "minimum-stability": "stable"

@@ -1,10 +1,10 @@
 <?php
 
-namespace Intervention\Httpauth\Vaults;
+namespace Intervention\HttpAuth\Vault;
 
-use Intervention\Httpauth\AbstractVault;
-use Intervention\Httpauth\Directive;
-use Intervention\Httpauth\Key;
+use Intervention\HttpAuth\AbstractVault;
+use Intervention\HttpAuth\Directive;
+use Intervention\HttpAuth\Key;
 
 class BasicVault extends AbstractVault
 {
