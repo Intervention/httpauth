@@ -4,7 +4,7 @@ namespace Intervention\Httpauth\Token;
 
 use Intervention\Httpauth\Key;
 
-class PhpAuthUser extends AbstractToken
+class PhpAuthUser extends NullToken
 {
     protected $username;
     protected $password;

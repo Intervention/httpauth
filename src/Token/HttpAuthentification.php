@@ -4,7 +4,7 @@ namespace Intervention\Httpauth\Token;
 
 use Intervention\Httpauth\Key;
 
-class HttpAuthentification extends AbstractToken
+class HttpAuthentification extends NullToken
 {
     protected $value;
 

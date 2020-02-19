@@ -1,13 +1,13 @@
 <?php
 
-namespace Intervention\Httpauth\Test\Digest;
+namespace Intervention\Httpauth\Test\Vaults;
 
-use Intervention\Httpauth\Methods\Digest\Vault;
+use Intervention\Httpauth\Vaults\DigestVault as Vault;
 use Intervention\Httpauth\Directive;
 use Intervention\Httpauth\Key;
 use PHPUnit\Framework\TestCase;
 
-class VaultTest extends TestCase
+class DigestVaultTest extends TestCase
 {
     public function testGetDirective()
     {

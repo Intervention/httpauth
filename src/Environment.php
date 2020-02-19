@@ -14,7 +14,7 @@ class Environment
         Token\HttpAuthorization::class,
     ];
 
-    public function getToken(): Token\TokenInterface
+    public function getToken(): TokenInterface
     {
         foreach ($this->tokenClassnames as $classname) {
             if ($auth = $this->getActiveToken($classname)) {

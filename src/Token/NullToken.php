@@ -2,10 +2,19 @@
 
 namespace Intervention\Httpauth\Token;
 
+use Exception;
 use Intervention\Httpauth\Key;
+use Intervention\Httpauth\TokenInterface;
 
-class NullToken extends AbstractToken
+class NullToken implements TokenInterface
 {
+    public function __construct()
+    {
+        if ($this->parse() === false) {
+            throw new Exception('Failed to parse token');
+        }
+    }
+
     public function toKey(): Key
     {
         return new Key;
@@ -14,5 +23,14 @@ class NullToken extends AbstractToken
     protected function parse(): bool
     {
         return true;
+    }
+
+    protected function getArrayValue($data, $key)
+    {
+        if (array_key_exists($key, $data)) {
+            return $data[$key];
+        }
+
+        return null;
     }
 }

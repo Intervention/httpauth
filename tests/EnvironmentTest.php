@@ -2,7 +2,7 @@
 
 namespace Intervention\Httpauth\Test;
 
-use Intervention\Httpauth\Token\TokenInterface;
+use Intervention\Httpauth\TokenInterface;
 use Intervention\Httpauth\Token\NullAuth;
 use Intervention\Httpauth\Environment;
 use PHPUnit\Framework\TestCase;

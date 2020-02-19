@@ -1,8 +1,6 @@
 <?php
 
-namespace Intervention\Httpauth\Token;
-
-use Intervention\Httpauth\Key;
+namespace Intervention\Httpauth;
 
 interface TokenInterface
 {

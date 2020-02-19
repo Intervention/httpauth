@@ -1,12 +1,12 @@
 <?php
 
-namespace Intervention\Httpauth\Methods\Digest;
+namespace Intervention\Httpauth\Vaults;
 
 use Intervention\Httpauth\AbstractVault;
 use Intervention\Httpauth\Directive;
 use Intervention\Httpauth\Key;
 
-class Vault extends AbstractVault
+class DigestVault extends AbstractVault
 {
     public function unlocksWithKey(Key $key): bool
     {

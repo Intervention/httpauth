@@ -4,7 +4,7 @@ namespace Intervention\Httpauth\Token;
 
 use Intervention\Httpauth\Key;
 
-class PhpAuthDigest extends AbstractToken
+class PhpAuthDigest extends NullToken
 {
     protected $value;
 
