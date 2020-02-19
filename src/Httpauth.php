@@ -4,43 +4,22 @@ namespace Intervention\HttpAuth;
 
 class HttpAuth
 {
-    /**
-     * Create new basic auth and configure optionally by callback
-     *
-     * @param  callable $callback
-     * @return Basic\Vault
-     */
-    public static function basic($callback = null): Methods\Basic\Vault
+    public static function make($config = null): AbstractVault
     {
-        return self::createVaultByClassname(Methods\Basic\Vault::class, $callback);
+        return $this->getConfigurator($config)->getVault();
     }
 
-    /**
-     * Create new digest auth and configure optionally by callback
-     *
-     * @param  callable $callback
-     * @return Digest\Vault
-     */
-    public static function digest($callback = null): Methods\Digest\Vault
+    private function getConfigurator($config)
     {
-        return self::createVaultByClassname(Methods\Digest\Vault::class, $callback);
-    }
+        switch (true) {
+            case is_callable($config):
+                return new CallbackConfigurator($config);
 
-    /**
-     * Create new vault by classname and configure optionally by callback
-     *
-     * @param  string   $classname
-     * @param  callable $callback
-     * @return AbstractVault
-     */
-    public static function createVaultByClassname($classname, $callback = null): AbstractVault
-    {
-        $vault = new $classname;
-        
-        if (is_callable($callback)) {
-            $callback($vault);
+            case is_array($config):
+                return new ArrayConfigurator($config);
+            
+            default:
+                return new Configurator;
         }
-
-        return $vault;
     }
 }
