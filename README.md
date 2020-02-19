@@ -1,4 +1,4 @@
-# Intervention Httpauth
+# Intervention HttpAuth
 
 Library to manage HTTP authentication with PHP. Includes ServiceProviders for easy Laravel integration.
 
@@ -16,23 +16,58 @@ Require the package via Composer:
 
 ### Laravel integration (optional)
 
-The Validation library is built to work with the Laravel Framework (>=5.5). It comes with a service provider and facades, which will be discovered automatically.
+The HttpAuth library is built to work with the Laravel Framework (>=5.5). It comes with a service provider and facades, which will be discovered automatically.
 
 ## Usage
+
+To create instances you can choose between different methods.
+
+### Static instantiation by array
 
 ```php
 use Intervention\Httpauth\Httpauth;
 
 // create basic auth
-$auth = Httpauth::basic(function ($vault) {
-    $vault->setName('Secure Resource');
-    $vault->setUsername('admin');
-    $vault->setPassword('secret');
+$auth = Httpauth::make([
+    'type' => 'basic',
+    'realm' => 'Secure Resource',
+    'username' => 'admin',
+    'password' => 'secret',
+]);
+
+// to ask the user for credentials, call secure method
+$auth->secure();
+```
+
+### Static instantiation by callback
+
+```php
+use Intervention\Httpauth\Httpauth;
+
+// create basic auth
+$auth = Httpauth::make(function ($config) {
+    $config->type('basic');
+    $config->realm('Secure Resource');
+    $config->username('admin');
+    $config->password('secret');
 });
 
 // to ask the user for credentials, call secure method
 $auth->secure();
 ```
+
+### Instantiation
+
+```php
+use Intervention\Httpauth\Httpauth;
+
+// create basic auth
+$auth = Httpauth::make();
+
+// to ask the user for credentials, call secure method
+$auth->secure();
+```
+
 
 ## Server Configuration
 

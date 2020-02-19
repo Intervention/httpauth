@@ -9,6 +9,23 @@ class HttpAuth
         return self::getConfigurator($config)->getVault();
     }
 
+    public static function basic(): AbstractVault
+    {
+        return self::make(['type' => 'basic']);
+    }
+
+    public static function digest(): AbstractVault
+    {
+        return self::make(['type' => 'digest']);
+    }
+
+    public static function __callStatic($name, $arguments): AbstractVault
+    {
+        $argument = isset($arguments[0]) ? $arguments[0] : null;
+
+        return self::make([$name => $argument]);
+    }
+
     private static function getConfigurator($config): ConfiguratorInterface
     {
         switch (true) {
