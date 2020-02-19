@@ -31,7 +31,7 @@ abstract class AbstractVault
      *
      * @return void
      */
-    public function lock(): void
+    public function secure(): void
     {
         if (! $this->unlocksWithKey($this->getKey())) {
             $this->denyAccess();
