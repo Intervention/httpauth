@@ -25,10 +25,10 @@ To create HTTP authentication instances you can choose between different methods
 ### Static instantiation by array
 
 ```php
-use Intervention\Httpauth\Httpauth;
+use Intervention\HttpAuth\HttpAuth;
 
-// create basic auth
-$auth = Httpauth::make([
+// create basic auth by array
+$auth = HttpAuth::make([
     'type' => 'basic',
     'realm' => 'Secure Resource',
     'username' => 'admin',
@@ -39,10 +39,10 @@ $auth = Httpauth::make([
 ### Static instantiation by callback
 
 ```php
-use Intervention\Httpauth\Httpauth;
+use Intervention\HttpAuth\HttpAuth;
 
-// create basic auth
-$auth = Httpauth::make(function ($config) {
+// create auth by callback
+$auth = HttpAuth::make(function ($config) {
     $config->type('basic');
     $config->realm('Secure Resource');
     $config->username('admin');
@@ -53,10 +53,10 @@ $auth = Httpauth::make(function ($config) {
 ### Instantiation by calls
 
 ```php
-use Intervention\Httpauth\Httpauth;
+use Intervention\HttpAuth\HttpAuth;
 
 // create digest auth
-$auth = Httpauth::digest()->realm('Secure')->credentials('admin', 'secret');
+$auth = HttpAuth::digest()->realm('Secure')->credentials('admin', 'secret');
 ```
 
 After your created a HTTP authentication instance, you have to call `secure()` to ask the user for credentials.
@@ -74,4 +74,4 @@ https://support.deskpro.com/en/kb/articles/missing-authorization-headers-with-ap
 
 ## License
 
-Intervention Httpauth Class is licensed under the [MIT License](http://opensource.org/licenses/MIT).
+Intervention HttpAuth Class is licensed under the [MIT License](http://opensource.org/licenses/MIT).
