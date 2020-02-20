@@ -6,8 +6,18 @@ use Intervention\HttpAuth\Key;
 
 class HttpAuthentification extends NullToken
 {
+    /**
+     * Parsed authentification value
+     *
+     * @var string
+     */
     protected $value;
 
+    /**
+     * Transform current instance to key object
+     *
+     * @return Key
+     */
     public function toKey(): Key
     {
         list($username, $password) = explode(':', base64_decode(substr($this->value, 6)));
@@ -19,6 +29,11 @@ class HttpAuthentification extends NullToken
         return $key;
     }
 
+    /**
+     * Parse environment variables and store value in object
+     *
+     * @return bool "true" if value was found or "false"
+     */
     protected function parse(): bool
     {
         $value = $this->getArrayValue($_SERVER, 'HTTP_AUTHENTICATION');

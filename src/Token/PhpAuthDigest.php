@@ -6,8 +6,18 @@ use Intervention\HttpAuth\Key;
 
 class PhpAuthDigest extends NullToken
 {
+    /**
+     * Parsed authentification value
+     *
+     * @var string
+     */
     protected $value;
 
+    /**
+     * Transform current instance to key object
+     *
+     * @return Key
+     */
     public function toKey(): Key
     {
         $authKey = new Key;
@@ -21,6 +31,11 @@ class PhpAuthDigest extends NullToken
         return $authKey;
     }
 
+    /**
+     * Parse environment variables and store value in object
+     *
+     * @return bool "true" if value was found or "false"
+     */
     protected function parse(): bool
     {
         if ($value = $this->getArrayValue($_SERVER, 'PHP_AUTH_DIGEST')) {

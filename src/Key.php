@@ -4,15 +4,74 @@ namespace Intervention\HttpAuth;
 
 class Key
 {
+    /**
+     * Realm
+     *
+     * @var string
+     */
     private $realm;
+
+    /**
+     * Username
+     *
+     * @var string
+     */
     private $username;
+
+    /**
+     * Password
+     *
+     * @var string
+     */
     private $password;
+
+    /**
+     * QOP
+     *
+     * @var string
+     */
     private $qop;
+
+    /**
+     * Nonce
+     *
+     * @var string
+     */
     private $nonce;
+
+    /**
+     * Opaque
+     *
+     * @var string
+     */
     private $opaque;
+
+    /**
+     * NC
+     *
+     * @var string
+     */
     private $nc;
+
+    /**
+     * uri
+     *
+     * @var string
+     */
     private $uri;
+
+    /**
+     * cnonce
+     *
+     * @var string
+     */
     private $cnonce;
+
+    /**
+     * Response
+     *
+     * @var string
+     */
     private $response;
 
     public function getRealm()

@@ -8,6 +8,12 @@ use Intervention\HttpAuth\Key;
 
 class DigestVault extends AbstractVault
 {
+    /**
+     * Determine if given key is able to unlock (access) vault.
+     *
+     * @param  Key    $key
+     * @return bool
+     */
     public function unlocksWithKey(Key $key): bool
     {
         $username_match = $key->getUsername() == $this->getUsername();
@@ -16,6 +22,12 @@ class DigestVault extends AbstractVault
         return $username_match && $hash_match;
     }
 
+    /**
+     * Build and return hash from given key/vault
+     *
+     * @param  Key    $key
+     * @return string
+     */
     private function getKeyHash(Key $key): string
     {
         return md5(implode(':', [
@@ -28,11 +40,21 @@ class DigestVault extends AbstractVault
         ]));
     }
 
+    /**
+     * Return HTTP request method
+     *
+     * @return string
+     */
     private function getRequestMethod()
     {
         return isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
     }
 
+    /**
+     * Return auth directive
+     *
+     * @return Directive
+     */
     public function getDirective(): Directive
     {
         return new Directive('digest', [

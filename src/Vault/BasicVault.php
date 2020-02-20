@@ -8,6 +8,12 @@ use Intervention\HttpAuth\Key;
 
 class BasicVault extends AbstractVault
 {
+    /**
+     * Determine if given key is able to unlock (access) vault.
+     *
+     * @param  Key    $key
+     * @return bool
+     */
     public function unlocksWithKey(Key $key): bool
     {
         $username_match = $this->getUsername() == $key->getUsername();
@@ -16,6 +22,11 @@ class BasicVault extends AbstractVault
         return $username_match && $password_match;
     }
 
+    /**
+     * Return auth directive
+     *
+     * @return Directive
+     */
     public function getDirective(): Directive
     {
         return new Directive('basic', [

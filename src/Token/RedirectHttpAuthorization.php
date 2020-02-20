@@ -4,6 +4,11 @@ namespace Intervention\HttpAuth\Token;
 
 class RedirectHttpAuthorization extends HttpAuthentification
 {
+    /**
+     * Parse environment variables and store value in object
+     *
+     * @return bool "true" if value was found or "false"
+     */
     protected function parse(): bool
     {
         $value = $this->getArrayValue($_SERVER, 'REDIRECT_HTTP_AUTHORIZATION');
