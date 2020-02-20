@@ -3,6 +3,7 @@
 namespace Intervention\HttpAuth\Laravel;
 
 use Illuminate\Support\ServiceProvider;
+use Intervention\HttpAuth\HttpAuth;
 
 class HttpAuthServiceProvider extends ServiceProvider
 {
