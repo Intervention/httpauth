@@ -90,4 +90,9 @@ class ArrayConfigurator implements ConfiguratorInterface
     {
         return $this->password;
     }
+
+    public function credentials($username, $password)
+    {
+        return $this->username($username)->password($password);
+    }
 }
