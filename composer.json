@@ -15,7 +15,8 @@
         "php": "^7.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.0"
+        "phpunit/phpunit": "^8.0",
+        "phpstan/phpstan": "^0.12.11"
     },
     "autoload": {
         "psr-4": {
@@ -25,6 +26,16 @@
     "autoload-dev": {
         "psr-4": {
             "Intervention\\HttpAuth\\Test\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Intervention\\HttpAuth\\Laravel\\HttpAuthServiceProvider"
+            ],
+            "aliases": {
+                "HttpAuth": "Intervention\\HttpAuth\\Laravel\\Facades\\HttpAuth"
+            }
         }
     },
     "minimum-stability": "stable"
