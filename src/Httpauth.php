@@ -2,6 +2,9 @@
 
 namespace Intervention\HttpAuth;
 
+use Intervention\HttpAuth\Vault\BasicVault;
+use Intervention\HttpAuth\Vault\DigestVault;
+
 class HttpAuth
 {
    /**
@@ -193,7 +196,7 @@ class HttpAuth
     /**
      * Configure by callback
      *
-     * @param  callable $config
+     * @param  callable $callback
      * @return HttpAuth
      */
     protected function configureByCallback($callback): HttpAuth

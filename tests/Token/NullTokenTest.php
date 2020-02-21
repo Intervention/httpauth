@@ -6,7 +6,7 @@ use Intervention\HttpAuth\Token\NullToken;
 use Intervention\HttpAuth\Key;
 use PHPUnit\Framework\TestCase;
 
-class NullAuthTest extends AbstractTokenTestCase
+class NullTokenTest extends AbstractTokenTestCase
 {
     public function testParse()
     {
