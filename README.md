@@ -56,7 +56,7 @@ $auth = HttpAuth::make(function ($config) {
 use Intervention\HttpAuth\HttpAuth;
 
 // create digest auth
-$auth = HttpAuth::digest()->realm('Secure')->credentials('admin', 'secret');
+$auth = HttpAuth::make()->digest()->realm('Secure')->credentials('admin', 'secret');
 ```
 
 After your created a HTTP authentication instance, you have to call `secure()` to ask the user for credentials.

@@ -41,20 +41,6 @@ abstract class AbstractVault
     abstract public function getDirective(): Directive;
 
     /**
-     * Return BasicVault from current vault
-     *
-     * @return Vault\BasicVault
-     */
-    abstract public function basic(): Vault\BasicVault;
-
-    /**
-     * Return DigestVault from current vault
-     *
-     * @return Vault\BasicVault
-     */
-    abstract public function digest(): Vault\DigestVault;
-
-    /**
      * Determine if vault is accessible by given key
      *
      * @param  Key    $key
@@ -203,23 +189,6 @@ abstract class AbstractVault
     public function credentials($username, $password): AbstractVault
     {
         return $this->setUsername($username)->setPassword($password);
-    }
-
-    /**
-     * Transform and return current vault to given type
-     *
-     * @param string $type
-     */
-    public function setType($type): AbstractVault
-    {
-        $configurator = new ArrayConfigurator(['type' => $type]);
-        $configurator->configure([
-            'realm' => $this->getRealm(),
-            'username' => $this->getUsername(),
-            'password' => $this->getPassword(),
-        ]);
-
-        return $configurator->getVault();
     }
 
     /**

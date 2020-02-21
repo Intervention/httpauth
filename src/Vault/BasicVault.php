@@ -9,26 +9,6 @@ use Intervention\HttpAuth\Key;
 class BasicVault extends AbstractVault
 {
     /**
-     * Transform and return current vault to basic vault
-     *
-     * @param string $type
-     */
-    public function basic(): BasicVault
-    {
-        return $this;
-    }
-
-    /**
-     * Transform and return current vault to digest vault
-     *
-     * @param string $type
-     */
-    public function digest(): DigestVault
-    {
-        return $this->setType('digest');
-    }
-
-    /**
      * Determine if given key is able to unlock (access) vault.
      *
      * @param  Key    $key

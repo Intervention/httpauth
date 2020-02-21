@@ -30,14 +30,4 @@ class BasicVaultTest extends TestCase
         $key->setProperty('password', 'myPassword');
         $this->assertTrue($vault->unlocksWithKey($key));
     }
-
-    public function testSetType()
-    {
-        $vault = new BasicVault('myRealm', 'myUsername', 'myPassword');
-        $vault = $vault->setType('digest');
-        $this->assertInstanceOf(DigestVault::class, $vault);
-        $this->assertEquals('myRealm', $vault->getRealm());
-        $this->assertEquals('myUsername', $vault->getUsername());
-        $this->assertEquals('myPassword', $vault->getPassword());
-    }
 }

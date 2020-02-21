@@ -11,49 +11,41 @@ class HttpAuthTest extends TestCase
 {
     public function testMake()
     {
-        $this->assertInstanceOf(BasicVault::class, Auth::make());
-        $this->assertInstanceOf(DigestVault::class, Auth::make(['type' => 'digest']));
+        $auth = Auth::make();
+        $this->assertInstanceOf(Auth::class, $auth);
+        $this->assertEquals('basic', $auth->getType());
+        $this->assertEquals('Secured Resource', $auth->getRealm());
+        $this->assertEquals('admin', $auth->getUsername());
+        $this->assertEquals('secret', $auth->getPassword());
     }
 
-    public function testBasic()
+    public function testMakeWithArray()
     {
-        $this->assertInstanceOf(BasicVault::class, Auth::basic());
+        $auth = Auth::make([
+            'type' => 'digest',
+            'realm' => 'foo',
+            'username' => 'bar',
+            'password' => 'baz',
+        ]);
+        $this->assertInstanceOf(Auth::class, $auth);
+        $this->assertEquals('digest', $auth->getType());
+        $this->assertEquals('foo', $auth->getRealm());
+        $this->assertEquals('bar', $auth->getUsername());
+        $this->assertEquals('baz', $auth->getPassword());
     }
 
-    public function testDigest()
+    public function testMakeWithCallback()
     {
-        $this->assertInstanceOf(DigestVault::class, Auth::digest());
-    }
-
-    public function testMagicCallStatic()
-    {
-        $vault = Auth::username('foo');
-        $this->assertInstanceOf(BasicVault::class, $vault);
-        $this->assertEquals('foo', $vault->getUsername());
-    }
-
-    public function testMagicCall()
-    {
-        $vault = (new Auth)->username('foo');
-        $this->assertInstanceOf(BasicVault::class, $vault);
-        $this->assertEquals('foo', $vault->getUsername());
-    }
-
-    public function testCallConfiguration()
-    {
-        $vault = Auth::digest()->username('foo')->password('bar')->realm('baz');
-        $this->assertInstanceOf(DigestVault::class, $vault);
-        $this->assertEquals('foo', $vault->getUsername());
-        $this->assertEquals('bar', $vault->getPassword());
-        $this->assertEquals('baz', $vault->getRealm());
-
-        $vault = Auth::digest();
-        $vault->username('foo');
-        $vault->password('bar');
-        $vault->realm('baz');
-        $this->assertInstanceOf(DigestVault::class, $vault);
-        $this->assertEquals('foo', $vault->getUsername());
-        $this->assertEquals('bar', $vault->getPassword());
-        $this->assertEquals('baz', $vault->getRealm());
+        $auth = Auth::make(function ($config) {
+            $config->digest();
+            $config->realm('foo');
+            $config->username('bar');
+            $config->password('baz');
+        });
+        $this->assertInstanceOf(Auth::class, $auth);
+        $this->assertEquals('digest', $auth->getType());
+        $this->assertEquals('foo', $auth->getRealm());
+        $this->assertEquals('bar', $auth->getUsername());
+        $this->assertEquals('baz', $auth->getPassword());
     }
 }

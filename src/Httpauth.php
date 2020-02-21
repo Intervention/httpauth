@@ -4,82 +4,220 @@ namespace Intervention\HttpAuth;
 
 class HttpAuth
 {
+   /**
+     * Authentication type
+     *
+     * @var string
+     */
+    protected $type = 'basic';
+
+    /**
+     * Name of authentication realm
+     *
+     * @var string
+     */
+    protected $realm = 'Secured Resource';
+
+    /**
+     * Username
+     *
+     * @var string
+     */
+    protected $username = 'admin';
+
+    /**
+     * Password
+     *
+     * @var string
+     */
+    protected $password = 'secret';
+
     /**
      * Create HTTP auth instance and configure via given array or callback
      *
      * @param  mixed $config
-     * @return AbstractVault
+     * @return HttpAuth
      */
-    public static function make($config = null): AbstractVault
+    public static function make($config = null): HttpAuth
     {
-        return self::getConfigurator($config)->getVault();
+        $auth = new self;
+
+        switch (true) {
+            case is_array($config):
+                $auth->configureByArray($config);
+                break;
+            
+            case is_callable($config):
+                $auth->configureByCallback($config);
+                break;
+        }
+
+        return $auth;
+    }
+
+    /**
+     * Create vault by parameters and secure it
+     *
+     * @return void
+     */
+    public function secure(): void
+    {
+        $this->getVault()->secure();
     }
 
     /**
      * Create HTTP basic auth instance
      *
-     * @return AbstractVault
+     * @return HttpAuth
      */
-    public static function basic(): AbstractVault
+    public function basic(): HttpAuth
     {
-        return self::make(['type' => 'basic']);
+        $this->type = 'basic';
+
+        return $this;
     }
 
     /**
      * Create HTTP digest auth instance
      *
-     * @return AbstractVault
+     * @return HttpAuth
      */
-    public static function digest(): AbstractVault
+    public function digest(): HttpAuth
     {
-        return self::make(['type' => 'digest']);
+        $this->type = 'digest';
+
+        return $this;
     }
 
     /**
-     * Magic method to catch static calls
+     * Set type of configured vault
      *
-     * @param  string $name
-     * @param  array  $arguments
-     * @return AbstractVault
+     * @param  string $value
+     * @return HttpAuth
      */
-    public static function __callStatic($name, $arguments): AbstractVault
+    public function type($value)
     {
-        $argument = isset($arguments[0]) ? $arguments[0] : null;
+        $this->type = $value;
 
-        return self::make([$name => $argument]);
+        return $this;
     }
 
     /**
-     * Magic method to catch calls
+     * Set realm name of configured vault
      *
-     * @param  string $name
-     * @param  array  $arguments
-     * @return AbstractVault
+     * @param  string $value
+     * @return HttpAuth
      */
-    public function __call($name, $arguments): AbstractVault
+    public function realm($value)
     {
-        $argument = isset($arguments[0]) ? $arguments[0] : null;
+        $this->realm = $value;
 
-        return $this->make([$name => $argument]);
+        return $this;
     }
 
     /**
-     * Return configurator matching to given config type
+     * Set username of configured vault
      *
-     * @param  mixed $config
-     * @return ConfiguratorInterface
+     * @param  string $value
+     * @return HttpAuth
      */
-    private static function getConfigurator($config): ConfiguratorInterface
+    public function username($value)
     {
-        switch (true) {
-            case is_callable($config):
-                return new Configurator\CallbackConfigurator($config);
+        $this->username = $value;
 
-            case is_array($config):
-                return new Configurator\ArrayConfigurator($config);
+        return $this;
+    }
+
+    /**
+     * Set password of configured vault
+     *
+     * @param  string $value
+     * @return HttpAuth
+     */
+    public function password($value)
+    {
+        $this->password = $value;
+
+        return $this;
+    }
+
+    /**
+     * Set credentials for configured vault
+     *
+     * @param  string $username
+     * @param  string $password
+     * @return HttpAuth
+     */
+    public function credentials($username, $password)
+    {
+        return $this->username($username)->password($password);
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function getRealm()
+    {
+        return $this->realm;
+    }
+
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Configure instance with given config array
+     *
+     * @param  array $config
+     * @return HttpAuth
+     */
+    protected function configureByArray(array $config): HttpAuth
+    {
+        foreach ($config as $key => $value) {
+            if (property_exists($this, $key)) {
+                $this->{$key} = $value;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Configure by callback
+     *
+     * @param  callable $config
+     * @return HttpAuth
+     */
+    protected function configureByCallback($callback): HttpAuth
+    {
+        if (is_callable($callback)) {
+            $callback($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Return ready configured vault
+     *
+     * @return AbstractVault
+     */
+    protected function getVault(): AbstractVault
+    {
+        switch (strtolower($this->type)) {
+            case 'digest':
+                return new DigestVault($this->realm, $this->username, $this->password);
             
             default:
-                return new Configurator\ArrayConfigurator;
+                return new BasicVault($this->realm, $this->username, $this->password);
         }
     }
 }
