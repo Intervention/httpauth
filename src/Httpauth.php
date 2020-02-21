@@ -50,6 +50,20 @@ class HttpAuth
     }
 
     /**
+     * Magic method to catch calls
+     *
+     * @param  string $name
+     * @param  array  $arguments
+     * @return AbstractVault
+     */
+    public function __call($name, $arguments): AbstractVault
+    {
+        $argument = isset($arguments[0]) ? $arguments[0] : null;
+
+        return $this->make([$name => $argument]);
+    }
+
+    /**
      * Return configurator matching to given config type
      *
      * @param  mixed $config
