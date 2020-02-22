@@ -2,9 +2,6 @@
 
 namespace Intervention\HttpAuth;
 
-use Intervention\HttpAuth\Vault\BasicVault;
-use Intervention\HttpAuth\Vault\DigestVault;
-
 class HttpAuth
 {
    /**
@@ -244,12 +241,14 @@ class HttpAuth
      */
     protected function getVault(): AbstractVault
     {
-        switch (strtolower($this->type)) {
-            case 'digest':
-                return new DigestVault($this->realm, $this->username, $this->password);
-            
-            default:
-                return new BasicVault($this->realm, $this->username, $this->password);
+        $classname = sprintf('%s\Vault\%sVault', __NAMESPACE__, ucfirst(strtolower($this->type)));
+        
+        if (! class_exists($classname)) {
+            throw new Exception\NotSupportedException(
+                'Unable to create HTTP authentication vault of type "'.$this->type.'".'
+            );
         }
+
+        return new $classname($this->realm, $this->username, $this->password);
     }
 }

@@ -61,4 +61,10 @@ class HttpAuthTest extends TestCase
         $this->expectException(NotSupportedException::class);
         Auth::make(false);
     }
+
+    public function testMakeUnknownMethod()
+    {
+        $this->expectException(NotSupportedException::class);
+        Auth::make(['type' => 'foo'])->secure();
+    }
 }
