@@ -43,6 +43,11 @@ class HttpAuthServiceProvider extends ServiceProvider
         $this->app->singleton('httpauth', function ($app) {
             return HttpAuth::make($app['config']->get('httpauth'));
         });
+
+        // bind classname
+        $this->app->bind('Intervention\HttpAuth\HttpAuth', function ($app) {
+            return HttpAuth::make($app['config']->get('httpauth'));
+        });
     }
 
     /**
