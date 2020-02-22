@@ -24,7 +24,7 @@ return [
     | Name of secured resource. Clients must authentificate to each named realm.
     |
     */
-    'name' => 'Secured',
+    'realm' => 'Secured',
 
     /*
     |--------------------------------------------------------------------------
