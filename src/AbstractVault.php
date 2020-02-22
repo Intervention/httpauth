@@ -48,13 +48,43 @@ abstract class AbstractVault
      */
     abstract public function unlocksWithKey(Key $key): bool;
 
+    /**
+     * Create new instance
+     *
+     * @param mixed $realm
+     * @param mixed $username
+     * @param mixed $password
+     */
     public function __construct($realm, $username, $password)
     {
+        $this->checkParameterValidity([
+            'realm' => $realm,
+            'username' => $username,
+            'password' => $password,
+        ]);
+
         $this->environment = new Environment;
 
         $this->realm = $realm;
         $this->username = $username;
         $this->password = $password;
+    }
+
+    /**
+     * Throw exception if any of the given parameters are empty
+     *
+     * @param  array $parameters
+     * @return void
+     */
+    private function checkParameterValidity(array $parameters): void
+    {
+        foreach ($parameters as $key => $value) {
+            if (empty($value)) {
+                throw new Exception\InvalidParameterException(
+                    'Cannot create HTTP authentication vault. Parameter "'.$key.'" cannot be empty.'
+                );
+            }
+        }
     }
 
     /**

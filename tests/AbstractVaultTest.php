@@ -3,6 +3,7 @@
 namespace Intervention\HttpAuth\Test;
 
 use Intervention\HttpAuth\AbstractVault;
+use Intervention\HttpAuth\Exception\InvalidParameterException;
 use Intervention\HttpAuth\Key;
 use PHPUnit\Framework\TestCase;
 
@@ -18,6 +19,15 @@ class AbstractVaultTest extends TestCase
         $this->assertEquals('myUsername', $vault->getUsername());
         $this->assertEquals('myPassword', $vault->getPassword());
         $this->assertEquals('myRealm', $vault->getRealm());
+    }
+
+    public function testConstructorEmpty()
+    {
+        $this->expectException(InvalidParameterException::class);
+        $vault = $this->getMockForAbstractClass(
+            AbstractVault::class,
+            [null, null, null]
+        );
     }
 
     public function testGetKey()

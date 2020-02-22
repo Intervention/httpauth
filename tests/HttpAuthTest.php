@@ -2,6 +2,7 @@
 
 namespace Intervention\HttpAuth\Test;
 
+use Intervention\HttpAuth\Exception\NotSupportedException;
 use Intervention\HttpAuth\HttpAuth as Auth;
 use Intervention\HttpAuth\Vault\BasicVault;
 use Intervention\HttpAuth\Vault\DigestVault;
@@ -9,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class HttpAuthTest extends TestCase
 {
-    public function testMake()
+    public function testMakeWithoutConfig()
     {
         $auth = Auth::make();
         $this->assertInstanceOf(Auth::class, $auth);
@@ -47,5 +48,17 @@ class HttpAuthTest extends TestCase
         $this->assertEquals('foo', $auth->getRealm());
         $this->assertEquals('bar', $auth->getUsername());
         $this->assertEquals('baz', $auth->getPassword());
+    }
+
+    public function testMakeString()
+    {
+        $this->expectException(NotSupportedException::class);
+        Auth::make('foo');
+    }
+
+    public function testMakeBoolean()
+    {
+        $this->expectException(NotSupportedException::class);
+        Auth::make(false);
     }
 }

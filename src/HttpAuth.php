@@ -53,6 +53,15 @@ class HttpAuth
             case is_callable($config):
                 $auth->configureByCallback($config);
                 break;
+
+            case is_null($config):
+                // call without argument
+                break;
+
+            default:
+                throw new Exception\NotSupportedException(
+                    "Unable to create HTTP Auth from ".gettype($config)."."
+                );
         }
 
         return $auth;
@@ -156,21 +165,41 @@ class HttpAuth
         return $this->username($username)->password($password);
     }
 
+    /**
+     * Get type of current instance
+     *
+     * @return mixed
+     */
     public function getType()
     {
         return $this->type;
     }
 
+    /**
+     * Get realm of current instance
+     *
+     * @return mixed
+     */
     public function getRealm()
     {
         return $this->realm;
     }
 
+    /**
+     * Get username of current instance
+     *
+     * @return mixed
+     */
     public function getUsername()
     {
         return $this->username;
     }
 
+    /**
+     * Get password of current instance
+     *
+     * @return mixed
+     */
     public function getPassword()
     {
         return $this->password;
