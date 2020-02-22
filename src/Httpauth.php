@@ -2,7 +2,9 @@
 
 namespace Intervention\HttpAuth;
 
-class HttpAuth
+use Intervention\Singleton\Singleton;
+
+class HttpAuth extends Singleton
 {
    /**
      * Authentication type
@@ -31,59 +33,6 @@ class HttpAuth
      * @var string
      */
     protected $password = 'secret';
-
-    /**
-     * Class instance
-     *
-     * @var null
-     */
-    private static $instance = null;
-
-    /**
-     * Create class instance
-     *
-     * @return HttpAuth
-     */
-    private static function getInstance(): HttpAuth
-    {
-        if (is_null(self::$instance)) {
-            self::$instance = new self;
-        }
-
-        return self::$instance;
-    }
-
-    /**
-     * Create HTTP auth instance and configure via given array or callback
-     *
-     * @param  mixed $config
-     * @return HttpAuth
-     */
-    public static function make($config = null): HttpAuth
-    {
-        $auth = self::getInstance();
-
-        switch (true) {
-            case is_array($config):
-                $auth->configureByArray($config);
-                break;
-            
-            case is_callable($config):
-                $auth->configureByCallback($config);
-                break;
-
-            case is_null($config):
-                // call without argument, nothing to configure
-                break;
-
-            default:
-                throw new Exception\NotSupportedException(
-                    "Unable to create HTTP Auth from ".gettype($config)."."
-                );
-        }
-
-        return $auth;
-    }
 
     /**
      * Create vault by current parameters and secure it
@@ -221,38 +170,6 @@ class HttpAuth
     public function getPassword()
     {
         return $this->password;
-    }
-
-    /**
-     * Configure instance with given config array
-     *
-     * @param  array $config
-     * @return HttpAuth
-     */
-    protected function configureByArray(array $config): HttpAuth
-    {
-        foreach ($config as $key => $value) {
-            if (property_exists($this, $key)) {
-                $this->{$key} = $value;
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Configure by callback
-     *
-     * @param  callable $callback
-     * @return HttpAuth
-     */
-    protected function configureByCallback($callback): HttpAuth
-    {
-        if (is_callable($callback)) {
-            $callback($this);
-        }
-
-        return $this;
     }
 
     /**
