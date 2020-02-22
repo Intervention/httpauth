@@ -228,8 +228,9 @@ abstract class AbstractVault
      */
     protected function denyAccess(): void
     {
-        header($_SERVER['SERVER_PROTOCOL'] . ' Unauthorized');
+        $protocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.1';
+        header($protocol . ' Unauthorized');
         header('WWW-Authenticate: ' . (string) $this->getDirective());
-        exit('<strong>'.$_SERVER['SERVER_PROTOCOL'].' 401 Unauthorized</strong>');
+        exit('<strong>'.$protocol.' 401 Unauthorized</strong>');
     }
 }
