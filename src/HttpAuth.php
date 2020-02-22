@@ -33,6 +33,27 @@ class HttpAuth
     protected $password = 'secret';
 
     /**
+     * Class instance
+     *
+     * @var null
+     */
+    private static $instance = null;
+
+    /**
+     * Create class instance
+     *
+     * @return HttpAuth
+     */
+    private static function getInstance(): HttpAuth
+    {
+        if (is_null(self::$instance)) {
+            self::$instance = new self;
+        }
+
+        return self::$instance;
+    }
+
+    /**
      * Create HTTP auth instance and configure via given array or callback
      *
      * @param  mixed $config
@@ -40,7 +61,7 @@ class HttpAuth
      */
     public static function make($config = null): HttpAuth
     {
-        $auth = new self;
+        $auth = self::getInstance();
 
         switch (true) {
             case is_array($config):
@@ -52,7 +73,7 @@ class HttpAuth
                 break;
 
             case is_null($config):
-                // call without argument
+                // call without argument, nothing to configure
                 break;
 
             default:
@@ -65,7 +86,7 @@ class HttpAuth
     }
 
     /**
-     * Create vault by parameters and secure it
+     * Create vault by current parameters and secure it
      *
      * @return void
      */

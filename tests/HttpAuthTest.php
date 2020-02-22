@@ -50,6 +50,15 @@ class HttpAuthTest extends TestCase
         $this->assertEquals('baz', $auth->getPassword());
     }
 
+    public function testMakeCalledTwice()
+    {
+        $auth = Auth::make(['username' => 'foo']);
+        $this->assertEquals('foo', $auth->getUsername());
+
+        $auth = $auth->make();
+        $this->assertEquals('foo', $auth->getUsername());
+    }
+
     public function testMakeString()
     {
         $this->expectException(NotSupportedException::class);
