@@ -16,7 +16,7 @@ Require the package via Composer:
 
 ### Laravel integration (optional)
 
-The HttpAuth library is built to work with the Laravel Framework (>=5.5). It comes with a service provider and facades, which will be discovered automatically.
+The HttpAuth library is built to work with the Laravel Framework (>=5.5). It comes with a service provider and facades, which will be discovered automatically after installation.
 
 ## Usage
 
