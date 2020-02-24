@@ -36,30 +36,22 @@ $auth = HttpAuth::make([
 ]);
 ```
 
-### Static instantiation by callback
-
-```php
-use Intervention\HttpAuth\HttpAuth;
-
-// create auth by callback
-$auth = HttpAuth::make(function ($config) {
-    $config->type('basic');
-    $config->realm('Secure Resource');
-    $config->username('admin');
-    $config->password('secret');
-});
-```
-
 ### Instantiation by calls
 
 ```php
 use Intervention\HttpAuth\HttpAuth;
 
 // create digest auth
-$auth = HttpAuth::make()->digest()->realm('Secure')->credentials('admin', 'secret');
+$auth = HttpAuth::make();
+$auth->digest();
+$auth->realm('Secure');
+$auth->username('admin');
+$auth->password('secret');
 ```
 
-After your created a HTTP authentication instance, you have to call `secure()` to ask the user for credentials.
+### Ask user for credentials
+
+After you created a HTTP authentication instance, you have to call `secure()` to ask for credentials.
 
 ```php
 $auth->secure();

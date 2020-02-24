@@ -10,6 +10,30 @@ use PHPUnit\Framework\TestCase;
 
 class HttpAuthTest extends TestCase
 {
+    public function testMake()
+    {
+        $auth = Auth::make([
+            'type' => 'digest',
+            'realm' => 'foo',
+            'username' => 'bar',
+            'password' => 'baz',
+        ]);
+
+        $this->assertInstanceOf(Auth::class, $auth);
+        $this->assertEquals('digest', $auth->getType());
+        $this->assertEquals('foo', $auth->getRealm());
+        $this->assertEquals('bar', $auth->getUsername());
+        $this->assertEquals('baz', $auth->getPassword());
+
+        // second make should overwrite just one parameter
+        $auth = $auth->make(['username' => 'admin']);
+
+        $this->assertEquals('digest', $auth->getType());
+        $this->assertEquals('foo', $auth->getRealm());
+        $this->assertEquals('admin', $auth->getUsername());
+        $this->assertEquals('baz', $auth->getPassword());
+    }
+
     public function testBasic()
     {
         $auth = Auth::make()->basic();

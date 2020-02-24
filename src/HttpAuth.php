@@ -2,37 +2,63 @@
 
 namespace Intervention\HttpAuth;
 
-use Intervention\Singleton\Singleton;
-
-class HttpAuth extends Singleton
+class HttpAuth
 {
    /**
      * Authentication type
      *
      * @var string
      */
-    protected $type = 'basic';
+    protected static $type = 'basic';
 
     /**
      * Name of authentication realm
      *
      * @var string
      */
-    protected $realm = 'Secured Resource';
+    protected static $realm = 'Secured Resource';
 
     /**
      * Username
      *
      * @var string
      */
-    protected $username = 'admin';
+    protected static $username = 'admin';
 
     /**
      * Password
      *
      * @var string
      */
-    protected $password = 'secret';
+    protected static $password = 'secret';
+
+    /**
+     * Static factory method
+     *
+     * @param  array  $config
+     * @return HttpAuth
+     */
+    public static function make(array $config = []): HttpAuth
+    {
+        return (new static)->configure($config);
+    }
+
+    /**
+     * Configure current instance by array
+     *
+     * @param  array  $config
+     * @return HttpAuth
+     */
+    private function configure(array $config = []): HttpAuth
+    {
+        foreach ($config as $key => $value) {
+            if (property_exists($this, $key)) {
+                static::${$key} = $value;
+            }
+        }
+
+        return $this;
+    }
 
     /**
      * Create vault by current parameters and secure it
@@ -51,7 +77,7 @@ class HttpAuth extends Singleton
      */
     public function basic(): HttpAuth
     {
-        $this->type = 'basic';
+        static::$type = 'basic';
 
         return $this;
     }
@@ -63,7 +89,7 @@ class HttpAuth extends Singleton
      */
     public function digest(): HttpAuth
     {
-        $this->type = 'digest';
+        static::$type = 'digest';
 
         return $this;
     }
@@ -74,9 +100,9 @@ class HttpAuth extends Singleton
      * @param  string $value
      * @return HttpAuth
      */
-    public function type($value)
+    public function type($value): HttpAuth
     {
-        $this->type = $value;
+        static::$type = $value;
 
         return $this;
     }
@@ -87,9 +113,9 @@ class HttpAuth extends Singleton
      * @param  string $value
      * @return HttpAuth
      */
-    public function realm($value)
+    public function realm($value): HttpAuth
     {
-        $this->realm = $value;
+        static::$realm = $value;
 
         return $this;
     }
@@ -100,9 +126,9 @@ class HttpAuth extends Singleton
      * @param  string $value
      * @return HttpAuth
      */
-    public function username($value)
+    public function username($value): HttpAuth
     {
-        $this->username = $value;
+        static::$username = $value;
 
         return $this;
     }
@@ -113,9 +139,9 @@ class HttpAuth extends Singleton
      * @param  string $value
      * @return HttpAuth
      */
-    public function password($value)
+    public function password($value): HttpAuth
     {
-        $this->password = $value;
+        static::$password = $value;
 
         return $this;
     }
@@ -127,7 +153,7 @@ class HttpAuth extends Singleton
      * @param  string $password
      * @return HttpAuth
      */
-    public function credentials($username, $password)
+    public function credentials($username, $password): HttpAuth
     {
         return $this->username($username)->password($password);
     }
@@ -139,7 +165,7 @@ class HttpAuth extends Singleton
      */
     public function getType()
     {
-        return $this->type;
+        return static::$type;
     }
 
     /**
@@ -149,7 +175,7 @@ class HttpAuth extends Singleton
      */
     public function getRealm()
     {
-        return $this->realm;
+        return static::$realm;
     }
 
     /**
@@ -159,7 +185,7 @@ class HttpAuth extends Singleton
      */
     public function getUsername()
     {
-        return $this->username;
+        return static::$username;
     }
 
     /**
@@ -169,7 +195,7 @@ class HttpAuth extends Singleton
      */
     public function getPassword()
     {
-        return $this->password;
+        return static::$password;
     }
 
     /**
@@ -179,14 +205,14 @@ class HttpAuth extends Singleton
      */
     protected function getVault(): AbstractVault
     {
-        $classname = sprintf('%s\Vault\%sVault', __NAMESPACE__, ucfirst(strtolower($this->type)));
+        $classname = sprintf('%s\Vault\%sVault', __NAMESPACE__, ucfirst(strtolower(static::$type)));
         
         if (! class_exists($classname)) {
             throw new Exception\NotSupportedException(
-                'Unable to create HTTP authentication vault of type "'.$this->type.'".'
+                'Unable to create HTTP authentication vault of type "'.static::$type.'".'
             );
         }
 
-        return new $classname($this->realm, $this->username, $this->password);
+        return new $classname(static::$realm, static::$username, static::$password);
     }
 }
