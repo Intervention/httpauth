@@ -40,7 +40,7 @@ class HttpAuth
      */
     public static function make(array $config = []): HttpAuth
     {
-        return (new static)->configure($config);
+        return (new self)->configure($config);
     }
 
     /**
@@ -52,7 +52,7 @@ class HttpAuth
     private function configure(array $config = []): HttpAuth
     {
         foreach ($config as $key => $value) {
-            if (property_exists($this, $key)) {
+            if (isset(static::${$key})) {
                 static::${$key} = $value;
             }
         }
