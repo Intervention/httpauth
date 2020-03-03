@@ -14,5 +14,5 @@ install:
   - composer install
 
 script:
-  - vendor/bin/phpunit analyze -l 4 src/
+  - vendor/bin/phpstan analyze -l 4 src/
   - vendor/bin/phpunit
