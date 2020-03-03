@@ -15,4 +15,4 @@ install:
 
 script:
   - vendor/bin/phpunit
-  - composer require --dev illuminate/support && vendor/bin/phpstan analyze --no-progress --level=5 src/
+  - composer require --dev illuminate/support && vendor/bin/phpstan analyze --no-progress --autoload-file=test/phpstan/bootstrap.php --level=5 src/
