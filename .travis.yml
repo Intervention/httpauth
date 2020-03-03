@@ -14,5 +14,5 @@ install:
   - composer install
 
 script:
-  - vendor/bin/phpstan analyze -l 4 src/
   - vendor/bin/phpunit
+  - composer require --dev illuminate/support && vendor/bin/phpstan analyze --no-progress --level=5 src/
