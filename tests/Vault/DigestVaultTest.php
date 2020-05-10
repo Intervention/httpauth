@@ -24,7 +24,7 @@ class DigestVaultTest extends TestCase
     public function testUnlocksWithKey()
     {
         $vault = new Vault('myRealm', 'myUsername', 'myPassword');
-        $key = new Key;
+        $key = new Key();
         
         $key->setProperty('username', 'myUsername');
         $key->setProperty('response', 'xx');

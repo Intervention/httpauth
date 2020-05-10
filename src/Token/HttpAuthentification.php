@@ -22,7 +22,7 @@ class HttpAuthentification extends NullToken
     {
         list($username, $password) = explode(':', base64_decode(substr($this->value, 6)));
 
-        $key = new Key;
+        $key = new Key();
         $key->setProperty('username', $username);
         $key->setProperty('password', $password);
 

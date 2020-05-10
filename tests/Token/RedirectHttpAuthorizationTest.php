@@ -12,7 +12,7 @@ class RedirectHttpAuthorizationTest extends AbstractTokenTestCase
     public function testParseFail()
     {
         $this->expectException(AuthentificationException::class);
-        $auth = new RedirectHttpAuthorization;
+        $auth = new RedirectHttpAuthorization();
     }
 
     public function testParse()
@@ -38,6 +38,6 @@ class RedirectHttpAuthorizationTest extends AbstractTokenTestCase
             ])),
         ]);
 
-        return new RedirectHttpAuthorization;
+        return new RedirectHttpAuthorization();
     }
 }

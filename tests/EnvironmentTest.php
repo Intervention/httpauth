@@ -11,7 +11,7 @@ class EnvironmentTest extends TestCase
 {
     public function testGetAuth()
     {
-        $environment = new Environment;
+        $environment = new Environment();
         $auth = $environment->getToken();
         $this->assertInstanceOf(TokenInterface::class, $auth);
     }

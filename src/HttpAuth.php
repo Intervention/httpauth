@@ -40,7 +40,7 @@ class HttpAuth
      */
     public static function make(array $config = []): HttpAuth
     {
-        return (new self)->configure($config);
+        return (new self())->configure($config);
     }
 
     /**
@@ -209,7 +209,7 @@ class HttpAuth
         
         if (! class_exists($classname)) {
             throw new Exception\NotSupportedException(
-                'Unable to create HTTP authentication vault of type "'.static::$type.'".'
+                'Unable to create HTTP authentication vault of type "' . static::$type . '".'
             );
         }
 

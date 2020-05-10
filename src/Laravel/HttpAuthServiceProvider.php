@@ -22,7 +22,7 @@ class HttpAuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/config.php' => config_path('httpauth.php')
+            __DIR__ . '/../config/config.php' => config_path('httpauth.php')
         ]);
     }
 
@@ -35,7 +35,7 @@ class HttpAuthServiceProvider extends ServiceProvider
     {
         // merge default config
         $this->mergeConfigFrom(
-            __DIR__.'/../config/config.php',
+            __DIR__ . '/../config/config.php',
             'httpauth'
         );
 

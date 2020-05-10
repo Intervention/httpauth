@@ -9,7 +9,7 @@ class KeyTest extends TestCase
 {
     public function testSetGet()
     {
-        $key = new Key;
+        $key = new Key();
         $this->assertNull($key->getRealm());
         $this->assertNull($key->getUsername());
         $this->assertNull($key->getPassword());

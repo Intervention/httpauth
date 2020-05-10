@@ -12,7 +12,7 @@ class PhpAuthUserTest extends AbstractTokenTestCase
     public function testParseFail()
     {
         $this->expectException(AuthentificationException::class);
-        $auth = new PhpAuthUser;
+        $auth = new PhpAuthUser();
     }
 
     public function testParse()
@@ -36,6 +36,6 @@ class PhpAuthUserTest extends AbstractTokenTestCase
             'PHP_AUTH_PW' => 'test_password',
         ]);
 
-        return new PhpAuthUser;
+        return new PhpAuthUser();
     }
 }

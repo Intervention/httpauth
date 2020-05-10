@@ -63,7 +63,7 @@ abstract class AbstractVault
             'password' => $password,
         ]);
 
-        $this->environment = new Environment;
+        $this->environment = new Environment();
 
         $this->realm = $realm;
         $this->username = $username;
@@ -81,7 +81,7 @@ abstract class AbstractVault
         foreach ($parameters as $key => $value) {
             if (empty($value)) {
                 throw new Exception\InvalidParameterException(
-                    'Cannot create HTTP authentication vault. Parameter "'.$key.'" cannot be empty.'
+                    'Cannot create HTTP authentication vault. Parameter "' . $key . '" cannot be empty.'
                 );
             }
         }
@@ -231,6 +231,6 @@ abstract class AbstractVault
         $protocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.1';
         header($protocol . ' Unauthorized');
         header('WWW-Authenticate: ' . (string) $this->getDirective());
-        exit('<strong>'.$protocol.' 401 Unauthorized</strong>');
+        exit('<strong>' . $protocol . ' 401 Unauthorized</strong>');
     }
 }

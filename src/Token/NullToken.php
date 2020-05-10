@@ -25,7 +25,7 @@ class NullToken implements TokenInterface
      */
     public function toKey(): Key
     {
-        return new Key;
+        return new Key();
     }
 
     /**

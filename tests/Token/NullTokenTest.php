@@ -10,13 +10,13 @@ class NullTokenTest extends AbstractTokenTestCase
 {
     public function testParse()
     {
-        $auth = new NullToken;
+        $auth = new NullToken();
         $this->assertInstanceOf(NullToken::class, $auth);
     }
 
     public function testToKey()
     {
-        $auth = new NullToken;
+        $auth = new NullToken();
         $this->assertInstanceOf(Key::class, $auth->toKey());
     }
 }

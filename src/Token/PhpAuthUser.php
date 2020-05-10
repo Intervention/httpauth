@@ -27,7 +27,7 @@ class PhpAuthUser extends NullToken
      */
     public function toKey(): Key
     {
-        $key = new Key;
+        $key = new Key();
         $key->setProperty('username', $this->username);
         $key->setProperty('password', $this->password);
 

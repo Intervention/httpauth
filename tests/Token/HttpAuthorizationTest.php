@@ -12,7 +12,7 @@ class HttpAuthorizationTest extends AbstractTokenTestCase
     public function testParseFail()
     {
         $this->expectException(AuthentificationException::class);
-        $auth = new HttpAuthorization;
+        $auth = new HttpAuthorization();
     }
 
     public function testParse()
@@ -37,6 +37,6 @@ class HttpAuthorizationTest extends AbstractTokenTestCase
             'HTTP_AUTHORIZATION' => 'Digest realm="test",qop="auth",nonce="xxxxxxxxxxxxx",opaque="yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"'
         ]);
 
-        return new HttpAuthorization;
+        return new HttpAuthorization();
     }
 }

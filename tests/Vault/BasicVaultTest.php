@@ -21,7 +21,7 @@ class BasicVaultTest extends TestCase
 
     public function testUnlocksWithKey()
     {
-        $key = new Key;
+        $key = new Key();
         $key->setProperty('username', 'myUsername');
         $key->setProperty('password', 'foo');
         $vault = new BasicVault('myRealm', 'myUsername', 'myPassword');

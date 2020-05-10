@@ -12,7 +12,7 @@ class HttpAuthentificationTest extends AbstractTokenTestCase
     public function testParseFail()
     {
         $this->expectException(AuthentificationException::class);
-        $auth = new HttpAuthentification;
+        $auth = new HttpAuthentification();
     }
 
     public function testParse()
@@ -38,6 +38,6 @@ class HttpAuthentificationTest extends AbstractTokenTestCase
             ])),
         ]);
 
-        return new HttpAuthentification;
+        return new HttpAuthentification();
     }
 }

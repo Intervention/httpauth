@@ -32,7 +32,7 @@ class Environment
             }
         }
 
-        return new Token\NullToken;
+        return new Token\NullToken();
     }
 
     /**
@@ -45,7 +45,7 @@ class Environment
     private function getActiveTokenOrNull($classname)
     {
         try {
-            $auth = new $classname;
+            $auth = new $classname();
         } catch (Exception $e) {
             $auth = null;
         }

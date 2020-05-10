@@ -20,7 +20,7 @@ class PhpAuthDigest extends NullToken
      */
     public function toKey(): Key
     {
-        $authKey = new Key;
+        $authKey = new Key();
         preg_match_all('@(\w+)=(?:(?:")([^"]+)"|([^\s,$]+))@', $this->value, $matches, PREG_SET_ORDER);
         foreach ($matches as $m) {
             $key = $m[1];
