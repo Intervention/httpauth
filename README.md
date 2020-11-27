@@ -3,7 +3,7 @@
 Library to manage HTTP authentication with PHP. Includes ServiceProviders for easy Laravel integration.
 
 [![Latest Version](https://img.shields.io/packagist/v/intervention/httpauth.svg)](https://packagist.org/packages/intervention/httpauth)
-[![Build Status](https://travis-ci.org/Intervention/httpauth.png?branch=master)](https://travis-ci.org/Intervention/httpauth)
+![build](https://github.com/Intervention/httpauth/workflows/build/badge.svg)
 [![Monthly Downloads](https://img.shields.io/packagist/dm/intervention/httpauth.svg)](https://packagist.org/packages/intervention/httpauth/stats)
 
 ## Installation
