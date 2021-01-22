@@ -13,7 +13,7 @@ class Environment
      */
     protected $tokenClassnames = [
         Token\PhpAuthUser::class,
-        Token\HttpAuthorization::class,
+        Token\HttpAuthentification::class,
         Token\RedirectHttpAuthorization::class,
         Token\PhpAuthDigest::class,
         Token\HttpAuthorization::class,
