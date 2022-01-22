@@ -1,4 +1,4 @@
-
+{
     "name": "intervention/httpauth",
     "description": "HTTP authentication (Basic & Digest) including ServiceProviders for easy Laravel integration",
     "homepage": "https://github.com/Intervention/httpauth",
