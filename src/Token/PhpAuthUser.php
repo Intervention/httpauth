@@ -47,7 +47,7 @@ class PhpAuthUser extends NullToken
 
             return true;
         }
-        
+
         return false;
     }
 }

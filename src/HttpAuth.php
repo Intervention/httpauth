@@ -206,7 +206,7 @@ class HttpAuth
     protected function getVault(): AbstractVault
     {
         $classname = sprintf('%s\Vault\%sVault', __NAMESPACE__, ucfirst(strtolower(static::$type)));
-        
+
         if (! class_exists($classname)) {
             throw new Exception\NotSupportedException(
                 'Unable to create HTTP authentication vault of type "' . static::$type . '".'

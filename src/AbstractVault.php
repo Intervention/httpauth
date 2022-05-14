@@ -2,8 +2,6 @@
 
 namespace Intervention\HttpAuth;
 
-use Intervention\HttpAuth\Configurator\ArrayConfigurator;
-
 abstract class AbstractVault
 {
     /**
