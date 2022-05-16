@@ -5,27 +5,16 @@ namespace Intervention\HttpAuth;
 class Directive
 {
     /**
-     * Type of directive (basic|digest)
-     *
-     * @var string
-     */
-    protected $type;
-
-    /**
-     * Array of parameters
-     *
-     * @var array
-     */
-    protected $parameters = [];
-
-    /**
      * Create new instance
      *
      * @param string $type
-     * @param array  $parameters
+     * @param array $parameters
+     * @return void
      */
-    public function __construct($type, $parameters = [])
-    {
+    public function __construct(
+        protected string $type,
+        protected array $parameters = []
+    ) {
         $this->type = $type;
         $this->parameters = $parameters;
     }
@@ -49,7 +38,7 @@ class Directive
      *
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }

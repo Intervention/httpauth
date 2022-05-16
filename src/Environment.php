@@ -42,7 +42,7 @@ class Environment
      * @param  string $classname
      * @return TokenInterface|null
      */
-    private function getActiveTokenOrNull($classname)
+    private function getActiveTokenOrNull($classname): ?TokenInterface
     {
         try {
             $auth = new $classname();
