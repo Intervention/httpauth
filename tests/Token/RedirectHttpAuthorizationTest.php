@@ -5,14 +5,13 @@ namespace Intervention\HttpAuth\Test\Token;
 use Intervention\HttpAuth\Exception\AuthentificationException;
 use Intervention\HttpAuth\Key;
 use Intervention\HttpAuth\Token\RedirectHttpAuthorization;
-use PHPUnit\Framework\TestCase;
 
 class RedirectHttpAuthorizationTest extends AbstractTokenTestCase
 {
     public function testParseFail()
     {
         $this->expectException(AuthentificationException::class);
-        $auth = new RedirectHttpAuthorization();
+        new RedirectHttpAuthorization();
     }
 
     public function testParse()

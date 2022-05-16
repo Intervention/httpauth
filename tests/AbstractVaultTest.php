@@ -24,7 +24,7 @@ class AbstractVaultTest extends TestCase
     public function testConstructorEmpty()
     {
         $this->expectException(InvalidParameterException::class);
-        $vault = $this->getMockForAbstractClass(
+        $this->getMockForAbstractClass(
             AbstractVault::class,
             [null, null, null]
         );

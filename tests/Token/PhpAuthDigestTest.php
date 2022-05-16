@@ -5,14 +5,13 @@ namespace Intervention\HttpAuth\Test\Token;
 use Intervention\HttpAuth\Exception\AuthentificationException;
 use Intervention\HttpAuth\Key;
 use Intervention\HttpAuth\Token\PhpAuthDigest;
-use PHPUnit\Framework\TestCase;
 
 class PhpAuthDigestTest extends AbstractTokenTestCase
 {
     public function testParseFail()
     {
         $this->expectException(AuthentificationException::class);
-        $auth = new PhpAuthDigest();
+        new PhpAuthDigest();
     }
 
     public function testParse()
@@ -34,7 +33,6 @@ class PhpAuthDigestTest extends AbstractTokenTestCase
     private function getTestToken()
     {
         $auth_digest = 'realm="test",qop="auth",nonce="xxxxxxxxxxxxx",opaque="yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"';
-        
         $this->setServerVars([
             'PHP_AUTH_DIGEST' => $auth_digest
         ]);

@@ -3,7 +3,6 @@
 namespace Intervention\HttpAuth\Test;
 
 use Intervention\HttpAuth\TokenInterface;
-use Intervention\HttpAuth\Token\NullAuth;
 use Intervention\HttpAuth\Environment;
 use PHPUnit\Framework\TestCase;
 

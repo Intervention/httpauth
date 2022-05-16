@@ -25,7 +25,7 @@ class DigestVaultTest extends TestCase
     {
         $vault = new Vault('myRealm', 'myUsername', 'myPassword');
         $key = new Key();
-        
+
         $key->setProperty('username', 'myUsername');
         $key->setProperty('response', 'xx');
         $key->setProperty('nonce', 'myNonce');

@@ -2,10 +2,7 @@
 
 namespace Intervention\HttpAuth\Test;
 
-use Intervention\HttpAuth\Exception\NotSupportedException;
 use Intervention\HttpAuth\HttpAuth as Auth;
-use Intervention\HttpAuth\Vault\BasicVault;
-use Intervention\HttpAuth\Vault\DigestVault;
 use PHPUnit\Framework\TestCase;
 
 class HttpAuthTest extends TestCase

@@ -5,14 +5,13 @@ namespace Intervention\HttpAuth\Test\Token;
 use Intervention\HttpAuth\Exception\AuthentificationException;
 use Intervention\HttpAuth\Key;
 use Intervention\HttpAuth\Token\HttpAuthorization;
-use PHPUnit\Framework\TestCase;
 
 class HttpAuthorizationTest extends AbstractTokenTestCase
 {
     public function testParseFail()
     {
         $this->expectException(AuthentificationException::class);
-        $auth = new HttpAuthorization();
+        new HttpAuthorization();
     }
 
     public function testParse()
@@ -33,8 +32,9 @@ class HttpAuthorizationTest extends AbstractTokenTestCase
 
     private function getTestToken()
     {
+        $auth = 'Digest realm="test",qop="auth",nonce="xxxxxxxxxxxxx",opaque="yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"';
         $this->setServerVars([
-            'HTTP_AUTHORIZATION' => 'Digest realm="test",qop="auth",nonce="xxxxxxxxxxxxx",opaque="yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"'
+            'HTTP_AUTHORIZATION' => $auth
         ]);
 
         return new HttpAuthorization();

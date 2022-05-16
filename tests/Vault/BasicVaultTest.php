@@ -3,7 +3,6 @@
 namespace Intervention\HttpAuth\Test\Vault;
 
 use Intervention\HttpAuth\Vault\BasicVault;
-use Intervention\HttpAuth\Vault\DigestVault;
 use Intervention\HttpAuth\Directive;
 use Intervention\HttpAuth\Key;
 use PHPUnit\Framework\TestCase;
