@@ -61,9 +61,9 @@ class HttpAuth
      *
      * @return void
      */
-    public function secure(): void
+    public function secure(?string $message = null): void
     {
-        $this->getVault()->secure();
+        $this->getVault()->secure($message);
     }
 
     /**

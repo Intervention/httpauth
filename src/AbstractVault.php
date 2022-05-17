@@ -51,10 +51,10 @@ abstract class AbstractVault
      *
      * @return void
      */
-    public function secure(): void
+    public function secure(?string $message = null): void
     {
         if (!$this->unlocksWithKey($this->environment()->getKey())) {
-            $this->denyAccess();
+            $this->denyAccess($message);
         }
     }
 
@@ -143,11 +143,13 @@ abstract class AbstractVault
      *
      * @return void
      */
-    protected function denyAccess(): void
+    protected function denyAccess(?string $message = null): void
     {
         $protocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.1';
+        $message = empty($message) ? '<strong>' . $protocol . ' 401 Unauthorized</strong>' : $message;
+
         header($protocol . ' Unauthorized');
         header('WWW-Authenticate: ' . (string) $this->getDirective());
-        exit('<strong>' . $protocol . ' 401 Unauthorized</strong>');
+        exit($message);
     }
 }
