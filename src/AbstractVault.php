@@ -5,13 +5,6 @@ namespace Intervention\HttpAuth;
 abstract class AbstractVault
 {
     /**
-     * Environment
-     *
-     * @var Environment
-     */
-    protected $environment;
-
-    /**
      * Build directive for current vault
      *
      * @return Directive
@@ -38,7 +31,6 @@ abstract class AbstractVault
         protected string $username,
         protected string $password
     ) {
-        $this->environment = new Environment();
         $this->realm = $realm;
         $this->username = $username;
         $this->password = $password;
@@ -51,7 +43,7 @@ abstract class AbstractVault
      */
     public function getKey(): Key
     {
-        return $this->environment->getToken()->toKey();
+        return (new Environment())->getToken()->toKey();
     }
 
     /**
