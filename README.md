@@ -1,6 +1,6 @@
 # Intervention HttpAuth
 
-Library to manage HTTP authentication with PHP. Includes ServiceProviders for easy Laravel integration.
+Library to manage HTTP authentication with PHP.
 
 [![Latest Version](https://img.shields.io/packagist/v/intervention/httpauth.svg)](https://packagist.org/packages/intervention/httpauth)
 ![build](https://github.com/Intervention/httpauth/workflows/build/badge.svg)
@@ -13,10 +13,6 @@ You can install this package quick and easy with Composer.
 Require the package via Composer:
 
     $ composer require intervention/httpauth
-
-### Laravel integration (optional)
-
-The HttpAuth library is built to work with the Laravel Framework (>=5.5). It comes with a service provider and facades, which will be discovered automatically after installation.
 
 ## Usage
 
