@@ -13,6 +13,29 @@ class HttpAuth
         //
     }
 
+    public static function make(array $config = []): self
+    {
+        $auth = new self();
+
+        if (array_key_exists('type', $config)) {
+            $auth->withType($config['type']);
+        }
+
+        if (array_key_exists('realm', $config)) {
+            $auth->withRealm($config['realm']);
+        }
+
+        if (array_key_exists('username', $config)) {
+            $auth->withUsername($config['username']);
+        }
+
+        if (array_key_exists('password', $config)) {
+            $auth->withPassword($config['password']);
+        }
+
+        return $auth;
+    }
+
     /**
      * Create HTTP basic auth instance
      *

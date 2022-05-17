@@ -7,6 +7,22 @@ use PHPUnit\Framework\TestCase;
 
 class HttpAuthTest extends TestCase
 {
+    public function testMake(): void
+    {
+        $auth = Auth::make([
+            'type' => 'digest',
+            'realm' => 'testRealm',
+            'username' => 'testUser',
+            'password' => 'testPass',
+        ]);
+
+        $this->assertInstanceOf(Auth::class, $auth);
+        $this->assertEquals('digest', $auth->getType());
+        $this->assertEquals('testRealm', $auth->getRealm());
+        $this->assertEquals('testUser', $auth->getUsername());
+        $this->assertEquals('testPass', $auth->getPassword());
+    }
+
     public function testBasic()
     {
         $auth = Auth::basic('test');
