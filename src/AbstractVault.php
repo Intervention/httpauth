@@ -41,7 +41,7 @@ abstract class AbstractVault
      *
      * @return Key
      */
-    public function getKey(): Key
+    private function getKey(): Key
     {
         return (new Environment())->getToken()->toKey();
     }
