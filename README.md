@@ -16,9 +16,23 @@ Require the package via Composer:
 
 ## Usage
 
+The workflow is easy. Just create an authentication instance in the first step and secure your resource with a second step.
+
+### Create authentication instance
+
 To create HTTP authentication instances you can choose between different methods.
 
-### Static instantiation by array
+#### Create instance by using static factory method
+
+```php
+use Intervention\HttpAuth\HttpAuth;
+
+$auth = HttpAuth::basic('Secured Realm');
+$auth->withUsername('admin');
+$auth->withPassword('secret');
+```
+
+#### Create instance by using static universal factory method
 
 ```php
 use Intervention\HttpAuth\HttpAuth;
@@ -32,22 +46,28 @@ $auth = HttpAuth::make([
 ]);
 ```
 
-### Instantiation by calls
+#### Create instance by using class constructor
 
 ```php
 use Intervention\HttpAuth\HttpAuth;
 
-// create digest auth
-$auth = HttpAuth::make();
-$auth->digest();
-$auth->realm('Secure');
-$auth->username('admin');
-$auth->password('secret');
+$auth = new HttpAuth(
+   'basic',
+   'Secure Resource',
+   'admin',
+   'secret'
+);
+
+// alternatively use methods to set properties
+$auth = new HttpAuth();
+$auth->withType('digest');
+$auth->withRealm('Secure');
+$auth->withCredentials('admin', 'secret');
 ```
 
 ### Ask user for credentials
 
-After you created a HTTP authentication instance, you have to call `secure()` to ask for credentials.
+After you created a HTTP authentication instance, you have to call `secure()` to secure the resource. This results in a 401 HTTP response and the browser asking for credentials.
 
 ```php
 $auth->secure();
