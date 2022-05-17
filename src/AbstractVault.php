@@ -22,9 +22,9 @@ abstract class AbstractVault
     /**
      * Create new instance
      *
-     * @param mixed $realm
-     * @param mixed $username
-     * @param mixed $password
+     * @param string $realm
+     * @param string $username
+     * @param string $password
      */
     public function __construct(
         protected string $realm,

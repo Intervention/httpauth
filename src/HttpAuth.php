@@ -82,7 +82,7 @@ class HttpAuth
     /**
      * Set realm name of configured vault
      *
-     * @param  string $password
+     * @param  string $realm
      * @return HttpAuth
      */
     public function withRealm(string $realm): self
@@ -95,7 +95,7 @@ class HttpAuth
     /**
      * Set username of configured vault
      *
-     * @param  string $password
+     * @param  string $username
      * @return HttpAuth
      */
     public function withUsername(string $username): self
@@ -133,7 +133,7 @@ class HttpAuth
     /**
      * Get type of current instance
      *
-     * @return mixed
+     * @return string
      */
     public function getType(): string
     {
@@ -143,7 +143,7 @@ class HttpAuth
     /**
      * Get realm of current instance
      *
-     * @return mixed
+     * @return string
      */
     public function getRealm(): string
     {
@@ -153,7 +153,7 @@ class HttpAuth
     /**
      * Get username of current instance
      *
-     * @return mixed
+     * @return string
      */
     public function getUsername(): string
     {
@@ -163,7 +163,7 @@ class HttpAuth
     /**
      * Get password of current instance
      *
-     * @return mixed
+     * @return string
      */
     public function getPassword(): string
     {
