@@ -148,7 +148,7 @@ abstract class AbstractVault
         $protocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.1';
         $message = empty($message) ? '<strong>' . $protocol . ' 401 Unauthorized</strong>' : $message;
 
-        header($protocol . ' Unauthorized');
+        header($protocol . ' 401 Unauthorized');
         header('WWW-Authenticate: ' . (string) $this->getDirective());
         exit($message);
     }
