@@ -2,22 +2,23 @@
 
 namespace Intervention\HttpAuth\Token;
 
-class RedirectHttpAuthorization extends HttpAuthentification
+use Intervention\HttpAuth\Exception\AuthentificationException;
+
+class RedirectHttpAuthorization extends AbstractToken
 {
-    /**
-     * Parse environment variables and store value in object
-     *
-     * @return bool "true" if value was found or "false"
-     */
-    protected function parse(): bool
+    protected function parseProperties(): array
     {
         $value = $this->getArrayValue($_SERVER, 'REDIRECT_HTTP_AUTHORIZATION');
-        if (strtolower(substr($value, 0, 5)) === 'basic') {
-            $this->value = $value;
 
-            return true;
+        if (strtolower(substr($value, 0, 5)) !== 'basic') {
+            throw new AuthentificationException('Failed to parse token.');
         }
 
-        return false;
+        list($username, $password) = explode(':', base64_decode(substr($value, 6)));
+
+        return [
+            'username' => $username,
+            'password' => $password,
+        ];
     }
 }

@@ -8,21 +8,16 @@ use Intervention\HttpAuth\Token\PhpAuthDigest;
 
 class PhpAuthDigestTest extends AbstractTokenTestCase
 {
-    public function testParseFail()
+    public function testGetKeyFail(): void
     {
         $this->expectException(AuthentificationException::class);
-        new PhpAuthDigest();
+        $token = new PhpAuthDigest();
+        $token->getKey();
     }
 
-    public function testParse()
+    public function testGetKey(): void
     {
-        $auth = $this->getTestToken();
-        $this->assertInstanceOf(PhpAuthDigest::class, $auth);
-    }
-
-    public function testToKey()
-    {
-        $key = $this->getTestToken()->toKey();
+        $key = $this->getTestToken()->getKey();
         $this->assertInstanceOf(Key::class, $key);
         $this->assertEquals('test', $key->getRealm());
         $this->assertEquals('auth', $key->getQop());
@@ -30,7 +25,7 @@ class PhpAuthDigestTest extends AbstractTokenTestCase
         $this->assertEquals('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', $key->getOpaque());
     }
 
-    private function getTestToken()
+    private function getTestToken(): PhpAuthDigest
     {
         $auth_digest = 'realm="test",qop="auth",nonce="xxxxxxxxxxxxx",opaque="yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"';
         $this->setServerVars([

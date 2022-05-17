@@ -2,52 +2,22 @@
 
 namespace Intervention\HttpAuth\Token;
 
-use Intervention\HttpAuth\Key;
+use Intervention\HttpAuth\Exception\AuthentificationException;
 
-class PhpAuthUser extends NullToken
+class PhpAuthUser extends AbstractToken
 {
-    /**
-     * Parsed authentification username
-     *
-     * @var string
-     */
-    protected $username;
-
-    /**
-     * Parsed authentification password
-     *
-     * @var string
-     */
-    protected $password;
-
-    /**
-     * Transform current instance to key object
-     *
-     * @return Key
-     */
-    public function toKey(): Key
+    protected function parseProperties(): array
     {
-        $key = new Key();
-        $key->setProperty('username', $this->username);
-        $key->setProperty('password', $this->password);
+        $username = $this->getArrayValue($_SERVER, 'PHP_AUTH_USER');
+        $password = $this->getArrayValue($_SERVER, 'PHP_AUTH_PW');
 
-        return $key;
-    }
-
-    /**
-     * Parse environment variables and store value in object
-     *
-     * @return bool "true" if value was found or "false"
-     */
-    protected function parse(): bool
-    {
-        if ($username = $this->getArrayValue($_SERVER, 'PHP_AUTH_USER')) {
-            $this->username = $username;
-            $this->password = array_key_exists('PHP_AUTH_PW', $_SERVER) ? $_SERVER['PHP_AUTH_PW'] : null;
-
-            return true;
+        if (empty($username) || empty($password)) {
+            throw new AuthentificationException('Failed to parse token.');
         }
 
-        return false;
+        return [
+            'username' => $username,
+            'password' => $password,
+        ];
     }
 }

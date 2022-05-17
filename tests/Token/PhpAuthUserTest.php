@@ -8,27 +8,22 @@ use Intervention\HttpAuth\Token\PhpAuthUser;
 
 class PhpAuthUserTest extends AbstractTokenTestCase
 {
-    public function testParseFail()
+    public function testGetKeyFail(): void
     {
         $this->expectException(AuthentificationException::class);
-        new PhpAuthUser();
+        $token = new PhpAuthUser();
+        $token->getKey();
     }
 
-    public function testParse()
+    public function testGetKey(): void
     {
-        $auth = $this->getTestToken();
-        $this->assertInstanceOf(PhpAuthUser::class, $auth);
-    }
-
-    public function testToKey()
-    {
-        $key = $this->getTestToken()->toKey();
+        $key = $this->getTestToken()->getKey();
         $this->assertInstanceOf(Key::class, $key);
         $this->assertEquals('test_username', $key->getUsername());
         $this->assertEquals('test_password', $key->getPassword());
     }
 
-    private function getTestToken()
+    private function getTestToken(): PhpAuthUser
     {
         $this->setServerVars([
             'PHP_AUTH_USER' => 'test_username',

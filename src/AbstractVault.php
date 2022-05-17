@@ -37,13 +37,13 @@ abstract class AbstractVault
     }
 
     /**
-     * Return key from current token
+     * Return current environment object
      *
-     * @return Key
+     * @return Environment
      */
-    private function getKey(): Key
+    private function environment(): Environment
     {
-        return (new Environment())->getToken()->toKey();
+        return new Environment();
     }
 
     /**
@@ -53,7 +53,7 @@ abstract class AbstractVault
      */
     public function secure(): void
     {
-        if (!$this->unlocksWithKey($this->getKey())) {
+        if (!$this->unlocksWithKey($this->environment()->getKey())) {
             $this->denyAccess();
         }
     }
@@ -139,7 +139,7 @@ abstract class AbstractVault
     }
 
     /**
-     * Sends HTTP 401 Header
+     * Send HTTP 401 Header
      *
      * @return void
      */
