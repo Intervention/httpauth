@@ -2,47 +2,23 @@
 
 namespace Intervention\HttpAuth\Token;
 
-use Intervention\HttpAuth\Key;
+use Intervention\HttpAuth\Exception\AuthentificationException;
 
-class HttpAuthentification extends NullToken
+class HttpAuthentification extends AbstractToken
 {
-    /**
-     * Parsed authentification value
-     *
-     * @var string
-     */
-    protected $value;
-
-    /**
-     * Transform current instance to key object
-     *
-     * @return Key
-     */
-    public function toKey(): Key
-    {
-        list($username, $password) = explode(':', base64_decode(substr($this->value, 6)));
-
-        $key = new Key();
-        $key->setProperty('username', $username);
-        $key->setProperty('password', $password);
-
-        return $key;
-    }
-
-    /**
-     * Parse environment variables and store value in object
-     *
-     * @return bool "true" if value was found or "false"
-     */
-    protected function parse(): bool
+    protected function parseProperties(): array
     {
         $value = $this->getArrayValue($_SERVER, 'HTTP_AUTHENTICATION');
-        if (strtolower(substr($value, 0, 5)) === 'basic') {
-            $this->value = $value;
 
-            return true;
+        if (strtolower(substr($value, 0, 5)) !== 'basic') {
+            throw new AuthentificationException('Failed to parse token.');
         }
 
-        return false;
+        $data = explode(':', base64_decode(substr($value, 6)));
+
+        return [
+            'username' => $this->getArrayValue($data, 0),
+            'password' => $this->getArrayValue($data, 1),
+        ];
     }
 }

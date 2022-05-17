@@ -3,8 +3,6 @@
 namespace Intervention\HttpAuth\Test;
 
 use Intervention\HttpAuth\AbstractVault;
-use Intervention\HttpAuth\Exception\InvalidParameterException;
-use Intervention\HttpAuth\Key;
 use PHPUnit\Framework\TestCase;
 
 class AbstractVaultTest extends TestCase
@@ -21,32 +19,13 @@ class AbstractVaultTest extends TestCase
         $this->assertEquals('myRealm', $vault->getRealm());
     }
 
-    public function testConstructorEmpty()
-    {
-        $this->expectException(InvalidParameterException::class);
-        $this->getMockForAbstractClass(
-            AbstractVault::class,
-            [null, null, null]
-        );
-    }
-
-    public function testGetKey()
-    {
-        $vault = $this->getMockForAbstractClass(
-            AbstractVault::class,
-            ['myRealm', 'myUsername', 'myPassword']
-        );
-
-        $this->assertInstanceOf(Key::class, $vault->getKey());
-    }
-
     public function testSetGetUsername()
     {
         $vault = $this->getMockForAbstractClass(
             AbstractVault::class,
             ['myRealm', 'myUsername', 'myPassword']
         );
-        $vault->setUsername('foo');
+        $vault->withUsername('foo');
         $this->assertEquals('foo', $vault->getUsername());
     }
 
@@ -56,7 +35,7 @@ class AbstractVaultTest extends TestCase
             AbstractVault::class,
             ['myRealm', 'myUsername', 'myPassword']
         );
-        $vault->setPassword('foo');
+        $vault->withPassword('foo');
         $this->assertEquals('foo', $vault->getPassword());
     }
 
@@ -66,7 +45,7 @@ class AbstractVaultTest extends TestCase
             AbstractVault::class,
             ['myRealm', 'myUsername', 'myPassword']
         );
-        $vault->setRealm('foo');
+        $vault->withRealm('foo');
         $this->assertEquals('foo', $vault->getRealm());
     }
 }

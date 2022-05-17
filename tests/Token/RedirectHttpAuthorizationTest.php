@@ -8,27 +8,22 @@ use Intervention\HttpAuth\Token\RedirectHttpAuthorization;
 
 class RedirectHttpAuthorizationTest extends AbstractTokenTestCase
 {
-    public function testParseFail()
+    public function testGetKeyFail(): void
     {
         $this->expectException(AuthentificationException::class);
-        new RedirectHttpAuthorization();
+        $token = new RedirectHttpAuthorization();
+        $token->getKey();
     }
 
-    public function testParse()
+    public function testGetKey(): void
     {
-        $auth = $this->getTestToken();
-        $this->assertInstanceOf(RedirectHttpAuthorization::class, $auth);
-    }
-
-    public function testToKey()
-    {
-        $key = $this->getTestToken()->toKey();
+        $key = $this->getTestToken()->getKey();
         $this->assertInstanceOf(Key::class, $key);
         $this->assertEquals('test_username', $key->getUsername());
         $this->assertEquals('test_password', $key->getPassword());
     }
 
-    private function getTestToken()
+    private function getTestToken(): RedirectHttpAuthorization
     {
         $this->setServerVars([
             'REDIRECT_HTTP_AUTHORIZATION' => 'basic_' . base64_encode(implode(':', [

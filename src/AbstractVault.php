@@ -5,33 +5,6 @@ namespace Intervention\HttpAuth;
 abstract class AbstractVault
 {
     /**
-     * Environment
-     *
-     * @var Environment
-     */
-    protected $environment;
-
-    /**
-     * Name of realm for vault
-     *
-     * @var string
-     */
-    protected $realm;
-
-    /**
-     * Username for vault
-     * @var string
-     */
-    protected $username;
-
-    /**
-     * Password for vault
-     *
-     * @var string
-     */
-    protected $password;
-
-    /**
      * Build directive for current vault
      *
      * @return Directive
@@ -53,46 +26,24 @@ abstract class AbstractVault
      * @param mixed $username
      * @param mixed $password
      */
-    public function __construct($realm, $username, $password)
-    {
-        $this->checkParameterValidity([
-            'realm' => $realm,
-            'username' => $username,
-            'password' => $password,
-        ]);
-
-        $this->environment = new Environment();
-
+    public function __construct(
+        protected string $realm,
+        protected string $username,
+        protected string $password
+    ) {
         $this->realm = $realm;
         $this->username = $username;
         $this->password = $password;
     }
 
     /**
-     * Throw exception if any of the given parameters are empty
+     * Return current environment object
      *
-     * @param  array $parameters
-     * @return void
+     * @return Environment
      */
-    private function checkParameterValidity(array $parameters): void
+    private function environment(): Environment
     {
-        foreach ($parameters as $key => $value) {
-            if (empty($value)) {
-                throw new Exception\InvalidParameterException(
-                    'Cannot create HTTP authentication vault. Parameter "' . $key . '" cannot be empty.'
-                );
-            }
-        }
-    }
-
-    /**
-     * Return key from current token
-     *
-     * @return Key
-     */
-    public function getKey(): Key
-    {
-        return $this->environment->getToken()->toKey();
+        return new Environment();
     }
 
     /**
@@ -102,7 +53,7 @@ abstract class AbstractVault
      */
     public function secure(): void
     {
-        if (! $this->unlocksWithKey($this->getKey())) {
+        if (!$this->unlocksWithKey($this->environment()->getKey())) {
             $this->denyAccess();
         }
     }
@@ -113,7 +64,7 @@ abstract class AbstractVault
      * @param string $realm
      * @return AbstractVault
      */
-    public function setRealm($realm): AbstractVault
+    public function withRealm(string $realm): self
     {
         $this->realm = $realm;
 
@@ -121,22 +72,11 @@ abstract class AbstractVault
     }
 
     /**
-     * Alias for setRealm()
-     *
-     * @param string $realm
-     * @return AbstractVault
-     */
-    public function realm($realm): AbstractVault
-    {
-        return $this->setRealm($realm);
-    }
-
-    /**
      * Return current realm name
      *
      * @return string
      */
-    public function getRealm()
+    public function getRealm(): string
     {
         return $this->realm;
     }
@@ -146,7 +86,7 @@ abstract class AbstractVault
      *
      * @param string $username
      */
-    public function setUsername($username): AbstractVault
+    public function withUsername(string $username): self
     {
         $this->username = $username;
 
@@ -154,21 +94,11 @@ abstract class AbstractVault
     }
 
     /**
-     * Alias for setUsername()
-     *
-     * @param string $username
-     */
-    public function username($username): AbstractVault
-    {
-        return $this->setUsername($username);
-    }
-
-    /**
      * Return current username
      *
      * @return string
      */
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
@@ -179,7 +109,7 @@ abstract class AbstractVault
      * @param string $password
      * @return AbstractVault
      */
-    public function setPassword($password): AbstractVault
+    public function withPassword(string $password): self
     {
         $this->password = $password;
 
@@ -187,22 +117,11 @@ abstract class AbstractVault
     }
 
     /**
-     * Alias for setPassword()
-     *
-     * @param  string $password
-     * @return AbstractVault
-     */
-    public function password($password): AbstractVault
-    {
-        return $this->setPassword($password);
-    }
-
-    /**
      * Return current password
      *
      * @return string
      */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -214,13 +133,13 @@ abstract class AbstractVault
      * @param  string $password
      * @return AbstractVault
      */
-    public function credentials($username, $password): AbstractVault
+    public function withCredentials(string $username, string $password): self
     {
-        return $this->setUsername($username)->setPassword($password);
+        return $this->withUsername($username)->withPassword($password);
     }
 
     /**
-     * Sends HTTP 401 Header
+     * Send HTTP 401 Header
      *
      * @return void
      */

@@ -7,75 +7,53 @@ use PHPUnit\Framework\TestCase;
 
 class HttpAuthTest extends TestCase
 {
-    public function testMake()
-    {
-        $auth = Auth::make([
-            'type' => 'digest',
-            'realm' => 'foo',
-            'username' => 'bar',
-            'password' => 'baz',
-        ]);
-
-        $this->assertInstanceOf(Auth::class, $auth);
-        $this->assertEquals('digest', $auth->getType());
-        $this->assertEquals('foo', $auth->getRealm());
-        $this->assertEquals('bar', $auth->getUsername());
-        $this->assertEquals('baz', $auth->getPassword());
-
-        // second make should overwrite just one parameter
-        $auth = $auth->make(['username' => 'admin']);
-
-        $this->assertEquals('digest', $auth->getType());
-        $this->assertEquals('foo', $auth->getRealm());
-        $this->assertEquals('admin', $auth->getUsername());
-        $this->assertEquals('baz', $auth->getPassword());
-    }
-
     public function testBasic()
     {
-        $auth = Auth::make()->basic();
+        $auth = Auth::basic('test');
         $this->assertInstanceOf(Auth::class, $auth);
         $this->assertEquals('basic', $auth->getType());
+        $this->assertEquals('test', $auth->getRealm());
     }
 
-    public function testDigest()
+    public function testWithDigest()
     {
-        $auth = Auth::make()->digest();
+        $auth = Auth::digest('test');
+        $this->assertInstanceOf(Auth::class, $auth);
+        $this->assertEquals('digest', $auth->getType());
+        $this->assertEquals('test', $auth->getRealm());
+    }
+
+    public function testWithType()
+    {
+        $auth = Auth::basic()->withType('digest');
         $this->assertInstanceOf(Auth::class, $auth);
         $this->assertEquals('digest', $auth->getType());
     }
 
-    public function testType()
+    public function testWithRealm()
     {
-        $auth = Auth::make()->type('digest');
-        $this->assertInstanceOf(Auth::class, $auth);
-        $this->assertEquals('digest', $auth->getType());
-    }
-
-    public function testRealm()
-    {
-        $auth = Auth::make()->realm('foo');
+        $auth = Auth::basic()->withRealm('foo');
         $this->assertInstanceOf(Auth::class, $auth);
         $this->assertEquals('foo', $auth->getRealm());
     }
 
-    public function testUsername()
+    public function testWithUsername()
     {
-        $auth = Auth::make()->username('foo');
+        $auth = Auth::basic()->withUsername('foo');
         $this->assertInstanceOf(Auth::class, $auth);
         $this->assertEquals('foo', $auth->getUsername());
     }
 
-    public function testPassword()
+    public function testWithPassword()
     {
-        $auth = Auth::make()->password('foo');
+        $auth = Auth::basic()->withPassword('foo');
         $this->assertInstanceOf(Auth::class, $auth);
         $this->assertEquals('foo', $auth->getPassword());
     }
 
-    public function testCredentials()
+    public function testWithCredentials()
     {
-        $auth = Auth::make()->credentials('foo', 'bar');
+        $auth = Auth::basic()->withCredentials('foo', 'bar');
         $this->assertInstanceOf(Auth::class, $auth);
         $this->assertEquals('foo', $auth->getUsername());
         $this->assertEquals('bar', $auth->getPassword());

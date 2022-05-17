@@ -4,60 +4,33 @@ namespace Intervention\HttpAuth;
 
 class HttpAuth
 {
-   /**
-     * Authentication type
-     *
-     * @var string
-     */
-    protected static $type = 'basic';
-
-    /**
-     * Name of authentication realm
-     *
-     * @var string
-     */
-    protected static $realm = 'Secured Resource';
-
-    /**
-     * Username
-     *
-     * @var string
-     */
-    protected static $username = 'admin';
-
-    /**
-     * Password
-     *
-     * @var string
-     */
-    protected static $password = 'secret';
-
-    /**
-     * Static factory method
-     *
-     * @param  array  $config
-     * @return HttpAuth
-     */
-    public static function make(array $config = []): HttpAuth
-    {
-        return (new self())->configure($config);
+    public function __construct(
+        protected string $type = 'basic',
+        protected string $realm = 'Secure realm',
+        protected string $username = 'admin',
+        protected string $password = 'secret'
+    ) {
+        //
     }
 
     /**
-     * Configure current instance by array
+     * Create HTTP basic auth instance
      *
-     * @param  array  $config
      * @return HttpAuth
      */
-    private function configure(array $config = []): HttpAuth
+    public static function basic(string $realm = 'Secure realm'): self
     {
-        foreach ($config as $key => $value) {
-            if (isset(static::${$key})) {
-                static::${$key} = $value;
-            }
-        }
+        return new self('basic', $realm);
+    }
 
-        return $this;
+    /**
+     * Create HTTP digest auth instance
+     *
+     * @return HttpAuth
+     */
+    public static function digest(string $realm = 'Secure realm'): self
+    {
+        return new self('digest', $realm);
     }
 
     /**
@@ -71,38 +44,14 @@ class HttpAuth
     }
 
     /**
-     * Create HTTP basic auth instance
+     * Set type of vault to configure
      *
-     * @return HttpAuth
+     * @param  string $type
+     * @return self
      */
-    public function basic(): HttpAuth
+    public function withType(string $type): self
     {
-        static::$type = 'basic';
-
-        return $this;
-    }
-
-    /**
-     * Create HTTP digest auth instance
-     *
-     * @return HttpAuth
-     */
-    public function digest(): HttpAuth
-    {
-        static::$type = 'digest';
-
-        return $this;
-    }
-
-    /**
-     * Set type of configured vault
-     *
-     * @param  string $value
-     * @return HttpAuth
-     */
-    public function type($value): HttpAuth
-    {
-        static::$type = $value;
+        $this->type = $type;
 
         return $this;
     }
@@ -110,12 +59,12 @@ class HttpAuth
     /**
      * Set realm name of configured vault
      *
-     * @param  string $value
+     * @param  string $password
      * @return HttpAuth
      */
-    public function realm($value): HttpAuth
+    public function withRealm(string $realm): self
     {
-        static::$realm = $value;
+        $this->realm = $realm;
 
         return $this;
     }
@@ -123,12 +72,12 @@ class HttpAuth
     /**
      * Set username of configured vault
      *
-     * @param  string $value
+     * @param  string $password
      * @return HttpAuth
      */
-    public function username($value): HttpAuth
+    public function withUsername(string $username): self
     {
-        static::$username = $value;
+        $this->username = $username;
 
         return $this;
     }
@@ -136,12 +85,12 @@ class HttpAuth
     /**
      * Set password of configured vault
      *
-     * @param  string $value
+     * @param  string $password
      * @return HttpAuth
      */
-    public function password($value): HttpAuth
+    public function withPassword(string $password): self
     {
-        static::$password = $value;
+        $this->password = $password;
 
         return $this;
     }
@@ -153,9 +102,9 @@ class HttpAuth
      * @param  string $password
      * @return HttpAuth
      */
-    public function credentials($username, $password): HttpAuth
+    public function withCredentials(string $username, string $password): self
     {
-        return $this->username($username)->password($password);
+        return $this->withUsername($username)->withPassword($password);
     }
 
     /**
@@ -163,9 +112,9 @@ class HttpAuth
      *
      * @return mixed
      */
-    public function getType()
+    public function getType(): string
     {
-        return static::$type;
+        return $this->type;
     }
 
     /**
@@ -173,9 +122,9 @@ class HttpAuth
      *
      * @return mixed
      */
-    public function getRealm()
+    public function getRealm(): string
     {
-        return static::$realm;
+        return $this->realm;
     }
 
     /**
@@ -183,9 +132,9 @@ class HttpAuth
      *
      * @return mixed
      */
-    public function getUsername()
+    public function getUsername(): string
     {
-        return static::$username;
+        return $this->username;
     }
 
     /**
@@ -193,9 +142,9 @@ class HttpAuth
      *
      * @return mixed
      */
-    public function getPassword()
+    public function getPassword(): string
     {
-        return static::$password;
+        return $this->password;
     }
 
     /**
@@ -205,14 +154,18 @@ class HttpAuth
      */
     protected function getVault(): AbstractVault
     {
-        $classname = sprintf('%s\Vault\%sVault', __NAMESPACE__, ucfirst(strtolower(static::$type)));
+        $classname = sprintf('%s\Vault\%sVault', __NAMESPACE__, ucfirst(strtolower($this->type)));
 
-        if (! class_exists($classname)) {
+        if (!class_exists($classname)) {
             throw new Exception\NotSupportedException(
-                'Unable to create HTTP authentication vault of type "' . static::$type . '".'
+                'Unable to create HTTP authentication vault of type "' . $this->type . '".'
             );
         }
 
-        return new $classname(static::$realm, static::$username, static::$password);
+        return new $classname(
+            $this->realm,
+            $this->username,
+            $this->password
+        );
     }
 }
