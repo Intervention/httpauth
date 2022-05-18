@@ -45,7 +45,7 @@ class DigestVault extends AbstractVault
      *
      * @return string
      */
-    private function getRequestMethod()
+    private function getRequestMethod(): string
     {
         return isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
     }

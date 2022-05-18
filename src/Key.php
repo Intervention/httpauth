@@ -79,7 +79,7 @@ class Key
      *
      * @return string
      */
-    public function getRealm()
+    public function getRealm(): ?string
     {
         return $this->realm;
     }
@@ -89,7 +89,7 @@ class Key
      *
      * @return string
      */
-    public function getUsername()
+    public function getUsername(): ?string
     {
         return $this->username;
     }
@@ -99,7 +99,7 @@ class Key
      *
      * @return string
      */
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -109,7 +109,7 @@ class Key
      *
      * @return string
      */
-    public function getQop()
+    public function getQop(): ?string
     {
         return $this->qop;
     }
@@ -119,7 +119,7 @@ class Key
      *
      * @return string
      */
-    public function getNonce()
+    public function getNonce(): ?string
     {
         return $this->nonce;
     }
@@ -129,7 +129,7 @@ class Key
      *
      * @return string
      */
-    public function getOpaque()
+    public function getOpaque(): ?string
     {
         return $this->opaque;
     }
@@ -139,7 +139,7 @@ class Key
      *
      * @return string
      */
-    public function getUri()
+    public function getUri(): ?string
     {
         return $this->uri;
     }
@@ -149,7 +149,7 @@ class Key
      *
      * @return string
      */
-    public function getNc()
+    public function getNc(): ?string
     {
         return $this->nc;
     }
@@ -159,7 +159,7 @@ class Key
      *
      * @return string
      */
-    public function getCnonce()
+    public function getCnonce(): ?string
     {
         return $this->cnonce;
     }
@@ -169,7 +169,7 @@ class Key
      *
      * @return string
      */
-    public function getResponse()
+    public function getResponse(): ?string
     {
         return $this->response;
     }
