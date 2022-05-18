@@ -25,9 +25,9 @@ To create HTTP authentication instances you can choose between different methods
 #### Create instance by using static factory method
 
 ```php
-use Intervention\HttpAuth\HttpAuth;
+use Intervention\HttpAuth\Authenticator;
 
-$auth = HttpAuth::basic('Secured Realm');
+$auth = Authenticator::basic('Secured Realm');
 $auth->withUsername('admin');
 $auth->withPassword('secret');
 ```
@@ -35,10 +35,10 @@ $auth->withPassword('secret');
 #### Create instance by using static universal factory method
 
 ```php
-use Intervention\HttpAuth\HttpAuth;
+use Intervention\HttpAuth\Authenticator;
 
 // create basic auth by array
-$auth = HttpAuth::make([
+$auth = Authenticator::make([
     'type' => 'basic',
     'realm' => 'Secure Resource',
     'username' => 'admin',
@@ -49,9 +49,9 @@ $auth = HttpAuth::make([
 #### Create instance by using class constructor
 
 ```php
-use Intervention\HttpAuth\HttpAuth;
+use Intervention\HttpAuth\Authenticator;
 
-$auth = new HttpAuth(
+$auth = new Authenticator(
    'basic',
    'Secure Resource',
    'admin',
@@ -59,7 +59,7 @@ $auth = new HttpAuth(
 );
 
 // alternatively use methods to set properties
-$auth = new HttpAuth();
+$auth = new Authenticator();
 $auth->withType('digest');
 $auth->withRealm('Secure');
 $auth->withCredentials('admin', 'secret');

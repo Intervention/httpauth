@@ -2,7 +2,7 @@
 
 namespace Intervention\HttpAuth;
 
-class HttpAuth
+class Authenticator
 {
     public function __construct(
         protected string $type = 'basic',
@@ -17,7 +17,7 @@ class HttpAuth
      * Create instance by given array
      *
      * @param array $config
-     * @return HttpAuth
+     * @return Authenticator
      */
     public static function make(array $config = []): self
     {
@@ -45,7 +45,7 @@ class HttpAuth
     /**
      * Create HTTP basic auth instance
      *
-     * @return HttpAuth
+     * @return Authenticator
      */
     public static function basic(string $realm = 'Secure realm'): self
     {
@@ -55,7 +55,7 @@ class HttpAuth
     /**
      * Create HTTP digest auth instance
      *
-     * @return HttpAuth
+     * @return Authenticator
      */
     public static function digest(string $realm = 'Secure realm'): self
     {
@@ -89,7 +89,7 @@ class HttpAuth
      * Set realm name of configured vault
      *
      * @param  string $realm
-     * @return HttpAuth
+     * @return Authenticator
      */
     public function withRealm(string $realm): self
     {
@@ -102,7 +102,7 @@ class HttpAuth
      * Set username of configured vault
      *
      * @param  string $username
-     * @return HttpAuth
+     * @return Authenticator
      */
     public function withUsername(string $username): self
     {
@@ -115,7 +115,7 @@ class HttpAuth
      * Set password of configured vault
      *
      * @param  string $password
-     * @return HttpAuth
+     * @return Authenticator
      */
     public function withPassword(string $password): self
     {
@@ -129,7 +129,7 @@ class HttpAuth
      *
      * @param  string $username
      * @param  string $password
-     * @return HttpAuth
+     * @return Authenticator
      */
     public function withCredentials(string $username, string $password): self
     {
