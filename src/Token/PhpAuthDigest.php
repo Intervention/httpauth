@@ -6,6 +6,12 @@ use Intervention\HttpAuth\Exception\AuthentificationException;
 
 class PhpAuthDigest extends AbstractToken
 {
+    /**
+     * Parse array of properties of current environment auth token
+     *
+     * @return array
+     * @throws AuthentificationException
+     */
     protected function parseProperties(): array
     {
         $value = $this->getArrayValue($_SERVER, 'PHP_AUTH_DIGEST');

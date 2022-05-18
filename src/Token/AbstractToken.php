@@ -6,6 +6,11 @@ use Intervention\HttpAuth\Key;
 
 abstract class AbstractToken
 {
+    /**
+     * Parse array of properties of current environment auth token
+     *
+     * @return array
+     */
     abstract protected function parseProperties(): array;
 
     /**

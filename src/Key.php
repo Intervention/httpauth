@@ -74,6 +74,11 @@ class Key
      */
     private $response;
 
+    /**
+     * Return current name of realm
+     *
+     * @return string
+     */
     public function getRealm()
     {
         return $this->realm;

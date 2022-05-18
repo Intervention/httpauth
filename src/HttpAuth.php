@@ -13,6 +13,12 @@ class HttpAuth
         //
     }
 
+    /**
+     * Create instance by given array
+     *
+     * @param array $config
+     * @return HttpAuth
+     */
     public static function make(array $config = []): self
     {
         $auth = new self();
