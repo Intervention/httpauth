@@ -1,7 +1,7 @@
 {
     "name": "intervention/httpauth",
     "description": "HTTP Authentication Management for PHP",
-    "homepage": "https://github.com/Intervention/httpauth",
+    "homepage": "https://httpauth.intervention.io",
     "keywords": ["authentication", "http"],
     "license": "MIT",
     "authors": [
