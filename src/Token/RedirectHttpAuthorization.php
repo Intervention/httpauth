@@ -16,6 +16,10 @@ class RedirectHttpAuthorization extends AbstractToken
     {
         $value = $this->getArrayValue($_SERVER, 'REDIRECT_HTTP_AUTHORIZATION');
 
+        if (is_null($value)) {
+            throw new AuthentificationException('Failed to parse token.');
+        }
+
         if (strtolower(substr($value, 0, 5)) !== 'basic') {
             throw new AuthentificationException('Failed to parse token.');
         }
