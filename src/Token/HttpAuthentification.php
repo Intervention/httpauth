@@ -16,6 +16,10 @@ class HttpAuthentification extends AbstractToken
     {
         $value = $this->getArrayValue($_SERVER, 'HTTP_AUTHENTICATION');
 
+        if (is_null($value)){
+          throw new AuthentificationException('Failed to parse token.');
+        }
+
         if (strtolower(substr($value, 0, 5)) !== 'basic') {
             throw new AuthentificationException('Failed to parse token.');
         }
