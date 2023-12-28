@@ -3,7 +3,7 @@
 Library to manage HTTP authentication with PHP.
 
 [![Latest Version](https://img.shields.io/packagist/v/intervention/httpauth.svg)](https://packagist.org/packages/intervention/httpauth)
-![build](https://github.com/Intervention/httpauth/workflows/build/badge.svg)
+[![Tests](https://github.com/Intervention/httpauth/actions/workflows/build.yml/badge.svg)](https://github.com/Intervention/httpauth/actions/workflows/build.yml)
 [![Monthly Downloads](https://img.shields.io/packagist/dm/intervention/httpauth.svg)](https://packagist.org/packages/intervention/httpauth/stats)
 
 ## Installation
