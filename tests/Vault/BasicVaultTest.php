@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class BasicVaultTest extends TestCase
 {
-    public function testGetDirective()
+    public function testGetDirective(): void
     {
         $vault = new BasicVault('myRealm', 'myUsername', 'myPassword');
         $directive = $vault->getDirective();
@@ -18,7 +18,7 @@ class BasicVaultTest extends TestCase
         $this->assertEquals('myRealm', $directive->getParameter('realm'));
     }
 
-    public function testUnlocksWithKey()
+    public function testUnlocksWithKey(): void
     {
         $key = new Key();
         $key->setProperty('username', 'myUsername');

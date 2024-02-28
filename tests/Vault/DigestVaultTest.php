@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class DigestVaultTest extends TestCase
 {
-    public function testGetDirective()
+    public function testGetDirective(): void
     {
         $vault = new Vault('myRealm', 'myUsername', 'myPassword');
         $directive = $vault->getDirective();
@@ -21,7 +21,7 @@ class DigestVaultTest extends TestCase
         $this->assertMatchesRegularExpression("/^[a-z0-9]{32}$/", $directive->getParameter('opaque'));
     }
 
-    public function testUnlocksWithKey()
+    public function testUnlocksWithKey(): void
     {
         $vault = new Vault('myRealm', 'myUsername', 'myPassword');
         $key = new Key();

@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class KeyTest extends TestCase
 {
-    public function testSetGet()
+    public function testSetGet(): void
     {
         $key = new Key();
         $this->assertNull($key->getRealm());

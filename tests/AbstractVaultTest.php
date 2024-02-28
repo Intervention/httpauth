@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class AbstractVaultTest extends TestCase
 {
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $vault = $this->getMockForAbstractClass(
             AbstractVault::class,
@@ -19,7 +19,7 @@ class AbstractVaultTest extends TestCase
         $this->assertEquals('myRealm', $vault->getRealm());
     }
 
-    public function testSetGetUsername()
+    public function testSetGetUsername(): void
     {
         $vault = $this->getMockForAbstractClass(
             AbstractVault::class,
@@ -29,7 +29,7 @@ class AbstractVaultTest extends TestCase
         $this->assertEquals('foo', $vault->getUsername());
     }
 
-    public function testSetGetPassword()
+    public function testSetGetPassword(): void
     {
         $vault = $this->getMockForAbstractClass(
             AbstractVault::class,
@@ -39,7 +39,7 @@ class AbstractVaultTest extends TestCase
         $this->assertEquals('foo', $vault->getPassword());
     }
 
-    public function testSetGetRealm()
+    public function testSetGetRealm(): void
     {
         $vault = $this->getMockForAbstractClass(
             AbstractVault::class,
