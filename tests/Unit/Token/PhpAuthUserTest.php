@@ -1,17 +1,18 @@
 <?php
 
-namespace Intervention\HttpAuth\Test\Token;
+namespace Intervention\HttpAuth\Test\Unit\Token;
 
+use Intervention\HttpAuth\Test\AbstractTokenTestCase;
 use Intervention\HttpAuth\Exception\AuthentificationException;
 use Intervention\HttpAuth\Key;
-use Intervention\HttpAuth\Token\RedirectHttpAuthorization;
+use Intervention\HttpAuth\Token\PhpAuthUser;
 
-final class RedirectHttpAuthorizationTest extends AbstractTokenTestCase
+final class PhpAuthUserTest extends AbstractTokenTestCase
 {
     public function testGetKeyFail(): void
     {
         $this->expectException(AuthentificationException::class);
-        $token = new RedirectHttpAuthorization();
+        $token = new PhpAuthUser();
         $token->getKey();
     }
 
@@ -23,15 +24,13 @@ final class RedirectHttpAuthorizationTest extends AbstractTokenTestCase
         $this->assertEquals('test_password', $key->getPassword());
     }
 
-    private function getTestToken(): RedirectHttpAuthorization
+    private function getTestToken(): PhpAuthUser
     {
         $this->setServerVars([
-            'REDIRECT_HTTP_AUTHORIZATION' => 'basic_' . base64_encode(implode(':', [
-                'test_username',
-                'test_password'
-            ])),
+            'PHP_AUTH_USER' => 'test_username',
+            'PHP_AUTH_PW' => 'test_password',
         ]);
 
-        return new RedirectHttpAuthorization();
+        return new PhpAuthUser();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Intervention\HttpAuth\Test;
+namespace Intervention\HttpAuth\Test\Unit;
 
 use Intervention\HttpAuth\Key;
 use PHPUnit\Framework\TestCase;

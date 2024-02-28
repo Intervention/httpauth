@@ -1,7 +1,8 @@
 <?php
 
-namespace Intervention\HttpAuth\Test\Token;
+namespace Intervention\HttpAuth\Test\Unit\Token;
 
+use Intervention\HttpAuth\Test\AbstractTokenTestCase;
 use Intervention\HttpAuth\Token\AbstractToken;
 use Intervention\HttpAuth\Key;
 

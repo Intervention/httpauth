@@ -1,6 +1,6 @@
 <?php
 
-namespace Intervention\HttpAuth\Test\Vault;
+namespace Intervention\HttpAuth\Test\Unit\Vault;
 
 use Intervention\HttpAuth\Vault\BasicVault;
 use Intervention\HttpAuth\Directive;
