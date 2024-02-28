@@ -6,7 +6,7 @@ use Intervention\HttpAuth\Exception\AuthentificationException;
 use Intervention\HttpAuth\Key;
 use Intervention\HttpAuth\Token\HttpAuthorization;
 
-class HttpAuthorizationTest extends AbstractTokenTestCase
+final class HttpAuthorizationTest extends AbstractTokenTestCase
 {
     public function testGetKeyFail(): void
     {

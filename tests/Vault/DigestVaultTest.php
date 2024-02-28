@@ -7,7 +7,7 @@ use Intervention\HttpAuth\Directive;
 use Intervention\HttpAuth\Key;
 use PHPUnit\Framework\TestCase;
 
-class DigestVaultTest extends TestCase
+final class DigestVaultTest extends TestCase
 {
     public function testGetDirective(): void
     {

@@ -5,7 +5,7 @@ namespace Intervention\HttpAuth\Test\Token;
 use Intervention\HttpAuth\Token\AbstractToken;
 use Intervention\HttpAuth\Key;
 
-class AbstractTokenTest extends AbstractTokenTestCase
+final class AbstractTokenTest extends AbstractTokenTestCase
 {
     public function testGetKey(): void
     {

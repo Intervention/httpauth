@@ -6,7 +6,7 @@ use Intervention\HttpAuth\Exception\AuthentificationException;
 use Intervention\HttpAuth\Key;
 use Intervention\HttpAuth\Token\PhpAuthUser;
 
-class PhpAuthUserTest extends AbstractTokenTestCase
+final class PhpAuthUserTest extends AbstractTokenTestCase
 {
     public function testGetKeyFail(): void
     {

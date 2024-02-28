@@ -5,7 +5,7 @@ namespace Intervention\HttpAuth\Test;
 use Intervention\HttpAuth\AbstractVault;
 use PHPUnit\Framework\TestCase;
 
-class AbstractVaultTest extends TestCase
+final class AbstractVaultTest extends TestCase
 {
     public function testConstructor(): void
     {

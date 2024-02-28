@@ -7,7 +7,7 @@ use Intervention\HttpAuth\Directive;
 use Intervention\HttpAuth\Key;
 use PHPUnit\Framework\TestCase;
 
-class BasicVaultTest extends TestCase
+final class BasicVaultTest extends TestCase
 {
     public function testGetDirective(): void
     {

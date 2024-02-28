@@ -6,7 +6,7 @@ use Intervention\HttpAuth\Environment;
 use PHPUnit\Framework\TestCase;
 use Intervention\HttpAuth\Key;
 
-class EnvironmentTest extends TestCase
+final class EnvironmentTest extends TestCase
 {
     public function testGetKey(): void
     {

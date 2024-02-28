@@ -5,7 +5,7 @@ namespace Intervention\HttpAuth\Test;
 use Intervention\HttpAuth\Directive;
 use PHPUnit\Framework\TestCase;
 
-class DirectiveTest extends TestCase
+final class DirectiveTest extends TestCase
 {
     public function testConstructor(): void
     {

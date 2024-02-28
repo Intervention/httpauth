@@ -5,7 +5,7 @@ namespace Intervention\HttpAuth\Test;
 use Intervention\HttpAuth\Authenticator;
 use PHPUnit\Framework\TestCase;
 
-class AuthenticatorTest extends TestCase
+final class AuthenticatorTest extends TestCase
 {
     public function testMake(): void
     {

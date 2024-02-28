@@ -5,7 +5,7 @@ namespace Intervention\HttpAuth\Test;
 use Intervention\HttpAuth\Key;
 use PHPUnit\Framework\TestCase;
 
-class KeyTest extends TestCase
+final class KeyTest extends TestCase
 {
     public function testSetGet(): void
     {
