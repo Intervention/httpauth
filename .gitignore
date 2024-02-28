@@ -1,4 +1,4 @@
 .DS_Store
-.phpunit.result.cache
+/.phpunit.cache
 composer.lock
 vendor/

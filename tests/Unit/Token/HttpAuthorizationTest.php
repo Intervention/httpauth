@@ -1,17 +1,18 @@
 <?php
 
-namespace Intervention\HttpAuth\Test\Token;
+namespace Intervention\HttpAuth\Test\Unit\Token;
 
+use Intervention\HttpAuth\Test\AbstractTokenTestCase;
 use Intervention\HttpAuth\Exception\AuthentificationException;
 use Intervention\HttpAuth\Key;
-use Intervention\HttpAuth\Token\PhpAuthDigest;
+use Intervention\HttpAuth\Token\HttpAuthorization;
 
-class PhpAuthDigestTest extends AbstractTokenTestCase
+final class HttpAuthorizationTest extends AbstractTokenTestCase
 {
     public function testGetKeyFail(): void
     {
         $this->expectException(AuthentificationException::class);
-        $token = new PhpAuthDigest();
+        $token = new HttpAuthorization();
         $token->getKey();
     }
 
@@ -25,13 +26,13 @@ class PhpAuthDigestTest extends AbstractTokenTestCase
         $this->assertEquals('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', $key->getOpaque());
     }
 
-    private function getTestToken(): PhpAuthDigest
+    private function getTestToken()
     {
-        $auth_digest = 'realm="test",qop="auth",nonce="xxxxxxxxxxxxx",opaque="yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"';
+        $auth = 'Digest realm="test",qop="auth",nonce="xxxxxxxxxxxxx",opaque="yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"';
         $this->setServerVars([
-            'PHP_AUTH_DIGEST' => $auth_digest
+            'HTTP_AUTHORIZATION' => $auth
         ]);
 
-        return new PhpAuthDigest();
+        return new HttpAuthorization();
     }
 }
