@@ -1,13 +1,13 @@
 <?php
 
-namespace Intervention\HttpAuth\Test;
+namespace Intervention\HttpAuth\Test\Unit;
 
 use Intervention\HttpAuth\Key;
 use PHPUnit\Framework\TestCase;
 
-class KeyTest extends TestCase
+final class KeyTest extends TestCase
 {
-    public function testSetGet()
+    public function testSetGet(): void
     {
         $key = new Key();
         $this->assertNull($key->getRealm());

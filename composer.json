@@ -2,7 +2,10 @@
     "name": "intervention/httpauth",
     "description": "HTTP Authentication Management for PHP",
     "homepage": "https://httpauth.intervention.io",
-    "keywords": ["authentication", "http"],
+    "keywords": [
+        "authentication",
+        "http"
+    ],
     "license": "MIT",
     "authors": [
         {
@@ -15,7 +18,7 @@
         "php": "^8.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.0",
+        "phpunit/phpunit": "^10.0",
         "phpstan/phpstan": "^1"
     },
     "autoload": {

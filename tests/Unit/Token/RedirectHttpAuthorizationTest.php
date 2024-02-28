@@ -1,12 +1,13 @@
 <?php
 
-namespace Intervention\HttpAuth\Test\Token;
+namespace Intervention\HttpAuth\Test\Unit\Token;
 
+use Intervention\HttpAuth\Test\AbstractTokenTestCase;
 use Intervention\HttpAuth\Exception\AuthentificationException;
 use Intervention\HttpAuth\Key;
 use Intervention\HttpAuth\Token\RedirectHttpAuthorization;
 
-class RedirectHttpAuthorizationTest extends AbstractTokenTestCase
+final class RedirectHttpAuthorizationTest extends AbstractTokenTestCase
 {
     public function testGetKeyFail(): void
     {

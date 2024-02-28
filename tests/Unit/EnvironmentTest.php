@@ -1,14 +1,14 @@
 <?php
 
-namespace Intervention\HttpAuth\Test;
+namespace Intervention\HttpAuth\Test\Unit;
 
 use Intervention\HttpAuth\Environment;
 use PHPUnit\Framework\TestCase;
 use Intervention\HttpAuth\Key;
 
-class EnvironmentTest extends TestCase
+final class EnvironmentTest extends TestCase
 {
-    public function testGetKey()
+    public function testGetKey(): void
     {
         $_SERVER['PHP_AUTH_USER'] = 'user';
         $_SERVER['PHP_AUTH_PW'] = 'pass';

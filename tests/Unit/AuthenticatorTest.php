@@ -1,11 +1,11 @@
 <?php
 
-namespace Intervention\HttpAuth\Test;
+namespace Intervention\HttpAuth\Test\Unit;
 
 use Intervention\HttpAuth\Authenticator;
 use PHPUnit\Framework\TestCase;
 
-class AuthenticatorTest extends TestCase
+final class AuthenticatorTest extends TestCase
 {
     public function testMake(): void
     {
@@ -23,7 +23,7 @@ class AuthenticatorTest extends TestCase
         $this->assertEquals('testPass', $auth->getPassword());
     }
 
-    public function testBasic()
+    public function testBasic(): void
     {
         $auth = Authenticator::basic('test');
         $this->assertInstanceOf(Authenticator::class, $auth);
@@ -31,7 +31,7 @@ class AuthenticatorTest extends TestCase
         $this->assertEquals('test', $auth->getRealm());
     }
 
-    public function testWithDigest()
+    public function testWithDigest(): void
     {
         $auth = Authenticator::digest('test');
         $this->assertInstanceOf(Authenticator::class, $auth);
@@ -39,35 +39,35 @@ class AuthenticatorTest extends TestCase
         $this->assertEquals('test', $auth->getRealm());
     }
 
-    public function testWithType()
+    public function testWithType(): void
     {
         $auth = Authenticator::basic()->withType('digest');
         $this->assertInstanceOf(Authenticator::class, $auth);
         $this->assertEquals('digest', $auth->getType());
     }
 
-    public function testWithRealm()
+    public function testWithRealm(): void
     {
         $auth = Authenticator::basic()->withRealm('foo');
         $this->assertInstanceOf(Authenticator::class, $auth);
         $this->assertEquals('foo', $auth->getRealm());
     }
 
-    public function testWithUsername()
+    public function testWithUsername(): void
     {
         $auth = Authenticator::basic()->withUsername('foo');
         $this->assertInstanceOf(Authenticator::class, $auth);
         $this->assertEquals('foo', $auth->getUsername());
     }
 
-    public function testWithPassword()
+    public function testWithPassword(): void
     {
         $auth = Authenticator::basic()->withPassword('foo');
         $this->assertInstanceOf(Authenticator::class, $auth);
         $this->assertEquals('foo', $auth->getPassword());
     }
 
-    public function testWithCredentials()
+    public function testWithCredentials(): void
     {
         $auth = Authenticator::basic()->withCredentials('foo', 'bar');
         $this->assertInstanceOf(Authenticator::class, $auth);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Intervention\HttpAuth\Test\Token;
+namespace Intervention\HttpAuth\Test;
 
 use PHPUnit\Framework\TestCase;
 
