@@ -80,6 +80,12 @@ $auth->secure();
 If you are using Apache and running php with fast-cgi, check setting headers:
 https://support.deskpro.com/en/kb/articles/missing-authorization-headers-with-apache
 
+## Authors
+
+This library is developed and maintained by [Oliver Vogel](https://intervention.io)
+
+Thanks to the community of [contributors](https://github.com/Intervention/httpauth/graphs/contributors) who have helped to improve this project.
+
 ## License
 
-Intervention HttpAuth Class is licensed under the [MIT License](http://opensource.org/licenses/MIT).
+Intervention HttpAuth is licensed under the [MIT License](LICENSE).
