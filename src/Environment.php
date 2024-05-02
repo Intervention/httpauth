@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\HttpAuth;
 
 use Intervention\HttpAuth\Exception\AuthentificationException;
@@ -28,8 +30,7 @@ class Environment
     {
         foreach ($this->tokenClassnames as $classname) {
             try {
-                $key = (new $classname())->getKey();
-                return $key;
+                return (new $classname())->getKey();
             } catch (AuthentificationException) {
                 // try next
             }

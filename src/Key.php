@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\HttpAuth;
 
 class Key
@@ -178,10 +180,10 @@ class Key
      * Set property to given value on current instance
      *
      * @param string $name
-     * @param mixed  $value
+     * @param mixed $value
      * @return Key
      */
-    public function setProperty($name, $value): Key
+    public function setProperty($name, $value): self
     {
         if (property_exists($this, $name)) {
             $this->{$name} = $value;

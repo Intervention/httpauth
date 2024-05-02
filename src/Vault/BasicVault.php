@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\HttpAuth\Vault;
 
 use Intervention\HttpAuth\AbstractVault;
@@ -11,7 +13,7 @@ class BasicVault extends AbstractVault
     /**
      * Determine if given key is able to unlock (access) vault.
      *
-     * @param  Key    $key
+     * @param Key $key
      * @return bool
      */
     public function unlocksWithKey(Key $key): bool

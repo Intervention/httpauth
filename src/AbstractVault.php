@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\HttpAuth;
 
 abstract class AbstractVault
@@ -14,7 +16,7 @@ abstract class AbstractVault
     /**
      * Determine if vault is accessible by given key
      *
-     * @param  Key    $key
+     * @param Key $key
      * @return bool
      */
     abstract public function unlocksWithKey(Key $key): bool;
@@ -129,8 +131,8 @@ abstract class AbstractVault
     /**
      * Set username and password at once
      *
-     * @param  string $username
-     * @param  string $password
+     * @param string $username
+     * @param string $password
      * @return AbstractVault
      */
     public function withCredentials(string $username, string $password): self

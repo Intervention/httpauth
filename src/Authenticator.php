@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\HttpAuth;
 
 use Intervention\HttpAuth\Exception\NotSupportedException;
@@ -77,7 +79,7 @@ class Authenticator
     /**
      * Set type of vault to configure
      *
-     * @param  string $type
+     * @param string $type
      * @return self
      */
     public function withType(string $type): self
@@ -90,7 +92,7 @@ class Authenticator
     /**
      * Set realm name of configured vault
      *
-     * @param  string $realm
+     * @param string $realm
      * @return Authenticator
      */
     public function withRealm(string $realm): self
@@ -103,7 +105,7 @@ class Authenticator
     /**
      * Set username of configured vault
      *
-     * @param  string $username
+     * @param string $username
      * @return Authenticator
      */
     public function withUsername(string $username): self
@@ -116,7 +118,7 @@ class Authenticator
     /**
      * Set password of configured vault
      *
-     * @param  string $password
+     * @param string $password
      * @return Authenticator
      */
     public function withPassword(string $password): self
@@ -129,8 +131,8 @@ class Authenticator
     /**
      * Set credentials for configured vault
      *
-     * @param  string $username
-     * @param  string $password
+     * @param string $username
+     * @param string $password
      * @return Authenticator
      */
     public function withCredentials(string $username, string $password): self

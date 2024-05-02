@@ -5,4 +5,5 @@
 Dockerfile export-ignore
 docker-compose.yml export-ignore
 phpstan.dist.neon export-ignore
+phpcs.xml.dist export-ignore
 phpunit.xml export-ignore

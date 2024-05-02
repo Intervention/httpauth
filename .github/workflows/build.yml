@@ -7,11 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: ['8.1', '8.2']
+        php: ['8.1', '8.2', '8.3']
     name: Testing on PHP ${{ matrix.php }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -26,5 +26,8 @@ jobs:
       - name: Run phpunit
         run: vendor/bin/phpunit
 
-      - name: Run phpstan
-        run: composer require --dev illuminate/support && vendor/bin/phpstan analyze --no-progress --autoload-file=tests/phpstan/bootstrap.php --level=5 src/
+      - name: Run analyzer
+        run: composer require --dev illuminate/support && vendor/bin/phpstan analyze --no-progress --autoload-file=tests/phpstan/bootstrap.php src/
+
+      - name: Validate coding standards
+        run: vendor/bin/phpcs

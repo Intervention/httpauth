@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\HttpAuth\Vault;
 
 use Intervention\HttpAuth\AbstractVault;
@@ -11,7 +13,7 @@ class DigestVault extends AbstractVault
     /**
      * Determine if given key is able to unlock (access) vault.
      *
-     * @param  Key    $key
+     * @param Key $key
      * @return bool
      */
     public function unlocksWithKey(Key $key): bool
@@ -25,7 +27,7 @@ class DigestVault extends AbstractVault
     /**
      * Build and return hash from given key/vault
      *
-     * @param  Key    $key
+     * @param Key $key
      * @return string
      */
     private function getKeyHash(Key $key): string

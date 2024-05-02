@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\HttpAuth\Token;
 
 use Intervention\HttpAuth\Exception\AuthentificationException;

@@ -1,6 +1,8 @@
 <?php
 
-namespace Intervention\HttpAuth\Test\Unit;
+declare(strict_types=1);
+
+namespace Intervention\HttpAuth\Tests\Unit;
 
 use Intervention\HttpAuth\Authenticator;
 use PHPUnit\Framework\TestCase;
