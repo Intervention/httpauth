@@ -12,7 +12,14 @@ final class AbstractTokenTest extends AbstractTokenTestCase
 {
     public function testGetKey(): void
     {
-        $token = $this->getMockForAbstractClass(AbstractToken::class);
+        $token = new class () extends AbstractToken
+        {
+            public function parseProperties(): array
+            {
+                return [];
+            }
+        };
+
         $key = $token->getKey();
         $this->assertInstanceOf(Key::class, $key);
     }
