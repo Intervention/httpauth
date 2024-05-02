@@ -12,9 +12,9 @@ final class KeyTest extends TestCase
     public function testSetGet(): void
     {
         $key = new Key();
-        $this->assertNull($key->getRealm());
-        $this->assertNull($key->getUsername());
-        $this->assertNull($key->getPassword());
+        $this->assertNull($key->realm());
+        $this->assertNull($key->username());
+        $this->assertNull($key->password());
         $this->assertNull($key->getQop());
         $this->assertNull($key->getNonce());
         $this->assertNull($key->getOpaque());
@@ -34,9 +34,9 @@ final class KeyTest extends TestCase
         $key->setProperty('cnonce', 'testCnonce');
         $key->setProperty('response', 'testResponse');
 
-        $this->assertEquals('testRealm', $key->getRealm());
-        $this->assertEquals('testUsername', $key->getUsername());
-        $this->assertEquals('testPassword', $key->getPassword());
+        $this->assertEquals('testRealm', $key->realm());
+        $this->assertEquals('testUsername', $key->username());
+        $this->assertEquals('testPassword', $key->password());
         $this->assertEquals('testQop', $key->getQop());
         $this->assertEquals('testNonce', $key->getNonce());
         $this->assertEquals('testOpaque', $key->getOpaque());

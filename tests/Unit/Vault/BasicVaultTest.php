@@ -16,7 +16,7 @@ final class BasicVaultTest extends TestCase
         $vault = new BasicVault('myRealm', 'myUsername', 'myPassword');
         $directive = $vault->getDirective();
         $this->assertInstanceOf(Directive::class, $directive);
-        $this->assertEquals('basic', $directive->getType());
+        $this->assertEquals('basic', $directive->type());
         $this->assertEquals('myRealm', $directive->getParameter('realm'));
     }
 

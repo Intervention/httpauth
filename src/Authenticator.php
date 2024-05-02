@@ -73,7 +73,7 @@ class Authenticator
      */
     public function secure(?string $message = null): void
     {
-        $this->getVault()->secure($message);
+        $this->vault()->secure($message);
     }
 
     /**
@@ -145,7 +145,7 @@ class Authenticator
      *
      * @return string
      */
-    public function getType(): string
+    public function type(): string
     {
         return $this->type;
     }
@@ -155,7 +155,7 @@ class Authenticator
      *
      * @return string
      */
-    public function getRealm(): string
+    public function realm(): string
     {
         return $this->realm;
     }
@@ -165,7 +165,7 @@ class Authenticator
      *
      * @return string
      */
-    public function getUsername(): string
+    public function username(): string
     {
         return $this->username;
     }
@@ -175,7 +175,7 @@ class Authenticator
      *
      * @return string
      */
-    public function getPassword(): string
+    public function password(): string
     {
         return $this->password;
     }
@@ -186,7 +186,7 @@ class Authenticator
      * @throws NotSupportedException
      * @return AbstractVault
      */
-    protected function getVault(): AbstractVault
+    protected function vault(): AbstractVault
     {
         $classname = sprintf('%s\Vault\%sVault', __NAMESPACE__, ucfirst(strtolower($this->type)));
 

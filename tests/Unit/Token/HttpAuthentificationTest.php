@@ -22,8 +22,8 @@ final class HttpAuthentificationTest extends AbstractTokenTestCase
     {
         $key = $this->getTestToken()->getKey();
         $this->assertInstanceOf(Key::class, $key);
-        $this->assertEquals('test_username', $key->getUsername());
-        $this->assertEquals('test_password', $key->getPassword());
+        $this->assertEquals('test_username', $key->username());
+        $this->assertEquals('test_password', $key->password());
     }
 
     private function getTestToken(): HttpAuthentification

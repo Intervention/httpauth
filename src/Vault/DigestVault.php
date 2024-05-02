@@ -18,7 +18,7 @@ class DigestVault extends AbstractVault
      */
     public function unlocksWithKey(Key $key): bool
     {
-        $username_match = $key->getUsername() == $this->getUsername();
+        $username_match = $key->username() == $this->username();
         $hash_match = $key->getResponse() == $this->getKeyHash($key);
 
         return $username_match && $hash_match;
@@ -33,7 +33,7 @@ class DigestVault extends AbstractVault
     private function getKeyHash(Key $key): string
     {
         return md5(implode(':', [
-            md5(sprintf('%s:%s:%s', $key->getUsername(), $this->getRealm(), $this->getPassword())),
+            md5(sprintf('%s:%s:%s', $key->username(), $this->realm(), $this->password())),
             $key->getNonce(),
             $key->getNc(),
             $key->getCnonce(),
@@ -60,10 +60,10 @@ class DigestVault extends AbstractVault
     public function getDirective(): Directive
     {
         return new Directive('digest', [
-            'realm' => $this->getRealm(),
+            'realm' => $this->realm(),
             'qop' => 'auth',
             'nonce' => uniqid(),
-            'opaque' => md5($this->getRealm()),
+            'opaque' => md5($this->realm()),
         ]);
     }
 }

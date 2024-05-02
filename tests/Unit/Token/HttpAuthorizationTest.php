@@ -22,7 +22,7 @@ final class HttpAuthorizationTest extends AbstractTokenTestCase
     {
         $key = $this->getTestToken()->getKey();
         $this->assertInstanceOf(Key::class, $key);
-        $this->assertEquals('test', $key->getRealm());
+        $this->assertEquals('test', $key->realm());
         $this->assertEquals('auth', $key->getQop());
         $this->assertEquals('xxxxxxxxxxxxx', $key->getNonce());
         $this->assertEquals('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', $key->getOpaque());

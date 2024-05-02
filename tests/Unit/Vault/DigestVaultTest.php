@@ -16,7 +16,7 @@ final class DigestVaultTest extends TestCase
         $vault = new Vault('myRealm', 'myUsername', 'myPassword');
         $directive = $vault->getDirective();
         $this->assertInstanceOf(Directive::class, $directive);
-        $this->assertEquals('digest', $directive->getType());
+        $this->assertEquals('digest', $directive->type());
         $this->assertEquals('myRealm', $directive->getParameter('realm'));
         $this->assertEquals('auth', $directive->getParameter('qop'));
         $this->assertMatchesRegularExpression("/^[a-z0-9]{13}$/", $directive->getParameter('nonce'));

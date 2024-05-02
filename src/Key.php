@@ -81,7 +81,7 @@ class Key
      *
      * @return string
      */
-    public function getRealm(): ?string
+    public function realm(): ?string
     {
         return $this->realm;
     }
@@ -91,7 +91,7 @@ class Key
      *
      * @return string
      */
-    public function getUsername(): ?string
+    public function username(): ?string
     {
         return $this->username;
     }
@@ -101,7 +101,7 @@ class Key
      *
      * @return string
      */
-    public function getPassword(): ?string
+    public function password(): ?string
     {
         return $this->password;
     }

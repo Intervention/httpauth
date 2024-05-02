@@ -18,8 +18,8 @@ class BasicVault extends AbstractVault
      */
     public function unlocksWithKey(Key $key): bool
     {
-        $username_match = $this->getUsername() == $key->getUsername();
-        $password_match = $this->getPassword() == $key->getPassword();
+        $username_match = $this->username() == $key->username();
+        $password_match = $this->password() == $key->password();
 
         return $username_match && $password_match;
     }
@@ -32,7 +32,7 @@ class BasicVault extends AbstractVault
     public function getDirective(): Directive
     {
         return new Directive('basic', [
-            'realm' => $this->getRealm(),
+            'realm' => $this->realm(),
             'charset' => 'UTF-8',
         ]);
     }
