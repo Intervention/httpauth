@@ -27,19 +27,19 @@ class Authenticator
         $auth = new self();
 
         if (array_key_exists('type', $config)) {
-            $auth->withType($config['type']);
+            $auth->setType($config['type']);
         }
 
         if (array_key_exists('realm', $config)) {
-            $auth->withRealm($config['realm']);
+            $auth->setRealm($config['realm']);
         }
 
         if (array_key_exists('username', $config)) {
-            $auth->withUsername($config['username']);
+            $auth->setUsername($config['username']);
         }
 
         if (array_key_exists('password', $config)) {
-            $auth->withPassword($config['password']);
+            $auth->setPassword($config['password']);
         }
 
         return $auth;
@@ -82,7 +82,7 @@ class Authenticator
      * @param string $type
      * @return self
      */
-    public function withType(string $type): self
+    public function setType(string $type): self
     {
         $this->type = $type;
 
@@ -95,7 +95,7 @@ class Authenticator
      * @param string $realm
      * @return Authenticator
      */
-    public function withRealm(string $realm): self
+    public function setRealm(string $realm): self
     {
         $this->realm = $realm;
 
@@ -108,7 +108,7 @@ class Authenticator
      * @param string $username
      * @return Authenticator
      */
-    public function withUsername(string $username): self
+    public function setUsername(string $username): self
     {
         $this->username = $username;
 
@@ -121,7 +121,7 @@ class Authenticator
      * @param string $password
      * @return Authenticator
      */
-    public function withPassword(string $password): self
+    public function setPassword(string $password): self
     {
         $this->password = $password;
 
@@ -135,9 +135,9 @@ class Authenticator
      * @param string $password
      * @return Authenticator
      */
-    public function withCredentials(string $username, string $password): self
+    public function setCredentials(string $username, string $password): self
     {
-        return $this->withUsername($username)->withPassword($password);
+        return $this->setUsername($username)->setPassword($password);
     }
 
     /**

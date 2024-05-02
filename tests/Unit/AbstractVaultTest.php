@@ -38,21 +38,21 @@ final class AbstractVaultTest extends TestCase
     public function testSetGetUsername(): void
     {
         $vault = $this->getTestVault('myRealm', 'myUsername', 'myPassword');
-        $vault->withUsername('foo');
+        $vault->setUsername('foo');
         $this->assertEquals('foo', $vault->getUsername());
     }
 
     public function testSetGetPassword(): void
     {
         $vault = $this->getTestVault('myRealm', 'myUsername', 'myPassword');
-        $vault->withPassword('foo');
+        $vault->setPassword('foo');
         $this->assertEquals('foo', $vault->getPassword());
     }
 
     public function testSetGetRealm(): void
     {
         $vault = $this->getTestVault('myRealm', 'myUsername', 'myPassword');
-        $vault->withRealm('foo');
+        $vault->setRealm('foo');
         $this->assertEquals('foo', $vault->getRealm());
     }
 }

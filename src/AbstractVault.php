@@ -66,7 +66,7 @@ abstract class AbstractVault
      * @param string $realm
      * @return AbstractVault
      */
-    public function withRealm(string $realm): self
+    public function setRealm(string $realm): self
     {
         $this->realm = $realm;
 
@@ -88,7 +88,7 @@ abstract class AbstractVault
      *
      * @param string $username
      */
-    public function withUsername(string $username): self
+    public function setUsername(string $username): self
     {
         $this->username = $username;
 
@@ -111,7 +111,7 @@ abstract class AbstractVault
      * @param string $password
      * @return AbstractVault
      */
-    public function withPassword(string $password): self
+    public function setPassword(string $password): self
     {
         $this->password = $password;
 
@@ -135,9 +135,9 @@ abstract class AbstractVault
      * @param string $password
      * @return AbstractVault
      */
-    public function withCredentials(string $username, string $password): self
+    public function setCredentials(string $username, string $password): self
     {
-        return $this->withUsername($username)->withPassword($password);
+        return $this->setUsername($username)->setPassword($password);
     }
 
     /**

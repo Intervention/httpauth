@@ -33,7 +33,7 @@ final class AuthenticatorTest extends TestCase
         $this->assertEquals('test', $auth->getRealm());
     }
 
-    public function testWithDigest(): void
+    public function testDigest(): void
     {
         $auth = Authenticator::digest('test');
         $this->assertInstanceOf(Authenticator::class, $auth);
@@ -41,37 +41,37 @@ final class AuthenticatorTest extends TestCase
         $this->assertEquals('test', $auth->getRealm());
     }
 
-    public function testWithType(): void
+    public function testSetType(): void
     {
-        $auth = Authenticator::basic()->withType('digest');
+        $auth = Authenticator::basic()->setType('digest');
         $this->assertInstanceOf(Authenticator::class, $auth);
         $this->assertEquals('digest', $auth->getType());
     }
 
-    public function testWithRealm(): void
+    public function testSetRealm(): void
     {
-        $auth = Authenticator::basic()->withRealm('foo');
+        $auth = Authenticator::basic()->setRealm('foo');
         $this->assertInstanceOf(Authenticator::class, $auth);
         $this->assertEquals('foo', $auth->getRealm());
     }
 
-    public function testWithUsername(): void
+    public function testSetUsername(): void
     {
-        $auth = Authenticator::basic()->withUsername('foo');
+        $auth = Authenticator::basic()->setUsername('foo');
         $this->assertInstanceOf(Authenticator::class, $auth);
         $this->assertEquals('foo', $auth->getUsername());
     }
 
-    public function testWithPassword(): void
+    public function testSetPassword(): void
     {
-        $auth = Authenticator::basic()->withPassword('foo');
+        $auth = Authenticator::basic()->setPassword('foo');
         $this->assertInstanceOf(Authenticator::class, $auth);
         $this->assertEquals('foo', $auth->getPassword());
     }
 
-    public function testWithCredentials(): void
+    public function testSetCredentials(): void
     {
-        $auth = Authenticator::basic()->withCredentials('foo', 'bar');
+        $auth = Authenticator::basic()->setCredentials('foo', 'bar');
         $this->assertInstanceOf(Authenticator::class, $auth);
         $this->assertEquals('foo', $auth->getUsername());
         $this->assertEquals('bar', $auth->getPassword());

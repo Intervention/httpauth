@@ -28,8 +28,8 @@ To create HTTP authentication instances you can choose between different methods
 use Intervention\HttpAuth\Authenticator;
 
 $auth = Authenticator::basic('Secured Realm');
-$auth->withUsername('admin');
-$auth->withPassword('secret');
+$auth->setUsername('admin');
+$auth->setPassword('secret');
 ```
 
 #### Create instance by using static universal factory method
@@ -60,9 +60,9 @@ $auth = new Authenticator(
 
 // alternatively use methods to set properties
 $auth = new Authenticator();
-$auth->withType('digest');
-$auth->withRealm('Secure');
-$auth->withCredentials('admin', 'secret');
+$auth->setType('digest');
+$auth->setRealm('Secure');
+$auth->setCredentials('admin', 'secret');
 ```
 
 ### Ask user for credentials
