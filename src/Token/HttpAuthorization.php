@@ -9,15 +9,15 @@ class HttpAuthorization extends AbstractToken
     /**
      * Parse array of properties of current environment auth token
      *
-     * @return array
      * @throws AuthentificationException
+     * @return array<string, string>
      */
     protected function parseProperties(): array
     {
         $value = $this->getArrayValue($_SERVER, 'HTTP_AUTHORIZATION');
 
-        if (is_null($value)){
-          throw new AuthentificationException('Failed to parse token.');
+        if (is_null($value)) {
+            throw new AuthentificationException('Failed to parse token.');
         }
 
         if (strtolower(substr($value, 0, 6)) !== 'digest') {

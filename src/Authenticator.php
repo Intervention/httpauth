@@ -2,6 +2,8 @@
 
 namespace Intervention\HttpAuth;
 
+use Intervention\HttpAuth\Exception\NotSupportedException;
+
 class Authenticator
 {
     public function __construct(
@@ -10,13 +12,12 @@ class Authenticator
         protected string $username = 'admin',
         protected string $password = 'secret'
     ) {
-        //
     }
 
     /**
      * Create instance by given array
      *
-     * @param array $config
+     * @param array<string, string> $config
      * @return Authenticator
      */
     public static function make(array $config = []): self
@@ -65,6 +66,7 @@ class Authenticator
     /**
      * Create vault by current parameters and secure it
      *
+     * @throws NotSupportedException
      * @return void
      */
     public function secure(?string $message = null): void
@@ -179,6 +181,7 @@ class Authenticator
     /**
      * Return ready configured vault
      *
+     * @throws NotSupportedException
      * @return AbstractVault
      */
     protected function getVault(): AbstractVault
@@ -186,7 +189,7 @@ class Authenticator
         $classname = sprintf('%s\Vault\%sVault', __NAMESPACE__, ucfirst(strtolower($this->type)));
 
         if (!class_exists($classname)) {
-            throw new Exception\NotSupportedException(
+            throw new NotSupportedException(
                 'Unable to create HTTP authentication vault of type "' . $this->type . '".'
             );
         }

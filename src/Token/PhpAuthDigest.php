@@ -9,8 +9,8 @@ class PhpAuthDigest extends AbstractToken
     /**
      * Parse array of properties of current environment auth token
      *
-     * @return array
      * @throws AuthentificationException
+     * @return array<string, string>
      */
     protected function parseProperties(): array
     {

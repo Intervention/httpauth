@@ -9,7 +9,7 @@ class Environment
     /**
      * Available auth tokens
      *
-     * @var array
+     * @var array<string>
      */
     protected $tokenClassnames = [
         Token\PhpAuthUser::class,
@@ -30,7 +30,7 @@ class Environment
             try {
                 $key = (new $classname())->getKey();
                 return $key;
-            } catch (AuthentificationException $e) {
+            } catch (AuthentificationException) {
                 // try next
             }
         }

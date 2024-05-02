@@ -4,4 +4,5 @@
 .gitignore export-ignore
 Dockerfile export-ignore
 docker-compose.yml export-ignore
+phpstan.dist.neon export-ignore
 phpunit.xml export-ignore

@@ -8,7 +8,7 @@ class Directive
      * Create new instance
      *
      * @param string $type
-     * @param array $parameters
+     * @param array<mixed> $parameters
      * @return void
      */
     public function __construct(
@@ -46,7 +46,7 @@ class Directive
     /**
      * Return value of given key from all parameters, if existing
      *
-     * @param  mixed $key
+     * @param mixed $key
      * @return mixed
      */
     public function getParameter($key)

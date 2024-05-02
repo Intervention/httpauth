@@ -9,8 +9,8 @@ class PhpAuthUser extends AbstractToken
     /**
      * Parse array of properties of current environment auth token
      *
-     * @return array
      * @throws AuthentificationException
+     * @return array{username: string, password: string}
      */
     protected function parseProperties(): array
     {

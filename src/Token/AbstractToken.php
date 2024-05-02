@@ -9,7 +9,7 @@ abstract class AbstractToken
     /**
      * Parse array of properties of current environment auth token
      *
-     * @return array
+     * @return array<string, string>
      */
     abstract protected function parseProperties(): array;
 
@@ -32,11 +32,11 @@ abstract class AbstractToken
      * Return the value of given key in given array data.
      * Returns null if key doesn't exists
      *
-     * @param  array  $data
-     * @param  mixed  $key
+     * @param array<mixed> $data
+     * @param mixed $key
      * @return mixed
      */
-    protected function getArrayValue($data, $key)
+    protected function getArrayValue(array $data, mixed $key): mixed
     {
         if (array_key_exists($key, $data)) {
             return $data[$key];
