@@ -6,8 +6,8 @@ namespace Intervention\HttpAuth;
 
 use Intervention\HttpAuth\Exceptions\NotSupportedException;
 use Intervention\HttpAuth\Interfaces\VaultInterface;
-use Intervention\HttpAuth\Vault\BasicVault;
-use Intervention\HttpAuth\Vault\DigestVault;
+use Intervention\HttpAuth\Vaults\BasicVault;
+use Intervention\HttpAuth\Vaults\DigestVault;
 
 class Authenticator
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Intervention\HttpAuth\Tests\Unit\Token;
+namespace Intervention\HttpAuth\Tests\Unit\Tokens;
 
 use Intervention\HttpAuth\Exceptions\AuthentificationException;
 use Intervention\HttpAuth\Tests\TestCase;
-use Intervention\HttpAuth\Token\HttpAuthorization;
+use Intervention\HttpAuth\Tokens\HttpAuthorization;
 
 final class HttpAuthorizationTest extends TestCase
 {

@@ -7,7 +7,7 @@ namespace Intervention\HttpAuth\Tests\Unit;
 use Intervention\HttpAuth\Directive;
 use Intervention\HttpAuth\Interfaces\TokenInterface;
 use Intervention\HttpAuth\Type;
-use Intervention\HttpAuth\Vault\AbstractVault;
+use Intervention\HttpAuth\Vaults\AbstractVault;
 use PHPUnit\Framework\TestCase;
 
 final class AbstractVaultTest extends TestCase

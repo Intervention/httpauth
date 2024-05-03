@@ -16,11 +16,11 @@ class Environment implements EnvironmentInterface
      * @var array<string>
      */
     protected static $tokenClassnames = [
-        Token\PhpAuthUser::class,
-        Token\HttpAuthentification::class,
-        Token\RedirectHttpAuthorization::class,
-        Token\PhpAuthDigest::class,
-        Token\HttpAuthorization::class,
+        Tokens\PhpAuthUser::class,
+        Tokens\HttpAuthentification::class,
+        Tokens\RedirectHttpAuthorization::class,
+        Tokens\PhpAuthDigest::class,
+        Tokens\HttpAuthorization::class,
     ];
 
     /**

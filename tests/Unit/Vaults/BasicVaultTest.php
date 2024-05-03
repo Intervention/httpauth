@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Intervention\HttpAuth\Tests\Unit\Vault;
+namespace Intervention\HttpAuth\Tests\Unit\Vaults;
 
-use Intervention\HttpAuth\Vault\BasicVault;
+use Intervention\HttpAuth\Vaults\BasicVault;
 use Intervention\HttpAuth\Directive;
 use Intervention\HttpAuth\Exceptions\AuthentificationException;
-use Intervention\HttpAuth\Token\HttpAuthentification;
-use Intervention\HttpAuth\Token\HttpAuthorization;
-use Intervention\HttpAuth\Token\PhpAuthDigest;
-use Intervention\HttpAuth\Token\PhpAuthUser;
-use Intervention\HttpAuth\Token\RedirectHttpAuthorization;
+use Intervention\HttpAuth\Tokens\HttpAuthentification;
+use Intervention\HttpAuth\Tokens\HttpAuthorization;
+use Intervention\HttpAuth\Tokens\PhpAuthDigest;
+use Intervention\HttpAuth\Tokens\PhpAuthUser;
+use Intervention\HttpAuth\Tokens\RedirectHttpAuthorization;
 use PHPUnit\Framework\TestCase;
 
 final class BasicVaultTest extends TestCase

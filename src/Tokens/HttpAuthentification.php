@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Intervention\HttpAuth\Token;
+namespace Intervention\HttpAuth\Tokens;
 
 use Intervention\HttpAuth\Exceptions\AuthentificationException;
 

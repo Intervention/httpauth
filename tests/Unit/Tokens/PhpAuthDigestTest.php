@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Intervention\HttpAuth\Tests\Unit\Token;
+namespace Intervention\HttpAuth\Tests\Unit\Tokens;
 
 use Intervention\HttpAuth\Exceptions\AuthentificationException;
 use Intervention\HttpAuth\Tests\TestCase;
-use Intervention\HttpAuth\Token\PhpAuthDigest;
+use Intervention\HttpAuth\Tokens\PhpAuthDigest;
 
 final class PhpAuthDigestTest extends TestCase
 {

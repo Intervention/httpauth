@@ -2,22 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Intervention\HttpAuth\Tests\Unit\Token;
+namespace Intervention\HttpAuth\Tests\Unit\Tokens;
 
 use Intervention\HttpAuth\Exceptions\AuthentificationException;
 use Intervention\HttpAuth\Tests\TestCase;
-use Intervention\HttpAuth\Token\PhpAuthUser;
+use Intervention\HttpAuth\Tokens\RedirectHttpAuthorization;
 
-final class PhpAuthUserTest extends TestCase
+final class RedirectHttpAuthorizationTest extends TestCase
 {
     public function testParse(): void
     {
         $this->setServerVars([
-            'PHP_AUTH_USER' => 'myUser',
-            'PHP_AUTH_PW' => 'myPassword',
+            'REDIRECT_HTTP_AUTHORIZATION' => 'basic_' . base64_encode(implode(':', [
+                'myUser',
+                'myPassword'
+            ])),
         ]);
 
-        $token = new PhpAuthUser();
+        $token = new RedirectHttpAuthorization();
         $this->assertEquals('myUser', $token->username());
         $this->assertEquals('myPassword', $token->password());
     }
@@ -26,6 +28,6 @@ final class PhpAuthUserTest extends TestCase
     {
         $this->setServerVars([]);
         $this->expectException(AuthentificationException::class);
-        new PhpAuthUser();
+        new RedirectHttpAuthorization();
     }
 }

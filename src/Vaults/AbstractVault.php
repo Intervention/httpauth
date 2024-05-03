@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Intervention\HttpAuth\Vault;
+namespace Intervention\HttpAuth\Vaults;
 
 use Intervention\HttpAuth\Environment;
 use Intervention\HttpAuth\Exceptions\AuthentificationException;

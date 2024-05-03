@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Intervention\HttpAuth\Tests\Unit;
 
 use Intervention\HttpAuth\Authenticator;
-use Intervention\HttpAuth\Vault\BasicVault;
+use Intervention\HttpAuth\Vaults\BasicVault;
 use PHPUnit\Framework\TestCase;
 
 final class AuthenticatorTest extends TestCase

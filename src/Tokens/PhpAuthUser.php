@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Intervention\HttpAuth\Token;
+namespace Intervention\HttpAuth\Tokens;
 
 use Intervention\HttpAuth\Exceptions\AuthentificationException;
 
-class RedirectHttpAuthorization extends AbstractToken
+class PhpAuthUser extends AbstractToken
 {
     /**
      * Parse array of properties of current environment auth token
@@ -16,17 +16,12 @@ class RedirectHttpAuthorization extends AbstractToken
      */
     public function parse(): array
     {
-        $value = $this->getArrayValue($_SERVER, 'REDIRECT_HTTP_AUTHORIZATION');
+        $username = $this->getArrayValue($_SERVER, 'PHP_AUTH_USER');
+        $password = $this->getArrayValue($_SERVER, 'PHP_AUTH_PW');
 
-        if (is_null($value)) {
+        if (empty($username) || empty($password)) {
             throw new AuthentificationException('Failed to parse token.');
         }
-
-        if (strtolower(substr($value, 0, 5)) !== 'basic') {
-            throw new AuthentificationException('Failed to parse token.');
-        }
-
-        list($username, $password) = explode(':', base64_decode(substr($value, 6)));
 
         return [
             'username' => $username,

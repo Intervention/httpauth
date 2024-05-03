@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Intervention\HttpAuth\Token;
+namespace Intervention\HttpAuth\Tokens;
 
 use Intervention\HttpAuth\Exceptions\AuthentificationException;
 
-class HttpAuthorization extends AbstractToken
+class PhpAuthDigest extends AbstractToken
 {
     /**
      * Parse array of properties of current environment auth token
@@ -16,13 +16,9 @@ class HttpAuthorization extends AbstractToken
      */
     public function parse(): array
     {
-        $value = $this->getArrayValue($_SERVER, 'HTTP_AUTHORIZATION');
+        $value = $this->getArrayValue($_SERVER, 'PHP_AUTH_DIGEST');
 
-        if (is_null($value)) {
-            throw new AuthentificationException('Failed to parse token.');
-        }
-
-        if (strtolower(substr($value, 0, 6)) !== 'digest') {
+        if (empty($value)) {
             throw new AuthentificationException('Failed to parse token.');
         }
 
