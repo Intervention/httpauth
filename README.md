@@ -1,6 +1,6 @@
 # Intervention HttpAuth
 
-Library to manage HTTP authentication with PHP.
+HTTP Authentication Management
 
 [![Latest Version](https://img.shields.io/packagist/v/intervention/httpauth.svg)](https://packagist.org/packages/intervention/httpauth)
 [![Tests](https://github.com/Intervention/httpauth/actions/workflows/build.yml/badge.svg)](https://github.com/Intervention/httpauth/actions/workflows/build.yml)
@@ -14,6 +14,10 @@ Just request the package with the following command:
 ```bash
 composer require intervention/httpauth
 ```
+
+## Documentation
+
+Read the full [documentation](https://httpauth.intervention.io) for this library.
 
 ## Usage
 
@@ -95,7 +99,9 @@ $auth->secure('Sorry, you can not access this resource!');
 
 ### Apache
 
-If you are using Apache and running php with fast-cgi, check setting headers:
+If you are using Apache and running PHP with CGI/FastCGI, check the server
+configuration to make sure the authorization headers are passed correctly to PHP:
+
 https://support.deskpro.com/en/kb/articles/missing-authorization-headers-with-apache
 
 ## Authors
