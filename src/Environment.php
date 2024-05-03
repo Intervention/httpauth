@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace Intervention\HttpAuth;
 
 use Intervention\HttpAuth\Exception\AuthentificationException;
+use Intervention\HttpAuth\Interfaces\EnvironmentInterface;
+use Intervention\HttpAuth\Interfaces\TokenInterface;
 
-class Environment
+class Environment implements EnvironmentInterface
 {
     /**
      * Available auth tokens
      *
      * @var array<string>
      */
-    protected $tokenClassnames = [
+    protected static $tokenClassnames = [
         Token\PhpAuthUser::class,
         Token\HttpAuthentification::class,
         Token\RedirectHttpAuthorization::class,
@@ -22,20 +24,20 @@ class Environment
     ];
 
     /**
-     * Get first active auth token from all available tokens
+     * {@inheritdoc}
      *
-     * @return Key
+     * @see EnvironmentInterface::token()
      */
-    public function getKey(): Key
+    public static function token(): TokenInterface
     {
-        foreach ($this->tokenClassnames as $classname) {
+        foreach (static::$tokenClassnames as $classname) {
             try {
-                return (new $classname())->getKey();
+                return new $classname();
             } catch (AuthentificationException) {
                 // try next
             }
         }
 
-        return new Key(); // empty key - no auth
+        throw new AuthentificationException();
     }
 }

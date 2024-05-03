@@ -4,35 +4,28 @@ declare(strict_types=1);
 
 namespace Intervention\HttpAuth\Tests\Unit\Token;
 
-use Intervention\HttpAuth\Tests\AbstractTokenTestCase;
 use Intervention\HttpAuth\Exception\AuthentificationException;
-use Intervention\HttpAuth\Key;
+use Intervention\HttpAuth\Tests\TestCase;
 use Intervention\HttpAuth\Token\PhpAuthUser;
 
-final class PhpAuthUserTest extends AbstractTokenTestCase
+final class PhpAuthUserTest extends TestCase
 {
-    public function testGetKeyFail(): void
-    {
-        $this->expectException(AuthentificationException::class);
-        $token = new PhpAuthUser();
-        $token->getKey();
-    }
-
-    public function testGetKey(): void
-    {
-        $key = $this->getTestToken()->getKey();
-        $this->assertInstanceOf(Key::class, $key);
-        $this->assertEquals('test_username', $key->username());
-        $this->assertEquals('test_password', $key->password());
-    }
-
-    private function getTestToken(): PhpAuthUser
+    public function testParse(): void
     {
         $this->setServerVars([
-            'PHP_AUTH_USER' => 'test_username',
-            'PHP_AUTH_PW' => 'test_password',
+            'PHP_AUTH_USER' => 'myUser',
+            'PHP_AUTH_PW' => 'myPassword',
         ]);
 
-        return new PhpAuthUser();
+        $token = new PhpAuthUser();
+        $this->assertEquals('myUser', $token->username());
+        $this->assertEquals('myPassword', $token->password());
+    }
+
+    public function testParseFailed(): void
+    {
+        $this->setServerVars([]);
+        $this->expectException(AuthentificationException::class);
+        new PhpAuthUser();
     }
 }

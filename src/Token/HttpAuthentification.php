@@ -14,7 +14,7 @@ class HttpAuthentification extends AbstractToken
      * @throws AuthentificationException
      * @return array{username: string, password: string}
      */
-    protected function parseProperties(): array
+    public function parse(): array
     {
         $value = $this->getArrayValue($_SERVER, 'HTTP_AUTHENTICATION');
 

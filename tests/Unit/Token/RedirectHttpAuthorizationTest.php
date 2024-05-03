@@ -4,37 +4,30 @@ declare(strict_types=1);
 
 namespace Intervention\HttpAuth\Tests\Unit\Token;
 
-use Intervention\HttpAuth\Tests\AbstractTokenTestCase;
 use Intervention\HttpAuth\Exception\AuthentificationException;
-use Intervention\HttpAuth\Key;
+use Intervention\HttpAuth\Tests\TestCase;
 use Intervention\HttpAuth\Token\RedirectHttpAuthorization;
 
-final class RedirectHttpAuthorizationTest extends AbstractTokenTestCase
+final class RedirectHttpAuthorizationTest extends TestCase
 {
-    public function testGetKeyFail(): void
-    {
-        $this->expectException(AuthentificationException::class);
-        $token = new RedirectHttpAuthorization();
-        $token->getKey();
-    }
-
-    public function testGetKey(): void
-    {
-        $key = $this->getTestToken()->getKey();
-        $this->assertInstanceOf(Key::class, $key);
-        $this->assertEquals('test_username', $key->username());
-        $this->assertEquals('test_password', $key->password());
-    }
-
-    private function getTestToken(): RedirectHttpAuthorization
+    public function testParse(): void
     {
         $this->setServerVars([
             'REDIRECT_HTTP_AUTHORIZATION' => 'basic_' . base64_encode(implode(':', [
-                'test_username',
-                'test_password'
+                'myUser',
+                'myPassword'
             ])),
         ]);
 
-        return new RedirectHttpAuthorization();
+        $token = new RedirectHttpAuthorization();
+        $this->assertEquals('myUser', $token->username());
+        $this->assertEquals('myPassword', $token->password());
+    }
+
+    public function testParseFailed(): void
+    {
+        $this->setServerVars([]);
+        $this->expectException(AuthentificationException::class);
+        new RedirectHttpAuthorization();
     }
 }

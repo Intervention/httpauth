@@ -4,37 +4,30 @@ declare(strict_types=1);
 
 namespace Intervention\HttpAuth\Tests\Unit\Token;
 
-use Intervention\HttpAuth\Tests\AbstractTokenTestCase;
 use Intervention\HttpAuth\Exception\AuthentificationException;
-use Intervention\HttpAuth\Key;
+use Intervention\HttpAuth\Tests\TestCase;
 use Intervention\HttpAuth\Token\PhpAuthDigest;
 
-final class PhpAuthDigestTest extends AbstractTokenTestCase
+final class PhpAuthDigestTest extends TestCase
 {
-    public function testGetKeyFail(): void
+    public function testParse(): void
     {
-        $this->expectException(AuthentificationException::class);
-        $token = new PhpAuthDigest();
-        $token->getKey();
-    }
-
-    public function testGetKey(): void
-    {
-        $key = $this->getTestToken()->getKey();
-        $this->assertInstanceOf(Key::class, $key);
-        $this->assertEquals('test', $key->realm());
-        $this->assertEquals('auth', $key->getQop());
-        $this->assertEquals('xxxxxxxxxxxxx', $key->getNonce());
-        $this->assertEquals('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', $key->getOpaque());
-    }
-
-    private function getTestToken(): PhpAuthDigest
-    {
-        $auth_digest = 'realm="test",qop="auth",nonce="xxxxxxxxxxxxx",opaque="yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"';
         $this->setServerVars([
-            'PHP_AUTH_DIGEST' => $auth_digest
+            'PHP_AUTH_DIGEST' => 'realm="test",qop="auth",nonce="xxxxxxxxxxxxx",' .
+                'opaque="yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"'
         ]);
 
-        return new PhpAuthDigest();
+        $token = new PhpAuthDigest();
+        $this->assertEquals('test', $token->realm());
+        $this->assertEquals('auth', $token->qop());
+        $this->assertEquals('xxxxxxxxxxxxx', $token->nonce());
+        $this->assertEquals('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', $token->opaque());
+    }
+
+    public function testParseFailed(): void
+    {
+        $this->setServerVars([]);
+        $this->expectException(AuthentificationException::class);
+        new PhpAuthDigest();
     }
 }

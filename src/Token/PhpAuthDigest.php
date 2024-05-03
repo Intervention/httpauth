@@ -14,7 +14,7 @@ class PhpAuthDigest extends AbstractToken
      * @throws AuthentificationException
      * @return array<string, string>
      */
-    protected function parseProperties(): array
+    public function parse(): array
     {
         $value = $this->getArrayValue($_SERVER, 'PHP_AUTH_DIGEST');
 

@@ -14,7 +14,7 @@ class PhpAuthUser extends AbstractToken
      * @throws AuthentificationException
      * @return array{username: string, password: string}
      */
-    protected function parseProperties(): array
+    public function parse(): array
     {
         $username = $this->getArrayValue($_SERVER, 'PHP_AUTH_USER');
         $password = $this->getArrayValue($_SERVER, 'PHP_AUTH_PW');

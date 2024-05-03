@@ -5,64 +5,57 @@ declare(strict_types=1);
 namespace Intervention\HttpAuth;
 
 use Intervention\HttpAuth\Exception\NotSupportedException;
+use Intervention\HttpAuth\Interfaces\VaultInterface;
+use Intervention\HttpAuth\Vault\BasicVault;
+use Intervention\HttpAuth\Vault\DigestVault;
 
 class Authenticator
 {
-    public function __construct(
-        protected string $type = 'basic',
-        protected string $realm = 'Secure realm',
-        protected string $username = 'admin',
-        protected string $password = 'secret'
-    ) {
-    }
-
     /**
-     * Create instance by given array
+     * Create new instance
      *
-     * @param array<string, string> $config
-     * @return Authenticator
+     * @param VaultInterface $vault
+     * @return void
      */
-    public static function make(array $config = []): self
+    public function __construct(protected VaultInterface $vault)
     {
-        $auth = new self();
-
-        if (array_key_exists('type', $config)) {
-            $auth->setType($config['type']);
-        }
-
-        if (array_key_exists('realm', $config)) {
-            $auth->setRealm($config['realm']);
-        }
-
-        if (array_key_exists('username', $config)) {
-            $auth->setUsername($config['username']);
-        }
-
-        if (array_key_exists('password', $config)) {
-            $auth->setPassword($config['password']);
-        }
-
-        return $auth;
     }
 
     /**
      * Create HTTP basic auth instance
      *
+     * @param string $username
+     * @param string $password
+     * @param string $realm
      * @return Authenticator
      */
-    public static function basic(string $realm = 'Secure realm'): self
+    public static function basic(string $username, string $password, string $realm = 'Secured Area'): self
     {
-        return new self('basic', $realm);
+        return new self(new BasicVault($username, $password, $realm));
     }
 
     /**
      * Create HTTP digest auth instance
      *
+     * @param string $username
+     * @param string $password
+     * @param string $realm
      * @return Authenticator
      */
-    public static function digest(string $realm = 'Secure realm'): self
+    public static function digest(string $username, string $password, string $realm = 'Secured Area'): self
     {
-        return new self('digest', $realm);
+        return new self(new DigestVault($username, $password, $realm));
+    }
+
+    /**
+     * Create auth instance
+     *
+     * @param VaultInterface $vault
+     * @return Authenticator
+     */
+    public static function withVault(VaultInterface $vault): self
+    {
+        return new self($vault);
     }
 
     /**
@@ -73,133 +66,6 @@ class Authenticator
      */
     public function secure(?string $message = null): void
     {
-        $this->vault()->secure($message);
-    }
-
-    /**
-     * Set type of vault to configure
-     *
-     * @param string $type
-     * @return self
-     */
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Set realm name of configured vault
-     *
-     * @param string $realm
-     * @return Authenticator
-     */
-    public function setRealm(string $realm): self
-    {
-        $this->realm = $realm;
-
-        return $this;
-    }
-
-    /**
-     * Set username of configured vault
-     *
-     * @param string $username
-     * @return Authenticator
-     */
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Set password of configured vault
-     *
-     * @param string $password
-     * @return Authenticator
-     */
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Set credentials for configured vault
-     *
-     * @param string $username
-     * @param string $password
-     * @return Authenticator
-     */
-    public function setCredentials(string $username, string $password): self
-    {
-        return $this->setUsername($username)->setPassword($password);
-    }
-
-    /**
-     * Get type of current instance
-     *
-     * @return string
-     */
-    public function type(): string
-    {
-        return $this->type;
-    }
-
-    /**
-     * Get realm of current instance
-     *
-     * @return string
-     */
-    public function realm(): string
-    {
-        return $this->realm;
-    }
-
-    /**
-     * Get username of current instance
-     *
-     * @return string
-     */
-    public function username(): string
-    {
-        return $this->username;
-    }
-
-    /**
-     * Get password of current instance
-     *
-     * @return string
-     */
-    public function password(): string
-    {
-        return $this->password;
-    }
-
-    /**
-     * Return ready configured vault
-     *
-     * @throws NotSupportedException
-     * @return AbstractVault
-     */
-    protected function vault(): AbstractVault
-    {
-        $classname = sprintf('%s\Vault\%sVault', __NAMESPACE__, ucfirst(strtolower($this->type)));
-
-        if (!class_exists($classname)) {
-            throw new NotSupportedException(
-                'Unable to create HTTP authentication vault of type "' . $this->type . '".'
-            );
-        }
-
-        return new $classname(
-            $this->realm,
-            $this->username,
-            $this->password
-        );
+        $this->vault->secure($message);
     }
 }

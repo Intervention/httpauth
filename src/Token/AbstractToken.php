@@ -4,30 +4,125 @@ declare(strict_types=1);
 
 namespace Intervention\HttpAuth\Token;
 
-use Intervention\HttpAuth\Key;
+use Intervention\HttpAuth\Interfaces\TokenInterface;
 
-abstract class AbstractToken
+abstract class AbstractToken implements TokenInterface
 {
     /**
-     * Parse array of properties of current environment auth token
+     * Token properties
      *
-     * @return array<string, string>
+     * @var array<string, string>
      */
-    abstract protected function parseProperties(): array;
+    protected array $properties = [];
 
     /**
-     * Return key for parsed properties
+     * Create new token
      *
-     * @return Key
+     * @return void
      */
-    public function getKey(): Key
+    public function __construct()
     {
-        $authKey = new Key();
-        foreach ($this->parseProperties() as $key => $value) {
-            $authKey->setProperty($key, $value);
-        }
+        $this->properties = $this->parse();
+    }
 
-        return $authKey;
+    /**
+     * {@inheritdoc}
+     *
+     * @see TokenInterface::username()
+     */
+    public function username(): ?string
+    {
+        return $this->getArrayValue($this->properties, 'username');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see TokenInterface::password()
+     */
+    public function password(): ?string
+    {
+        return $this->getArrayValue($this->properties, 'password');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see TokenInterface::cnonce()
+     */
+    public function cnonce(): ?string
+    {
+        return $this->getArrayValue($this->properties, 'cnonce');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see TokenInterface::nc()
+     */
+    public function nc(): ?string
+    {
+        return $this->getArrayValue($this->properties, 'nc');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see TokenInterface::nonce()
+     */
+    public function nonce(): ?string
+    {
+        return $this->getArrayValue($this->properties, 'nonce');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see TokenInterface::qop()
+     */
+    public function qop(): ?string
+    {
+        return $this->getArrayValue($this->properties, 'qop');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see TokenInterface::response()
+     */
+    public function response(): ?string
+    {
+        return $this->getArrayValue($this->properties, 'response');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see TokenInterface::uri()
+     */
+    public function uri(): ?string
+    {
+        return $this->getArrayValue($this->properties, 'uri');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see TokenInterface::realm()
+     */
+    public function realm(): ?string
+    {
+        return $this->getArrayValue($this->properties, 'realm');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see TokenInterface::opaque()
+     */
+    public function opaque(): ?string
+    {
+        return $this->getArrayValue($this->properties, 'opaque');
     }
 
     /**

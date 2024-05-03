@@ -2,60 +2,39 @@
 
 declare(strict_types=1);
 
-namespace Intervention\HttpAuth;
+namespace Intervention\HttpAuth\Vault;
 
-abstract class AbstractVault
+use Intervention\HttpAuth\Environment;
+use Intervention\HttpAuth\Exception\AuthentificationException;
+use Intervention\HttpAuth\Interfaces\VaultInterface;
+use SensitiveParameter;
+
+abstract class AbstractVault implements VaultInterface
 {
-    /**
-     * Build directive for current vault
-     *
-     * @return Directive
-     */
-    abstract public function getDirective(): Directive;
-
-    /**
-     * Determine if vault is accessible by given key
-     *
-     * @param Key $key
-     * @return bool
-     */
-    abstract public function unlocksWithKey(Key $key): bool;
-
     /**
      * Create new instance
      *
-     * @param string $realm
      * @param string $username
      * @param string $password
+     * @param string $realm
      */
     public function __construct(
-        protected string $realm,
-        protected string $username,
-        protected string $password
+        #[SensitiveParameter] protected string $username,
+        #[SensitiveParameter] protected string $password,
+        protected string $realm = 'Secured Area',
     ) {
-        $this->realm = $realm;
-        $this->username = $username;
-        $this->password = $password;
     }
 
     /**
-     * Return current environment object
+     * {@inheritdoc}
      *
-     * @return Environment
-     */
-    private function environment(): Environment
-    {
-        return new Environment();
-    }
-
-    /**
-     * Denies access for non-authenticated users
-     *
-     * @return void
+     * @see VaultInterface::secure()
      */
     public function secure(?string $message = null): void
     {
-        if (!$this->unlocksWithKey($this->environment()->getKey())) {
+        try {
+            $this->verify(Environment::token());
+        } catch (AuthentificationException) {
             $this->denyAccess($message);
         }
     }
@@ -151,7 +130,7 @@ abstract class AbstractVault
         $message = empty($message) ? '<strong>' . $protocol . ' 401 Unauthorized</strong>' : $message;
 
         header($protocol . ' 401 Unauthorized');
-        header('WWW-Authenticate: ' . (string) $this->getDirective());
+        header('WWW-Authenticate: ' . $this->type()->value . ' ' . (string) $this->directive());
         exit($message);
     }
 }

@@ -11,20 +11,13 @@ final class DirectiveTest extends TestCase
 {
     public function testConstructor(): void
     {
-        $directive = new Directive('foo');
+        $directive = new Directive();
         $this->assertInstanceOf(Directive::class, $directive);
-    }
-
-    public function testFormat(): void
-    {
-        $directive = new Directive('test', ['a' => 'foo', 'b' => 'bar', 'c' => 'baz']);
-        $this->assertEquals('Test a="foo", b="bar", c="baz"', $directive->format());
     }
 
     public function testToString(): void
     {
-        $directive = new Directive('test', ['a' => 'foo', 'b' => 'bar', 'c' => 'baz']);
-        $directive = (string) $directive;
-        $this->assertEquals('Test a="foo", b="bar", c="baz"', $directive);
+        $directive = new Directive(['a' => 'foo', 'b' => 'bar', 'c' => 'baz']);
+        $this->assertEquals('a="foo", b="bar", c="baz"', (string) $directive);
     }
 }

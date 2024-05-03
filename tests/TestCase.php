@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Intervention\HttpAuth\Tests;
 
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestCase as PhpUnitTestcase;
 
-abstract class AbstractTokenTestCase extends TestCase
+abstract class TestCase extends PhpUnitTestcase
 {
     protected function setServerVars($values = [])
     {

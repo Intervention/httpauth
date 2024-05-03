@@ -4,66 +4,72 @@ declare(strict_types=1);
 
 namespace Intervention\HttpAuth\Vault;
 
-use Intervention\HttpAuth\AbstractVault;
 use Intervention\HttpAuth\Directive;
-use Intervention\HttpAuth\Key;
+use Intervention\HttpAuth\Exception\AuthentificationException;
+use Intervention\HttpAuth\Interfaces\DirectiveInterface;
+use Intervention\HttpAuth\Interfaces\TokenInterface;
+use Intervention\HttpAuth\Type;
 
 class DigestVault extends AbstractVault
 {
     /**
-     * Determine if given key is able to unlock (access) vault.
+     * {@inheritdoc}
      *
-     * @param Key $key
-     * @return bool
+     * @see VaultInterface::verify()
      */
-    public function unlocksWithKey(Key $key): bool
+    public function verify(TokenInterface $token): void
     {
-        $username_match = $key->username() == $this->username();
-        $hash_match = $key->getResponse() == $this->getKeyHash($key);
+        if ($token->username() !== $this->username()) {
+            throw new AuthentificationException();
+        }
 
-        return $username_match && $hash_match;
+        if ($token->response() !== $this->tokenHash($token)) {
+            throw new AuthentificationException();
+        }
     }
 
     /**
-     * Build and return hash from given key/vault
+     * {@inheritdoc}
      *
-     * @param Key $key
-     * @return string
+     * @see VaultInterface::type()
      */
-    private function getKeyHash(Key $key): string
+    public function type(): Type
     {
-        return md5(implode(':', [
-            md5(sprintf('%s:%s:%s', $key->username(), $this->realm(), $this->password())),
-            $key->getNonce(),
-            $key->getNc(),
-            $key->getCnonce(),
-            $key->getQop(),
-            md5(sprintf('%s:%s', $this->getRequestMethod(), $key->getUri())),
-        ]));
+        return Type::DIGEST;
     }
 
     /**
-     * Return HTTP request method
+     * {@inheritdoc}
      *
-     * @return string
+     * @see VaultInterface::directive()
      */
-    private function getRequestMethod(): string
+    public function directive(): DirectiveInterface
     {
-        return isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
-    }
-
-    /**
-     * Return auth directive
-     *
-     * @return Directive
-     */
-    public function getDirective(): Directive
-    {
-        return new Directive('digest', [
+        return new Directive([
             'realm' => $this->realm(),
             'qop' => 'auth',
             'nonce' => uniqid(),
             'opaque' => md5($this->realm()),
         ]);
+    }
+
+    /**
+     * Build and return hash from given token
+     *
+     * @param TokenInterface $token
+     * @return string
+     */
+    private function tokenHash(TokenInterface $token): string
+    {
+        $method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
+
+        return md5(implode(':', [
+            md5(sprintf('%s:%s:%s', $token->username(), $this->realm(), $this->password())),
+            $token->nonce(),
+            $token->nc(),
+            $token->cnonce(),
+            $token->qop(),
+            md5(sprintf('%s:%s', $method, $token->uri())),
+        ]));
     }
 }

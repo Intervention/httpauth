@@ -4,24 +4,38 @@ declare(strict_types=1);
 
 namespace Intervention\HttpAuth\Vault;
 
-use Intervention\HttpAuth\AbstractVault;
 use Intervention\HttpAuth\Directive;
-use Intervention\HttpAuth\Key;
+use Intervention\HttpAuth\Exception\AuthentificationException;
+use Intervention\HttpAuth\Interfaces\DirectiveInterface;
+use Intervention\HttpAuth\Interfaces\TokenInterface;
+use Intervention\HttpAuth\Type;
 
 class BasicVault extends AbstractVault
 {
     /**
-     * Determine if given key is able to unlock (access) vault.
+     * {@inheritdoc}
      *
-     * @param Key $key
-     * @return bool
+     * @see VaultInterface::verify()
      */
-    public function unlocksWithKey(Key $key): bool
+    public function verify(TokenInterface $token): void
     {
-        $username_match = $this->username() == $key->username();
-        $password_match = $this->password() == $key->password();
+        if ($token->username() !== $this->username()) {
+            throw new AuthentificationException();
+        }
 
-        return $username_match && $password_match;
+        if ($token->password() !== $this->password()) {
+            throw new AuthentificationException();
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see VaultInterface::type()
+     */
+    public function type(): Type
+    {
+        return Type::BASIC;
     }
 
     /**
@@ -29,9 +43,9 @@ class BasicVault extends AbstractVault
      *
      * @return Directive
      */
-    public function getDirective(): Directive
+    public function directive(): DirectiveInterface
     {
-        return new Directive('basic', [
+        return new Directive([
             'realm' => $this->realm(),
             'charset' => 'UTF-8',
         ]);

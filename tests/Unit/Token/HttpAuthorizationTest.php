@@ -4,37 +4,30 @@ declare(strict_types=1);
 
 namespace Intervention\HttpAuth\Tests\Unit\Token;
 
-use Intervention\HttpAuth\Tests\AbstractTokenTestCase;
 use Intervention\HttpAuth\Exception\AuthentificationException;
-use Intervention\HttpAuth\Key;
+use Intervention\HttpAuth\Tests\TestCase;
 use Intervention\HttpAuth\Token\HttpAuthorization;
 
-final class HttpAuthorizationTest extends AbstractTokenTestCase
+final class HttpAuthorizationTest extends TestCase
 {
-    public function testGetKeyFail(): void
+    public function testParse(): void
     {
-        $this->expectException(AuthentificationException::class);
-        $token = new HttpAuthorization();
-        $token->getKey();
-    }
-
-    public function testGetKey(): void
-    {
-        $key = $this->getTestToken()->getKey();
-        $this->assertInstanceOf(Key::class, $key);
-        $this->assertEquals('test', $key->realm());
-        $this->assertEquals('auth', $key->getQop());
-        $this->assertEquals('xxxxxxxxxxxxx', $key->getNonce());
-        $this->assertEquals('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', $key->getOpaque());
-    }
-
-    private function getTestToken()
-    {
-        $auth = 'Digest realm="test",qop="auth",nonce="xxxxxxxxxxxxx",opaque="yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"';
         $this->setServerVars([
-            'HTTP_AUTHORIZATION' => $auth
+            'HTTP_AUTHORIZATION' => 'Digest realm="test",qop="auth",nonce="xxxxxxxxxxxxx",' .
+                'opaque="yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"',
         ]);
 
-        return new HttpAuthorization();
+        $token = new HttpAuthorization();
+        $this->assertEquals('test', $token->realm());
+        $this->assertEquals('auth', $token->qop());
+        $this->assertEquals('xxxxxxxxxxxxx', $token->nonce());
+        $this->assertEquals('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', $token->opaque());
+    }
+
+    public function testParseFailed(): void
+    {
+        $this->setServerVars([]);
+        $this->expectException(AuthentificationException::class);
+        new HttpAuthorization();
     }
 }
