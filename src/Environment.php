@@ -38,6 +38,6 @@ class Environment implements EnvironmentInterface
             }
         }
 
-        throw new AuthentificationException();
+        throw new AuthentificationException('Unable to parse authentication token.');
     }
 }
