@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Intervention\HttpAuth\Vault;
 
 use Intervention\HttpAuth\Environment;
-use Intervention\HttpAuth\Exception\AuthentificationException;
+use Intervention\HttpAuth\Exceptions\AuthentificationException;
 use Intervention\HttpAuth\Interfaces\TokenInterface;
 use Intervention\HttpAuth\Interfaces\VaultInterface;
 use SensitiveParameter;

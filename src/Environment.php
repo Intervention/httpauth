@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Intervention\HttpAuth;
 
-use Intervention\HttpAuth\Exception\AuthentificationException;
+use Intervention\HttpAuth\Exceptions\AuthentificationException;
 use Intervention\HttpAuth\Interfaces\EnvironmentInterface;
 use Intervention\HttpAuth\Interfaces\TokenInterface;
 

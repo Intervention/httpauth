@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Intervention\HttpAuth\Interfaces;
 
-use Intervention\HttpAuth\Exception\AuthentificationException;
+use Intervention\HttpAuth\Exceptions\AuthentificationException;
 use Intervention\HttpAuth\Type;
 
 interface VaultInterface

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Intervention\HttpAuth\Exception;
+namespace Intervention\HttpAuth\Exceptions;
 
 use RuntimeException;
 

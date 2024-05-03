@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Intervention\HttpAuth\Tests\Unit\Token;
 
-use Intervention\HttpAuth\Exception\AuthentificationException;
+use Intervention\HttpAuth\Exceptions\AuthentificationException;
 use Intervention\HttpAuth\Tests\TestCase;
 use Intervention\HttpAuth\Token\PhpAuthUser;
 

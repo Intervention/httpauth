@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Intervention\HttpAuth;
 
-use Intervention\HttpAuth\Exception\NotSupportedException;
+use Intervention\HttpAuth\Exceptions\NotSupportedException;
 use Intervention\HttpAuth\Interfaces\VaultInterface;
 use Intervention\HttpAuth\Vault\BasicVault;
 use Intervention\HttpAuth\Vault\DigestVault;

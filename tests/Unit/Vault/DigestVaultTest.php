@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Intervention\HttpAuth\Tests\Unit\Vault;
 
 use Intervention\HttpAuth\Directive;
-use Intervention\HttpAuth\Exception\AuthentificationException;
+use Intervention\HttpAuth\Exceptions\AuthentificationException;
 use Intervention\HttpAuth\Token\HttpAuthentification;
 use Intervention\HttpAuth\Token\HttpAuthorization;
 use Intervention\HttpAuth\Token\PhpAuthDigest;
