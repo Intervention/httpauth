@@ -6,6 +6,7 @@ namespace Intervention\HttpAuth\Vault;
 
 use Intervention\HttpAuth\Environment;
 use Intervention\HttpAuth\Exception\AuthentificationException;
+use Intervention\HttpAuth\Interfaces\TokenInterface;
 use Intervention\HttpAuth\Interfaces\VaultInterface;
 use SensitiveParameter;
 
@@ -23,6 +24,16 @@ abstract class AbstractVault implements VaultInterface
         #[SensitiveParameter] protected string $password,
         protected string $realm = 'Secured Area',
     ) {
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see VaultInterface::verify()
+     */
+    public function verify(TokenInterface $token): void
+    {
+        throw new AuthentificationException();
     }
 
     /**
