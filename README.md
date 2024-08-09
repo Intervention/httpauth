@@ -5,7 +5,7 @@ HTTP Authentication Management
 [![Latest Version](https://img.shields.io/packagist/v/intervention/httpauth.svg)](https://packagist.org/packages/intervention/httpauth)
 [![Tests](https://github.com/Intervention/httpauth/actions/workflows/build.yml/badge.svg)](https://github.com/Intervention/httpauth/actions/workflows/build.yml)
 [![Monthly Downloads](https://img.shields.io/packagist/dm/intervention/httpauth.svg)](https://packagist.org/packages/intervention/httpauth/stats)
-[![Support me on Ko-fi](https://raw.githubusercontent.com/Intervention/httpauth/main/.github/images/support.yml)](https://ko-fi.com/interventionphp)
+[![Support me on Ko-fi](https://raw.githubusercontent.com/Intervention/httpauth/main/.github/images/support.svg)](https://ko-fi.com/interventionphp)
 
 ## Installation
 
