@@ -25,8 +25,10 @@ class Directive implements DirectiveInterface
      */
     public function __toString(): string
     {
-        return implode(', ', array_map(function ($key, $value) {
-            return sprintf('%s="%s"', $key, $value);
-        }, array_keys($this->parameters), $this->parameters));
+        return implode(', ', array_map(
+            fn(mixed $key, mixed $value): string => sprintf('%s="%s"', $key, $value),
+            array_keys($this->parameters),
+            $this->parameters,
+        ));
     }
 }

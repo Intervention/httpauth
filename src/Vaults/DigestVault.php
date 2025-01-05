@@ -61,7 +61,7 @@ class DigestVault extends AbstractVault
      */
     private function tokenHash(TokenInterface $token): string
     {
-        $method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
+        $method = $_SERVER['REQUEST_METHOD'] ?: 'GET';
 
         return md5(implode(':', [
             md5(sprintf('%s:%s:%s', $token->username(), $this->realm(), $this->password())),

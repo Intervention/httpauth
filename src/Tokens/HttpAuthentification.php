@@ -22,11 +22,11 @@ class HttpAuthentification extends AbstractToken
             throw new AuthentificationException('Failed to parse token.');
         }
 
-        if (strtolower(substr($value, 0, 5)) !== 'basic') {
+        if (strtolower(substr((string) $value, 0, 5)) !== 'basic') {
             throw new AuthentificationException('Failed to parse token.');
         }
 
-        $data = explode(':', base64_decode(substr($value, 6)));
+        $data = explode(':', base64_decode(substr((string) $value, 6)));
 
         return [
             'username' => $this->getArrayValue($data, 0),
