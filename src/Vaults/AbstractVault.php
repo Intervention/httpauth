@@ -141,7 +141,7 @@ abstract class AbstractVault implements VaultInterface
         $message = empty($message) ? '<strong>' . $protocol . ' 401 Unauthorized</strong>' : $message;
 
         header($protocol . ' 401 Unauthorized');
-        header('WWW-Authenticate: ' . $this->type()->value . ' ' . (string) $this->directive());
+        header('WWW-Authenticate: ' . $this->type()->value . ' ' . $this->directive());
         exit($message);
     }
 }
