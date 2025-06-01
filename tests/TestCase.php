@@ -8,7 +8,10 @@ use PHPUnit\Framework\TestCase as PhpUnitTestcase;
 
 abstract class TestCase extends PhpUnitTestcase
 {
-    protected function setServerVars($values = [])
+    /**
+     * @param $values array<string, string>
+     */
+    protected function setServerVars(array $values = []): void
     {
         unset($_SERVER['PHP_AUTH_DIGEST']);
         unset($_SERVER['HTTP_AUTHORIZATION']);

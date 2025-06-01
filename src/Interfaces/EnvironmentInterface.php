@@ -12,7 +12,6 @@ interface EnvironmentInterface
      * Try to parse and return auth token from server environment
      *
      * @throws AuthentificationException
-     * @return TokenInterface
      */
     public static function token(): TokenInterface;
 }

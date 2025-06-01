@@ -8,8 +8,6 @@ interface DirectiveInterface
 {
     /**
      * Cast directive to string
-     *
-     * @return string
      */
     public function __toString(): string;
 }

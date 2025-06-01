@@ -14,10 +14,6 @@ abstract class AbstractVault implements VaultInterface
 {
     /**
      * Create new instance
-     *
-     * @param string $username
-     * @param string $password
-     * @param string $realm
      */
     public function __construct(
         #[SensitiveParameter] protected string $username,
@@ -52,9 +48,6 @@ abstract class AbstractVault implements VaultInterface
 
     /**
      * Set name of realm
-     *
-     * @param string $realm
-     * @return AbstractVault
      */
     public function setRealm(string $realm): self
     {
@@ -65,8 +58,6 @@ abstract class AbstractVault implements VaultInterface
 
     /**
      * Return current realm name
-     *
-     * @return string
      */
     public function realm(): string
     {
@@ -75,8 +66,6 @@ abstract class AbstractVault implements VaultInterface
 
     /**
      * Set username for current vault
-     *
-     * @param string $username
      */
     public function setUsername(string $username): self
     {
@@ -87,8 +76,6 @@ abstract class AbstractVault implements VaultInterface
 
     /**
      * Return current username
-     *
-     * @return string
      */
     public function username(): string
     {
@@ -97,9 +84,6 @@ abstract class AbstractVault implements VaultInterface
 
     /**
      * Set password for current vault
-     *
-     * @param string $password
-     * @return AbstractVault
      */
     public function setPassword(string $password): self
     {
@@ -110,8 +94,6 @@ abstract class AbstractVault implements VaultInterface
 
     /**
      * Return current password
-     *
-     * @return string
      */
     public function password(): string
     {
@@ -120,10 +102,6 @@ abstract class AbstractVault implements VaultInterface
 
     /**
      * Set username and password at once
-     *
-     * @param string $username
-     * @param string $password
-     * @return AbstractVault
      */
     public function setCredentials(string $username, string $password): self
     {
@@ -132,8 +110,6 @@ abstract class AbstractVault implements VaultInterface
 
     /**
      * Send HTTP 401 Header
-     *
-     * @return void
      */
     protected function denyAccess(?string $message = null): void
     {

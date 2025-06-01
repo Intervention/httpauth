@@ -11,9 +11,6 @@ interface VaultInterface
 {
     /**
      * Deny access for non-authenticated users
-     *
-     * @param null|string $message
-     * @return void
      */
     public function secure(?string $message = null): void;
 
@@ -22,21 +19,16 @@ interface VaultInterface
      * verification fails
      *
      * @throws AuthentificationException
-     * @return void
      */
     public function verify(TokenInterface $token): void;
 
     /**
      * Type identifier of vault
-     *
-     * @return Type
      */
     public function type(): Type;
 
     /**
      * Build directive for current vault based on credentials and type
-     *
-     * @return DirectiveInterface
      */
     public function directive(): DirectiveInterface;
 }

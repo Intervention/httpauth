@@ -55,9 +55,6 @@ class DigestVault extends AbstractVault
 
     /**
      * Build and return hash from given token
-     *
-     * @param TokenInterface $token
-     * @return string
      */
     private function tokenHash(TokenInterface $token): string
     {

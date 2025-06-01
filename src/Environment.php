@@ -15,7 +15,7 @@ class Environment implements EnvironmentInterface
      *
      * @var array<string>
      */
-    protected static $tokenClassnames = [
+    protected static array $tokenClassnames = [
         Tokens\PhpAuthUser::class,
         Tokens\HttpAuthentification::class,
         Tokens\RedirectHttpAuthorization::class,

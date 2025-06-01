@@ -130,8 +130,6 @@ abstract class AbstractToken implements TokenInterface
      * Returns null if key doesn't exists
      *
      * @param array<mixed> $data
-     * @param mixed $key
-     * @return mixed
      */
     protected function getArrayValue(array $data, mixed $key): mixed
     {
