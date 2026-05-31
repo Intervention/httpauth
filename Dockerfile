@@ -1,7 +1,6 @@
 FROM php:8.2-cli
 
 # install dependencies
-#
 RUN apt update \
         && apt install -y \
             git \
@@ -18,5 +17,8 @@ RUN apt update \
         && apt-get clean
 
 # install composer
-#
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
+# setup entrypoint
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
