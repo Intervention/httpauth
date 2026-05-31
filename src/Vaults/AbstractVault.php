@@ -114,7 +114,7 @@ abstract class AbstractVault implements VaultInterface
     protected function denyAccess(?string $message = null): void
     {
         $protocol = $_SERVER['SERVER_PROTOCOL'] ?: 'HTTP/1.1';
-        $message = empty($message) ? '<strong>' . $protocol . ' 401 Unauthorized</strong>' : $message;
+        $message = $message === null ? '<strong>' . $protocol . ' 401 Unauthorized</strong>' : $message;
 
         header($protocol . ' 401 Unauthorized');
         header('WWW-Authenticate: ' . $this->type()->value . ' ' . $this->directive());

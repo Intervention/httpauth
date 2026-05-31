@@ -26,7 +26,13 @@ class RedirectHttpAuthorization extends AbstractToken
             throw new AuthentificationException('Failed to parse token.');
         }
 
-        [$username, $password] = explode(':', base64_decode(substr((string) $value, 6)));
+        $decoded = base64_decode(substr((string) $value, 6), strict: true);
+
+        if ($decoded === false) {
+            throw new AuthentificationException('Failed to parse token.');
+        }
+
+        [$username, $password] = explode(':', $decoded);
 
         return [
             'username' => $username,

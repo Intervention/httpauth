@@ -19,7 +19,7 @@ class PhpAuthUser extends AbstractToken
         $username = $this->getArrayValue($_SERVER, 'PHP_AUTH_USER');
         $password = $this->getArrayValue($_SERVER, 'PHP_AUTH_PW');
 
-        if (empty($username) || empty($password)) {
+        if ($username === null || $password === null) {
             throw new AuthentificationException('Failed to parse token.');
         }
 

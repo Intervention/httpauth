@@ -18,7 +18,7 @@ class PhpAuthDigest extends AbstractToken
     {
         $value = $this->getArrayValue($_SERVER, 'PHP_AUTH_DIGEST');
 
-        if (empty($value)) {
+        if ($value === null) {
             throw new AuthentificationException('Failed to parse token.');
         }
 
