@@ -15,7 +15,7 @@ final class RedirectHttpAuthorizationTest extends TestCase
         $this->setServerVars([
             'REDIRECT_HTTP_AUTHORIZATION' => 'basic_' . base64_encode(implode(':', [
                 'myUser',
-                'myPassword'
+                'myPassword',
             ])),
         ]);
 

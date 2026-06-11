@@ -38,7 +38,7 @@ final class DigestVaultTest extends TestCase
     {
         $_SERVER['HTTP_AUTHENTICATION'] = implode(' ', [
             'basic',
-            base64_encode('myUsername:myPassword')
+            base64_encode('myUsername:myPassword'),
         ]);
 
         $vault = new DigestVault('myUsername', 'myPassword');
@@ -52,7 +52,7 @@ final class DigestVaultTest extends TestCase
     {
         $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] = implode(' ', [
             'basic',
-            base64_encode('myUsername:myPassword')
+            base64_encode('myUsername:myPassword'),
         ]);
 
         $vault = new DigestVault('myUsername', 'myPassword');

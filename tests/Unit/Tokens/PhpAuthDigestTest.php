@@ -14,7 +14,7 @@ final class PhpAuthDigestTest extends TestCase
     {
         $this->setServerVars([
             'PHP_AUTH_DIGEST' => 'realm="test",qop="auth",nonce="xxxxxxxxxxxxx",' .
-                'opaque="yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"'
+                'opaque="yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"',
         ]);
 
         $token = new PhpAuthDigest();

@@ -50,7 +50,7 @@ final class BasicVaultTest extends TestCase
     {
         $_SERVER['HTTP_AUTHENTICATION'] = implode(' ', [
             'basic',
-            base64_encode('myUsername:myPassword')
+            base64_encode('myUsername:myPassword'),
         ]);
 
         $vault = new BasicVault('myUsername', 'myPassword');
@@ -64,7 +64,7 @@ final class BasicVaultTest extends TestCase
     {
         $_SERVER['HTTP_AUTHENTICATION'] = implode(' ', [
             'basic',
-            base64_encode('myUsername:myPassword')
+            base64_encode('myUsername:myPassword'),
         ]);
 
         $vault = new BasicVault('foo', 'bar');
@@ -78,7 +78,7 @@ final class BasicVaultTest extends TestCase
     {
         $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] = implode(' ', [
             'basic',
-            base64_encode('myUsername:myPassword')
+            base64_encode('myUsername:myPassword'),
         ]);
 
         $vault = new BasicVault('myUsername', 'myPassword');
@@ -92,7 +92,7 @@ final class BasicVaultTest extends TestCase
     {
         $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] = implode(' ', [
             'basic',
-            base64_encode('myUsername:myPassword')
+            base64_encode('myUsername:myPassword'),
         ]);
 
         $vault = new BasicVault('foo', 'bar');
